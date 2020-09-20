@@ -1,24 +1,22 @@
 import {
   Column,
-  Entity,
+  Entity, Generated,
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
+  OneToMany, PrimaryGeneratedColumn,
 } from "typeorm";
 import { ProductAvailability } from "./ProductAvailability";
 import { ProductPrice } from "./ProductPrice";
 import { Region } from "./Region";
 
-@Index("STORE_REGION_ID_IDX", ["regionId"], {})
-@Index("SYS_C007783", ["id"], { unique: true })
 @Entity("STORE")
 export class Store {
   @Column("varchar2", { name: "PHONE", length: 40 })
   phone: string;
 
   @Column("varchar2", { name: "OPENING_HOURS", length: 100})
-  openingHours: string[];
+  openingHours: string;
 
   @Column("number", { name: "REGION_ID", precision: 10, scale: 0 })
   regionId: number;
@@ -29,11 +27,11 @@ export class Store {
   @Column("varchar2", { name: "PICTURE", nullable: true, length: 200 })
   picture: string | null;
 
-  @Column("number", { primary: true, name: "ID", precision: 10, scale: 0 })
+  @PrimaryGeneratedColumn( { name: "ID" })
   id: number;
 
-  @Column("varchar2", { name: "PROMOTIONS", length: 6000})
-  promotions: string[];
+  @Column({ type: 'long', name: "PROMOTIONS"})
+  promotions: string;
 
   @Column("number", {
     name: "LATITUDE",

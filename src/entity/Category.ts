@@ -4,7 +4,7 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
+  OneToMany, PrimaryGeneratedColumn,
 } from "typeorm";
 import { Region } from "./Region";
 import { ProductToCategoryBinding } from "./ProductToCategoryBinding";
@@ -12,7 +12,6 @@ import { RecommendedProducts } from "./RecommendedProducts";
 
 @Index("CATEGORY_PARENT_ID_IDX", ["parentId"], {})
 @Index("CATEGORY_REGION_ID_IDX", ["regionId"], {})
-@Index("SYS_C007792", ["id"], { unique: true })
 @Entity("CATEGORY")
 export class Category {
   @Column("varchar2", {
@@ -22,7 +21,7 @@ export class Category {
   })
   productDummyPicture: string | null;
 
-  @Column("number", { primary: true, name: "ID", precision: 10, scale: 0 })
+  @PrimaryGeneratedColumn( { name: "ID" })
   id: number;
 
   @Column("varchar2", { name: "NAME", length: 255 })

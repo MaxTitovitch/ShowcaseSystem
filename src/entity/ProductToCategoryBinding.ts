@@ -4,7 +4,7 @@ import { Product } from "./Product";
 
 @Index("PRODUCT_TO_CATEGORY_BINDING_CATEGORY_ID_IDX", ["categoryId"], {})
 @Index("PRODUCT_TO_CATEGORY_BINDING_PRODUCT_ID_IDX", ["productId"], {})
-@Index("SYS_C007798", ["categoryId", "productId"], { unique: true })
+@Index("PRODUCT_TO_CATEGORY_UNIQUE", ["categoryId", "productId"], { unique: true })
 @Entity("PRODUCT_TO_CATEGORY_BINDING")
 export class ProductToCategoryBinding {
   @Column("varchar2", { primary: true, name: "PRODUCT_ID", length: 50 })

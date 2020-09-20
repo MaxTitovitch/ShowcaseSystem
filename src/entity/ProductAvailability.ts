@@ -3,16 +3,16 @@ import { Product } from "./Product";
 import { Region } from "./Region";
 import { Store } from "./Store";
 
-@Index("PRODUCT_AVAILABILITY_PRODUCT_ID_IDX", ["productId"], {})
-@Index("PRODUCT_AVAILABILITY_REGION_ID_IDX", ["regionId"], {})
-@Index("PRODUCT_AVAILABILITY_STORE_ID_IDX", ["storeId"], {})
-@Index("SYS_C007822", ["productId", "regionId", "storeId"], { unique: true })
+// @Index("PRODUCT_AVAILABILITY_PRODUCT_ID_IDX", ["productId"], {})
+// @Index("PRODUCT_AVAILABILITY_REGION_ID_IDX", ["regionId"], {})
+// @Index("PRODUCT_AVAILABILITY_STORE_ID_IDX", ["storeId"], {})
+@Index("PRODUCT_AVAILABILITY_UNIQUE_ID_IDX", ["productId", "regionId", "storeId"], { unique: true })
 @Entity("PRODUCT_AVAILABILITY")
 export class ProductAvailability {
   @Column("number", {
     primary: true,
     name: "STORE_ID",
-    nullable: true,
+    // nullable: true,
     unique: true,
     precision: 10,
     scale: 0,

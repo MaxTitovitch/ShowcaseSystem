@@ -4,11 +4,10 @@ import { ProductPrice } from "./ProductPrice";
 import { ProductToCategoryBinding } from "./ProductToCategoryBinding";
 import { RecommendedProducts } from "./RecommendedProducts";
 
-@Index("SYS_C007759", ["article"], { unique: true })
 @Entity("PRODUCT")
 export class Product {
-  @Column("varchar2", { name: "PICTURE_SET", length: 25000})
-  pictureSet: string[];
+  @Column({ type: 'long', name: "PICTURE_SET"})
+  pictureSet: string;
 
   @Column("varchar2", { name: "DESCRIPTION", nullable: true, length: 4000 })
   description: string | null;

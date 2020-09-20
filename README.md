@@ -1,4 +1,4 @@
-# Awesome Project Build with TypeORM
+# Awesome ShowCase with TypeORM
 
 Steps to run this project:
 

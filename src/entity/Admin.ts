@@ -1,14 +1,13 @@
-import { Column, Entity, Index } from "typeorm";
+import {Column, Entity, Index, PrimaryGeneratedColumn} from "typeorm";
 
-@Index("SYS_C007834", ["id"], { unique: true })
 @Entity("ADMIN")
 export class Admin {
+  @PrimaryGeneratedColumn( { name: "ID" })
+  id: number;
+
   @Column("varchar2", { name: "LOGIN", length: 50 })
   login: string;
 
-  @Column("number", { primary: true, name: "ID", precision: 10, scale: 0 })
-  id: number;
-
-  @Column("varchar2", { name: "PASSWORD", length: 50 })
+  @Column("varchar2", { name: "PASSWORD", length: 128 })
   password: string;
 }

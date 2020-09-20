@@ -3,11 +3,11 @@ import { Product } from "./Product";
 import { Region } from "./Region";
 import { Store } from "./Store";
 
-@Index("PRODUCT_PRICE_PRODUCT_ID_IDX", ["productId"], {})
-@Index("PRODUCT_PRICE_PROMOTION_ID_IDX", ["promotionId"], {})
-@Index("PRODUCT_PRICE_REGION_ID_IDX", ["regionId"], {})
-@Index("PRODUCT_PRICE_STORE_ID_IDX", ["storeId"], {})
-@Index("SYS_C007813", ["productId", "regionId", "storeId"], { unique: true })
+// @Index("PRODUCT_PRICE_PRODUCT_ID_IDX", ["productId"], {})
+// @Index("PRODUCT_PRICE_PROMOTION_ID_IDX", ["promotionId"], {})
+// @Index("PRODUCT_PRICE_REGION_ID_IDX", ["regionId"], {})
+// @Index("PRODUCT_PRICE_STORE_ID_IDX", ["storeId"], {})
+@Index("PRODUCT_PRICE_UNIQUE_ID_IDX", ["productId", "regionId", "storeId"], { unique: true })
 @Entity("PRODUCT_PRICE")
 export class ProductPrice {
   @Column("number", { name: "PRICE", precision: 10, scale: 2 })
@@ -24,8 +24,7 @@ export class ProductPrice {
   @Column("number", {
     primary: true,
     name: "STORE_ID",
-    nullable: true,
-    unique: true,
+    // nullable: true,
     precision: 10,
     scale: 0,
   })

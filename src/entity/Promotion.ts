@@ -1,6 +1,5 @@
 import { Column, Entity, Index } from "typeorm";
 
-@Index("SYS_C007770", ["id"], { unique: true })
 @Entity("PROMOTION")
 export class Promotion {
   @Column("date", { name: "ENDING", nullable: true })
