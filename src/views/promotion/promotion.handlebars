@@ -1,0 +1,56 @@
+<div class="jumbotron">
+  <h1>{{nameAction}} промоакции</h1>
+
+  <form action="{{path}}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="inputName">Название:</label>
+      <input type="text" name="title"  class="form-control" id="inputName" max="255" required placeholder="Введите название" value="{{#if entity}}{{entity.title}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputTerms">Условия:</label>
+      <textarea name="terms" class="form-control" id="inputTerms" required placeholder="Опишите условия">{{#if entity}}{{entity.terms}}{{/if}}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="inputStart">Дата начала:</label>
+      <input type="date" name="starting" class="form-control" id="inputStart" placeholder="Дата начала" value="{{#if entity}}{{entity.starting}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputEnd">Дата завершения:</label>
+      <input type="date" name="ending" class="form-control" id="inputEnd" placeholder="Дата завершения" value="{{#if entity}}{{entity.ending}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputBP">Большое изображение:</label>
+      <span class="imageShow"></span>
+      <input type="file" name="picture_big" class="form-control" id="inputBP" placeholder="Большое изображение"
+             accept="image/x-png,image/gif,image/jpeg" value="{{#if entity}}{{entity.picture_big}}{{/if}}">
+    </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" name="big_show" class="custom-control-input" id="switchBP" value="{{#if entity}}{{entity.big_show}}{{/if}}">
+      <label class="custom-control-label" for="switchBP">Отображать большое изображение</label>
+    </div>
+    <div class="form-group">
+      <label for="inputMP">Среднее изображение:</label>
+      <span class="imageShow"></span>
+      <input type="file" name="picture_medium" class="form-control" id="inputMP" placeholder="Среднее изображение"
+             accept="image/x-png,image/gif,image/jpeg" value="{{#if entity}}{{entity.picture_medium}}{{/if}}">
+    </div>
+    <div class="custom-control custom-switch">
+      <input type="checkbox" name="medium_show" class="custom-control-input" id="switchMP" value="{{#if entity}}{{entity.medium_show}}{{/if}}">
+      <label class="custom-control-label" for="switchMP">Отображать среднее изображение</label>
+    </div>
+    <div class="form-group">
+      <label for="inputSP">Маленькое изображение:</label>
+      <span class="imageShow"></span>
+      <input type="file" name="picture_small" class="form-control" id="inputSP" required placeholder="Маленькое изображение"
+             accept="image/x-png,image/gif,image/jpeg" value="{{#if entity}}{{entity.picture_small}}{{/if}}">
+    </div>
+    <div class="custom-control custom-switch mb-3">
+      <input type="checkbox" name="small_show" class="custom-control-input" id="switchSP" value="{{#if entity}}{{entity.small_show}}{{/if}}">
+      <label class="custom-control-label" for="switchSP">Отображать маленькое изображение</label>
+    </div>
+
+
+    <button type="submit" class="btn btn-success w-25">Сохранить</button>
+    <a href="/admin/regions" class="btn btn-secondary w-25">Назад</a>
+  </form>
+</div>

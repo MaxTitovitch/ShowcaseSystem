@@ -1,0 +1,42 @@
+<div class="jumbotron">
+  <h1>Промоакции</h1>
+  <a class="btn btn-success float-right mb-3 mr-3" href="/admin/promotions/one" style="width: 100px">
+    Добавить
+  </a>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" >Название</th>
+      <th scope="col" >Начало</th>
+      <th scope="col" >Завершение</th>
+      <th scope="col" class="text-center">Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each entities}}
+      <tr>
+        <th scope="row">{{ this.id }}</th>
+        <td>{{ this.title }}</td>
+        <td>{{ this.starting }}</td>
+        <td>{{ this.ending }}</td>
+        <td class="text-center">
+          <a class="btn btn-warning mb-1" href="/admin/promotions/one/{{ this.id }}" style="width: 100px">
+            Изменить
+          </a>
+          <form action="/admin/promotions/delete/{{ this.id }}" method="post">
+            <button type="submit" class="btn btn-danger" style="width: 100px">
+              Удалить
+            </button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+
+  {{#if entities.length }}
+  {{else}}
+    <h2>Записи не найдены</h2>
+  {{/if}}
+</div>

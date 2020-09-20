@@ -12,7 +12,6 @@ router.get('/',  async (req, res) => {
 });
 
 router.get('/one/:index?',  async (req, res) => {
-  console.log(res.locals)
   if(req.params.index) {
     let admin = await getRepository(Admin).findOne({id: req.params.index});
     res.render('admin/admin', {entity: admin, path: '/admin/admins/one/' + admin.id, nameAction: 'Обновление'});

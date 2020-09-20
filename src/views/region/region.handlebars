@@ -1,0 +1,12 @@
+<div class="jumbotron">
+  <h1>{{nameAction}} региона</h1>
+
+  <form action="{{path}}" method="post">
+    <div class="form-group">
+      <label for="inputName">Название:</label>
+      <input type="text" name="name"  class="form-control" id="inputName" max="50" placeholder="Введите название" value="{{#if entity}}{{entity.name}}{{/if}}" required>
+    </div>
+    <button type="submit" class="btn btn-success w-25">Сохранить</button>
+    <a href="/admin/regions" class="btn btn-secondary w-25">Назад</a>
+  </form>
+</div>

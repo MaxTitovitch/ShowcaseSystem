@@ -25,6 +25,8 @@ createConnection().then(async connection => {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
+    // app.use(express.static(__dirname));
+    // app.use(multer({dest:"uploads"}).single("filedata"));
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, 'public')));
     app.use(session({
@@ -78,6 +80,8 @@ createConnection().then(async connection => {
     });
 
     app.use('/admin/admins', auth, require('./routes/admin'));
+    app.use('/admin/regions', auth, require('./routes/region'));
+    app.use('/admin/promotions', auth, require('./routes/promotion'));
     app.use('/', require('./routes/user'));
 
 
