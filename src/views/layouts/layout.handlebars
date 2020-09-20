@@ -8,19 +8,37 @@
     <!-- JS, Popper.js, and jQuery -->
     <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
   </head>
-  <body>
-    {{#if success_messages }}
-      <div class="alert alert-success">{{success_messages}}</div>
-    {{/if}}
-    {{#if error_messages }}
-      <div class="alert alert-danger">{{error_messages}}</div>
-    {{/if}}
-    <div class="container">
-       <div class="row">
-           {{{body}}}
-       </div>
+  <body style="height: 100vh">
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <div class="col-sm-12 col-md-3 bg-dark px-0 py-0">
+          <ul class="list-group w-100">
+            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/admins">Администраторы</a></li>
+            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/regions">Регионы</a></li>
+            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/stores">Магазины</a></li>
+            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/products">Товары</a></li>
+            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/recommended-products">Рекомендуемые товары</a></li>
+            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/products-availability">Наличие товаров</a></li>
+            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/products-price">Цены товаров</a></li>
+            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/promotions">Промоакции</a></li>
+            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/categories">Категории</a></li>
+            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/category-products">Категории товаров</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-12 col-md-9" style="overflow: scroll">
+          {{#if success_messages }}
+            <div class="alert alert-success">{{success_messages}}</div>
+          {{/if}}
+          {{#if error_messages }}
+            <div class="alert alert-danger">{{error_messages}}</div>
+          {{/if}}
+          {{{body}}}
+        </div>
+      </div>
     </div>
   </body>
 </html>

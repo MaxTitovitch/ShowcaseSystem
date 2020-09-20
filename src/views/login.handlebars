@@ -1,15 +1,38 @@
-<div class="col-sm-4"></div>
-<div class="col-sm-4">
-  <form class="form-signin" action="/auth-data" method="POST">
-    <h2 class="form-signin-heading text-center mb-2">Вход в систему</h2>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>МегаМаг - шопинг для жизни и души</title>
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <label for="inputLogin">Логин:</label>
-    <input type="text" id="inputLogin" name="login" class="form-control mb-2" placeholder="Ваш логин" required autofocus>
+  <!-- JS, Popper.js, and jQuery -->
+  <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+{{#if error_messages }}
+  <div class="alert alert-danger mb-2">{{error_messages}}</div>
+{{/if}}
 
-    <label for="inputPassword">Пароль:</label>
-    <input type="password" id="inputPassword" name="password" class="form-control mb-2" placeholder="Ваш пароль" required>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <form class="form-signin" action="/auth-data" method="POST">
+        <h2 class="form-signin-heading text-center mb-2">Вход в систему</h2>
 
-    <button class="btn btn-lg btn-dark btn-block" type="submit">Войти</button>
-  </form>
+        <label for="inputLogin">Логин:</label>
+        <input type="text" id="inputLogin" name="login" class="form-control mb-2" placeholder="Ваш логин" required autofocus>
+
+        <label for="inputPassword">Пароль:</label>
+        <input type="password" id="inputPassword" name="password" class="form-control mb-2" placeholder="Ваш пароль" required>
+
+        <button class="btn btn-lg btn-dark btn-block" type="submit">Войти</button>
+      </form>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
 </div>
-<div class="col-sm-4"></div>
+</body>
+</html>

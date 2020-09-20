@@ -42,7 +42,7 @@ createConnection().then(async connection => {
     });
 
     let auth = async function(req, res, next) {
-        let admin = await getRepository(Admin).findOne({id: req.session.admin_id});
+        let admin = await getRepository(Admin).findOne({id: req.cookies.admin_id});
         if(admin) {
             next();
         } else {
@@ -51,12 +51,11 @@ createConnection().then(async connection => {
     };
 
     app.get('/auth', async (req, res) => {
-        // res.locals.error_messages = req.flash('error');
-        let admin = await getRepository(Admin).findOne({id: req.session.admin_id});
+        let admin = await getRepository(Admin).findOne({id: req.cookies.admin_id});
         if(admin) {
             res.redirect("/admin/admins");
         } else {
-            res.render('login');
+            res.render('login', {layout: null});
         }
     });
 
@@ -66,7 +65,7 @@ createConnection().then(async connection => {
             password: crypto.createHmac('sha512', req.body.password).digest('hex')
         });
         if(admin){
-            req.session.admin_id = admin.id;
+            res.cookie('admin_id', admin.id);
             res.redirect('/admin/admins');
         } else {
             req.flash('error', 'Не верные логин и\\или пароль!');
@@ -88,6 +87,4 @@ createConnection().then(async connection => {
     });
 
     app.listen(3000, () => console.log('Server started listening on port 3000!'))
-    // app.listen(3000);
-    // console.log("Express server has started on port 3000....");
 }).catch(error => console.log(error));
