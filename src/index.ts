@@ -14,7 +14,6 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const crypto = require('crypto');
 
-// require('./config/passport');
 
 createConnection().then(async connection => {
     const app = express();
@@ -74,17 +73,17 @@ createConnection().then(async connection => {
     });
 
     app.get('/logout', async (req, res) => {
-        req.session.admin_id = null;
+        res.cookie('admin_id', 0);
         res.redirect("/");
     });
 
-    app.use('/admin', auth, require('./routes/admin'));
+    app.use('/admin/admins', auth, require('./routes/admin'));
     app.use('/', require('./routes/user'));
 
 
-    app.use((req, res, next) => {
-        res.redirect("/");
-    });
+    // app.use((req, res, next) => {
+    //     res.redirect("/");
+    // });
 
     app.listen(3000, () => console.log('Server started listening on port 3000!'))
 }).catch(error => console.log(error));

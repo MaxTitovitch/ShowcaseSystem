@@ -21,20 +21,21 @@
             <li class="list-group-item bg-dark"><a class="text-light" href="/admin/regions">Регионы</a></li>
             <li class="list-group-item bg-dark"><a class="text-light" href="/admin/stores">Магазины</a></li>
             <li class="list-group-item bg-dark"><a class="text-light" href="/admin/products">Товары</a></li>
-            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/recommended-products">Рекомендуемые товары</a></li>
-            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/products-availability">Наличие товаров</a></li>
-            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/products-price">Цены товаров</a></li>
             <li class="list-group-item bg-dark"><a class="text-light" href="/admin/promotions">Промоакции</a></li>
             <li class="list-group-item bg-dark"><a class="text-light" href="/admin/categories">Категории</a></li>
-            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/category-products">Категории товаров</a></li>
+            <li class="list-group-item bg-dark"><a class="text-light" href="/logout">ВЫЙТИ</a></li>
+<!--            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/recommended-products">Рекомендуемые товары</a></li>-->
+<!--            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/products-availability">Наличие товаров</a></li>-->
+<!--            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/products-price">Цены товаров</a></li>-->
+<!--            <li class="list-group-item bg-dark"><a class="text-light" href="/admin/category-products">Категории товаров</a></li>-->
           </ul>
         </div>
         <div class="col-sm-12 col-md-9" style="overflow: scroll">
-          {{#if success_messages }}
-            <div class="alert alert-success">{{success_messages}}</div>
+          {{#if success_mesages }}
+            <div class="alert alert-success">{{success_mesages}}</div>
           {{/if}}
           {{#if error_messages }}
-            <div class="alert alert-danger">{{error_messages}}</div>
+            <div class="alert alert-danger mb-2">{{error_messages}}</div>
           {{/if}}
           {{{body}}}
         </div>

@@ -1,3 +1,38 @@
 <div class="jumbotron">
-  <h1>User DashBoard</h1>
+  <h1>Администраторы</h1>
+  <a class="btn btn-success float-right mb-3 mr-3" href="/admin/admins/one" style="width: 100px">
+    Добавить
+  </a>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" style="width: 75%">Логин</th>
+      <th scope="col" class="text-center">Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each entities}}
+      <tr>
+        <th scope="row">{{ this.id }}</th>
+        <td>{{ this.login }}</td>
+        <td class="text-center">
+          <a class="btn btn-warning mb-1" href="/admin/admins/one/{{ this.id }}" style="width: 100px">
+            Изменить
+          </a>
+          <form action="/admin/admins/delete/{{ this.id }}" method="post">
+            <button type="submit" class="btn btn-danger" style="width: 100px">
+              Удалить
+            </button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+
+  {{#if entities.length }}
+  {{else}}
+    <h2>Записи не найдены</h2>
+  {{/if}}
 </div>
