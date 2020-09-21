@@ -41,6 +41,7 @@ createConnection().then(async connection => {
         res.locals.error_messages = req.flash('error');
         next()
     });
+    app.use("/static", express.static(__dirname + "/static"));
 
     let auth = async function(req, res, next) {
         let admin = await getRepository(Admin).findOne({id: req.cookies.admin_id});

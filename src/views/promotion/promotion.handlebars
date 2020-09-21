@@ -3,6 +3,10 @@
 
   <form action="{{path}}" method="post" enctype="multipart/form-data">
     <div class="form-group">
+      <label for="inputId">Идентификатор:</label>
+      <input type="text" name="id"  class="form-control" id="inputId" max="50" required placeholder="Введите идентификатор" value="{{#if entity}}{{entity.id}}{{/if}}">
+    </div>
+    <div class="form-group">
       <label for="inputName">Название:</label>
       <input type="text" name="title"  class="form-control" id="inputName" max="255" required placeholder="Введите название" value="{{#if entity}}{{entity.title}}{{/if}}">
     </div>
@@ -20,37 +24,56 @@
     </div>
     <div class="form-group">
       <label for="inputBP">Большое изображение:</label>
-      <span class="imageShow"></span>
       <input type="file" name="picture_big" class="form-control" id="inputBP" placeholder="Большое изображение"
-             accept="image/x-png,image/gif,image/jpeg" value="{{#if entity}}{{entity.picture_big}}{{/if}}">
+             accept="image/x-png,image/gif,image/jpeg">
+      <div class="imageShow" style="background-image: url({{#if entity}}{{entity.pictureBig}}{{/if}});"></div>
     </div>
     <div class="custom-control custom-switch">
-      <input type="checkbox" name="big_show" class="custom-control-input" id="switchBP" value="{{#if entity}}{{entity.big_show}}{{/if}}">
+      <input type="checkbox" name="big_show" class="custom-control-input" id="switchBP" value="1" {{#if entity}}{{#if entity.bigShow}}checked{{/if}}{{/if}}>
       <label class="custom-control-label" for="switchBP">Отображать большое изображение</label>
     </div>
     <div class="form-group">
       <label for="inputMP">Среднее изображение:</label>
-      <span class="imageShow"></span>
       <input type="file" name="picture_medium" class="form-control" id="inputMP" placeholder="Среднее изображение"
-             accept="image/x-png,image/gif,image/jpeg" value="{{#if entity}}{{entity.picture_medium}}{{/if}}">
+             accept="image/x-png,image/gif,image/jpeg">
+      <div class="imageShow" style="background-image: url({{#if entity}}{{entity.pictureMedium}}{{/if}});"></div>
     </div>
     <div class="custom-control custom-switch">
-      <input type="checkbox" name="medium_show" class="custom-control-input" id="switchMP" value="{{#if entity}}{{entity.medium_show}}{{/if}}">
+      <input type="checkbox" name="medium_show" class="custom-control-input" id="switchMP" value="1" {{#if entity}}{{#if entity.mediumShow}}checked{{/if}}{{/if}}>
       <label class="custom-control-label" for="switchMP">Отображать среднее изображение</label>
     </div>
     <div class="form-group">
       <label for="inputSP">Маленькое изображение:</label>
-      <span class="imageShow"></span>
-      <input type="file" name="picture_small" class="form-control" id="inputSP" required placeholder="Маленькое изображение"
-             accept="image/x-png,image/gif,image/jpeg" value="{{#if entity}}{{entity.picture_small}}{{/if}}">
+      <input type="file" name="picture_small" class="form-control" id="inputSP" {{#if entity}}{{else}}required{{/if}} placeholder="Маленькое изображение"
+             accept="image/x-png,image/gif,image/jpeg" >
+        <div class="imageShow" style="background-image: url({{#if entity}}{{entity.pictureSmall}}{{/if}});"></div>
     </div>
     <div class="custom-control custom-switch mb-3">
-      <input type="checkbox" name="small_show" class="custom-control-input" id="switchSP" value="{{#if entity}}{{entity.small_show}}{{/if}}">
+      <input type="checkbox" name="small_show" class="custom-control-input" id="switchSP" value="1" {{#if entity}}{{#if entity.smallShow}}checked{{/if}}{{/if}}>
       <label class="custom-control-label" for="switchSP">Отображать маленькое изображение</label>
     </div>
 
-
     <button type="submit" class="btn btn-success w-25">Сохранить</button>
-    <a href="/admin/regions" class="btn btn-secondary w-25">Назад</a>
+    <a href="/admin/promotions" class="btn btn-secondary w-25">Назад</a>
   </form>
+  <style>
+    .imageShow {
+      height: 200px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  </style>
+  <script>
+    $('input[type="file"]').change(function() {
+      if (this.files && this.files[0]) {
+        let reader = new FileReader(), thisItem = this;
+        reader.onload = function(e) {
+          $(thisItem).parent().find('.imageShow').attr('style','background-image: url(' + e.target.result + ')');
+        }
+        reader.readAsDataURL(this.files[0]);
+      } else {
+        $(this).parent().find('.imageShow').attr('style','');
+      }
+    });
+  </script>
 </div>

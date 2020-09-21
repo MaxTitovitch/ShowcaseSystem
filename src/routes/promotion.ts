@@ -5,7 +5,6 @@ const express = require('express');
 const router = express.Router();
 
 var multer  = require('multer');
-// var upload = multer({ dest: 'src/static/images/promotion/' });
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'src/static/images/promotion')
@@ -33,37 +32,49 @@ router.get('/one/:index?',  async (req, res) => {
   }
 });
 
-router.post('/one/:index?', upload.single('picture_small'),  async (req, res) => {
-
-  let filedata = req.file;
-  console.log(req.body);
-
-  // let promotion;
-  // try {
-  //   let object = {
-  //     title: req.body.title,
-  //     terms: req.body.terms,
-  //     starting: req.body.starting,
-  //     ending: req.body.ending,
-  //     picture_big: req.body.picture_big,
-  //     picture_medium: req.body.picture_medium,
-  //     picture_small: req.body.picture_small,
-  //     big_show: req.body.big_show,
-  //     medium_show: req.body.medium_show,
-  //     small_show: req.body.small_show,
-  //   };
-  //   if(req.params.index) {
-  //     promotion = await getRepository(Promotion).update({id: req.params.index}, object);
-  //     promotion.id = req.params.index;
-  //   } else {
-  //     promotion = await getRepository(Promotion).create( object);
-  //     promotion = await getRepository(Promotion).save(promotion);
-  //   }
-  //   req.flash('success', 'Запись успешно сохранена!');
-  // } catch (e) {
-  //   req.flash('error', 'Ошибка сохранения!');
-  // }
-  // res.redirect('/admin/promotions/one/' + promotion.id);
+router.post('/one/:index?', upload.fields([
+    { name: 'picture_small', maxCount: 1 },
+    { name: 'picture_medium', maxCount: 1 },
+    { name: 'picture_big', maxCount: 1 },
+]),  async (req, res) => {
+  let promotion, path = '/static/images/promotion/';
+  try {
+    let object = {
+      id: req.body.id,
+      title: req.body.title,
+      terms: req.body.terms,
+      starting: req.body.starting,
+      ending: req.body.ending,
+      pictureBig: req.body.picture_big ? path + req.body.picture_big : '',
+      pictureMedium: req.body.picture_medium ? path + req.body.picture_medium : '',
+      pictureSmall: req.body.picture_small ? path + req.body.picture_small : '',
+      bigShow: req.body.big_show || '0',
+      mediumShow: req.body.medium_show || '0',
+      smallShow: req.body.small_show || '0',
+    };
+    if(req.params.index) {
+      if(object.pictureBig == '') {
+        delete object.pictureBig;
+      }
+      if(object.pictureMedium == '') {
+        delete object.pictureMedium;
+      }
+      if(object.pictureSmall == '') {
+        delete object.pictureSmall;
+      }
+      console.log(object);
+      promotion = await getRepository(Promotion).update({id: req.params.index}, object);
+      promotion.id = req.params.index;
+    } else {
+      promotion = await getRepository(Promotion).create( object);
+      promotion = await getRepository(Promotion).save(promotion);
+    }
+    req.flash('success', 'Запись успешно сохранена!');
+    res.redirect('/admin/promotions/one/' + promotion.id);
+  } catch (e) {
+    req.flash('error', 'Ошибка сохранения!');
+    res.redirect('/admin/promotions');
+  }
 });
 
 router.post('/delete/:index?',  async (req, res) => {
