@@ -156,6 +156,13 @@
         form.attr('action', form.attr('action') + '/delete');
         form.submit();
       });
+    });
+    $('form').toArray().forEach(function (form) {
+      $(form).submit(function (event) {
+        $('select[disabled]').toArray().forEach(function (input) {
+          $(input).attr('disabled', false);
+        })
+      })
     })
     $('input[type="file"]').change(function() {
       if (this.files && this.files[0]) {

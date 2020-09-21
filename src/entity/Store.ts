@@ -6,8 +6,8 @@ import {
   ManyToOne,
   OneToMany, PrimaryGeneratedColumn,
 } from "typeorm";
-import { ProductAvailability } from "./ProductAvailability";
-import { ProductPrice } from "./ProductPrice";
+import { ProductAvailabilityStore } from "./ProductAvailabilityStore";
+import { ProductPriceStore } from "./ProductPriceStore";
 import { Region } from "./Region";
 
 @Entity("STORE")
@@ -61,13 +61,13 @@ export class Store {
   name: string;
 
   @OneToMany(
-    () => ProductAvailability,
-    (productAvailability) => productAvailability.store
+    () => ProductAvailabilityStore,
+    (productAvailabilityStore) => productAvailabilityStore.store
   )
-  productAvailabilities: ProductAvailability[];
+  productAvailabilities: ProductAvailabilityStore[];
 
-  @OneToMany(() => ProductPrice, (productPrice) => productPrice.store)
-  productPrices: ProductPrice[];
+  @OneToMany(() => ProductPriceStore, (productPriceStore) => productPriceStore.store)
+  productPrices: ProductPriceStore[];
 
   @ManyToOne(() => Region, (region) => region.stores, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "REGION_ID", referencedColumnName: "id" }])

@@ -9,4 +9,119 @@
     <button type="submit" class="btn btn-success w-25">Сохранить</button>
     <a href="/admin/regions" class="btn btn-secondary w-25">Назад</a>
   </form>
+
+  {{#if entity }}
+    <h2 class="mt-5">Товары региона</h2>
+
+    {{#each regionProducts}}
+      <form class="form-inline-same" action="/admin/regions/{{this.regionId}}/products/one/{{this.productId}}" method="post">
+        <div class="form-group w-20 p-2">
+          <label for="selectProduct">Товар:</label>
+          <select id="selectProduct" class="custom-select w-100" name="product_id" disabled>
+            {{#each ../products}}
+              <option value="{{this.article}}" {{#is this.article ../this.productId}}selected{{/is}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="form-group w-20 p-2">
+          <label for="inputPrice">Наличие:</label>
+          <input type="number" name="availability"  class="form-control w-100" id="inputPrice" min="0"  max="3"  required placeholder="Наличие" value="{{this.availability}}">
+          <label for="inputPriceD">Количество:</label>
+          <input type="number" name="quantity"  class="form-control w-100" id="inputPriceD" min="0"  max="99999999999" step="0.001" placeholder="Количество" value="{{this.quantity}}">
+        </div>
+
+        <div class="form-group w-20 p-2">
+          <label for="inputPrice">Цена:</label>
+          <input type="number" name="price"  class="form-control w-100" id="inputPrice" min="0"  max="99999999" step="0.01" required placeholder="Цена" value="{{this.price}}">
+          <label for="inputPriceD">Цена со скидкой:</label>
+          <input type="number" name="discount_price"  class="form-control w-100" id="inputPriceD" min="0"  max="99999999" step="0.01" placeholder="Цена со скидкой" value="{{this.discountPrice}}">
+        </div>
+
+        <div class="form-group w-20 p-2">
+          <label for="selectPromo">Промоакция:</label>
+          <select id="selectPromo" class="custom-select w-100" name="promotion_id">
+            <option value="" selected>Без акции</option>
+            {{#each ../promotions}}
+              <option value="{{this.id}}" {{#is this.id ../this.promotionId}}selected{{/is}}>{{this.title}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="w-20 mt-35">
+          <button type="submit" class="btn btn-success w-100">Сохранить</button>
+          <button type="button" class="delete-current btn btn-danger w-100">Удалить</button>
+        </div>
+      </form>
+    {{/each}}
+
+    <form class="form-inline-same" action="/admin/regions/{{entity.id}}/products/one" method="post">
+      <div class="form-group w-20 p-2">
+        <label for="selectProduct">Товар:</label>
+        <select id="selectProduct" class="custom-select w-100" name="product_id" required>
+          {{#each products}}
+            <option value="{{this.article}}" {{#inArray ../disabledId this.article}}disabled{{/inArray}}>{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="form-group w-20 p-2">
+        <label for="inputPrice">Наличие:</label>
+        <input type="number" name="availability"  class="form-control w-100" id="inputPrice" min="0"  max="3"  required placeholder="Наличие" >
+        <label for="inputPriceD">Количество:</label>
+        <input type="number" name="quantity"  class="form-control w-100" id="inputPriceD" min="0"  max="99999999999" step="0.001" placeholder="Количество" >
+      </div>
+
+      <div class="form-group w-20 p-2">
+        <label for="inputPrice">Цена:</label>
+        <input type="number" name="price"  class="form-control w-100" id="inputPrice" min="0"  max="99999999" step="0.01" required placeholder="Цена" >
+        <label for="inputPriceD">Цена со скидкой:</label>
+        <input type="number" name="discount_price"  class="form-control w-100" id="inputPriceD" min="0"  max="99999999" step="0.01" placeholder="Цена со скидкой" >
+      </div>
+
+      <div class="form-group w-20 p-2">
+        <label for="selectPromo">Промоакция:</label>
+        <select id="selectPromo w-100" class="custom-select" name="promotion_id">
+          <option value="" selected>Без акции</option>
+          {{#each promotions}}
+            <option value="{{this.id}}" {{#is this.id ../this.promotionId}}selected{{/is}}>{{this.title}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="w-20 mt-35">
+        <button type="submit" class="btn btn-success w-100">Добавить</button>
+      </div>
+    </form>
+  {{/if}}
+
+
+  <style>
+    .w-20 {
+      width: 20% !important;
+    }
+    .mt-35 {
+      margin-top: 35px;
+    }
+    .form-inline-same {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+  <script>
+    $('.delete-current').toArray().forEach(function (btn) {
+      $(btn).click(function (event) {
+        let form =  $(this).closest('form')
+        form.attr('action', form.attr('action') + '/delete');
+        form.submit();
+      });
+    })
+    $('form').toArray().forEach(function (form) {
+      $(form).submit(function (event) {
+        $('select[disabled]').toArray().forEach(function (input) {
+          $(input).attr('disabled', false);
+        })
+      })
+    })
+  </script>
 </div>

@@ -1,11 +1,11 @@
 import {Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import { Product } from "./Product";
-import { Region } from "./Region";
+import { Store } from "./Store";
 
 
-@Index("PRODUCT_PRICE_UNIQUE_ID", ["productId", "regionId"], { unique: true })
-@Entity("PRODUCT_PRICE")
-export class ProductPrice {
+@Index("PRODUCT_PRICE_STORE_UNIQUE_ID", ["productId", "storeId"], { unique: true })
+@Entity("PRODUCT_PRICE_STORE")
+export class ProductPriceStore {
   @PrimaryGeneratedColumn( { name: "ID" })
   id: number;
 
@@ -26,12 +26,12 @@ export class ProductPrice {
 
   @Column("number", {
     // primary: true,
-    name: "REGION_ID",
+    name: "STORE_ID",
     // unique: true,
     precision: 10,
     scale: 0,
   })
-  regionId: number;
+  storeId: number;
 
   @Column("number", {
     name: "DISCOUNT_PRICE",
@@ -47,9 +47,9 @@ export class ProductPrice {
   @JoinColumn([{ name: "PRODUCT_ID", referencedColumnName: "article" }])
   product: Product;
 
-  @ManyToOne(() => Region, (region) => region.productPrices, {
+  @ManyToOne(() => Store, (store) => store.productPrices, {
     onDelete: "CASCADE",
   })
-  @JoinColumn([{ name: "REGION_ID", referencedColumnName: "id" }])
-  region: Region;
+  @JoinColumn([{ name: "STORE_ID", referencedColumnName: "id" }])
+  store: Store;
 }
