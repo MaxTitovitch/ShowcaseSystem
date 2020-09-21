@@ -21,7 +21,15 @@ createConnection().then(async connection => {
     app.use(morgan('dev'));
 
     app.set('views', path.join(__dirname, 'views'));
-    app.engine('handlebars', expressHandlebars({ defaultLayout: 'layout' }));
+    app.engine('handlebars', expressHandlebars({ defaultLayout: 'layout', helpers: {
+        arrayHours: function(array, index, secondIndex) {
+            try {
+                return array[index][secondIndex];
+            } catch (e) {
+                return '';
+            }
+        }
+    }}));
     app.set('view engine', 'handlebars');
 
     app.use(bodyParser.json());
@@ -86,6 +94,7 @@ createConnection().then(async connection => {
     app.use('/admin/promotions', auth, require('./routes/promotion'));
     app.use('/admin/categories', auth, require('./routes/category'));
     app.use('/admin/products', auth, require('./routes/product'));
+    app.use('/admin/stores', auth, require('./routes/store'));
     app.use('/', require('./routes/user'));
 
 

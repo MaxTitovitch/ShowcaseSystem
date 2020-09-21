@@ -24,7 +24,7 @@
     </div>
     <div class="form-group">
       <label for="inputUnit">Единица товара:</label>
-      <input type="number" name="unit"  class="form-control" id="inputUnit" max="999999999.99" required placeholder="Единица товара" value="{{#if entity}}{{entity.unit}}{{/if}}">
+      <input type="number" name="unit" step="0.001" class="form-control" id="inputUnit" max="999999999.99" required placeholder="Единица товара" value="{{#if entity}}{{entity.unit}}{{/if}}">
     </div>
     <div class="form-group">
       <label for="inputPicture">Главное изображение:</label>
@@ -56,11 +56,11 @@
     </div>
     <div class="form-group">
       <label for="inputWeight">Вес:</label>
-      <input type="number" name="weight"  class="form-control" id="inputWeight" max="999999.999" placeholder="Вес товара" value="{{#if entity}}{{entity.weight}}{{/if}}">
+      <input type="number" step="0.001" name="weight"  class="form-control" id="inputWeight" max="999999.999" placeholder="Вес товара" value="{{#if entity}}{{entity.weight}}{{/if}}">
     </div>
     <div class="form-group">
       <label for="inputVolume">Объём:</label>
-      <input type="number" name="volume"  class="form-control" id="inputVolume" max="999999.999" placeholder="Объём товара" value="{{#if entity}}{{entity.volume}}{{/if}}">
+      <input type="number" step="0.001" name="volume"  class="form-control" id="inputVolume" max="999999.999" placeholder="Объём товара" value="{{#if entity}}{{entity.volume}}{{/if}}">
     </div>
     <div class="form-group">
       <label for="inputPictureSet">Изображения:</label>

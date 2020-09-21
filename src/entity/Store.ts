@@ -15,7 +15,7 @@ export class Store {
   @Column("varchar2", { name: "PHONE", length: 40 })
   phone: string;
 
-  @Column("varchar2", { name: "OPENING_HOURS", length: 100})
+  @Column("varchar2", { name: "OPENING_HOURS", length: 250})
   openingHours: string;
 
   @Column("number", { name: "REGION_ID", precision: 10, scale: 0 })

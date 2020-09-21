@@ -1,0 +1,185 @@
+<div class="jumbotron">
+  <h1>{{nameAction}} магазина</h1>
+
+  <form action="{{path}}" method="post" enctype="multipart/form-data">
+
+    <div class="form-group">
+      <label for="selectRegion">Регион:</label>
+      <select id="selectRegion" class="custom-select" name="region_id">
+        {{#each regions}}
+          <option value="{{this.id}}" {{#is this.id ../entity.regionId}}selected{{/is}}>{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="inputName">Название:</label>
+      <input type="text" name="name"  class="form-control" id="inputName" max="255" required placeholder="Введите название" value="{{#if entity}}{{entity.name}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputAddress">Адрес:</label>
+      <input type="text" name="address"  class="form-control" id="inputAddress" max="255" required placeholder="Введите адрес" value="{{#if entity}}{{entity.address}}{{/if}}">
+    </div>
+
+    <!-- Opening hours -->
+    <div class="form-group flexable">
+      <label for="inputPnFrom" class="m-1">Понедельник (От и До):</label>
+      <div>
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputPnFrom" required placeholder="От" value="{{arrayHours entity.openingHours 0 'from'}}">
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputPnTo" required placeholder="До" value="{{arrayHours entity.openingHours 0 'to'}}">
+      </div>
+    </div>
+    <div class="form-group flexable">
+      <label for="inputVtFrom" class="m-1">Вторник (От и До):</label>
+      <div>
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputVtFrom" required placeholder="От" value="{{arrayHours entity.openingHours 1 'from'}}">
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputVtTo" required placeholder="До" value="{{arrayHours entity.openingHours 1 'to'}}">
+      </div>
+    </div>
+    <div class="form-group flexable">
+      <label for="inputSrFrom" class="m-1">Среда (От и До):</label>
+      <div>
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputSrFrom" required placeholder="От" value="{{arrayHours entity.openingHours 2 'from'}}">
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputSrTo" required placeholder="До" value="{{arrayHours entity.openingHours 2 'to'}}">
+      </div>
+    </div>
+    <div class="form-group flexable">
+      <label for="inputTcFrom" class="m-1">Четверг (От и До):</label>
+      <div>
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputTcFrom" required placeholder="От" value="{{arrayHours entity.openingHours 3 'from'}}">
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputTcTo" required placeholder="До" value="{{arrayHours entity.openingHours 3 'to'}}">
+      </div>
+    </div>
+    <div class="form-group flexable">
+      <label for="inputPtFrom" class="m-1">Пятница (От и До):</label>
+      <div>
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputPtFrom" required placeholder="От" value="{{arrayHours entity.openingHours 4 'from'}}">
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputPtTo" required placeholder="До" value="{{arrayHours entity.openingHours 4 'to'}}">
+      </div>
+    </div>
+    <div class="form-group flexable">
+      <label for="inputSbFrom" class="m-1">Суббота (От и До):</label>
+      <div>
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputSbFrom" required placeholder="От" value="{{arrayHours entity.openingHours 5 'from'}}">
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputSbTo" required placeholder="До" value="{{arrayHours entity.openingHours 5 'to'}}">
+      </div>
+    </div>
+    <div class="form-group flexable">
+      <label for="inputVsFrom" class="m-1">Воскресенье (От и До):</label>
+      <div>
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputVsFrom" required placeholder="От" value="{{arrayHours entity.openingHours 6 'from'}}">
+      <input type="time" class="form-control w-250 display-inline-block m-0" id="inputVsTo" required placeholder="До" value="{{arrayHours entity.openingHours 6 'to'}}">
+      </div>
+    </div>
+    <input type="hidden" name="opening_hours" id="hiddenOpeningHours">
+
+    <div class="form-group">
+      <label for="inputPhone">Номер телефона:</label>
+      <input type="text" name="phone"  class="form-control" id="inputPhone" max="40" required placeholder="Номер телефона" value="{{#if entity}}{{entity.phone}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputBP">Изображение:</label>
+      <input type="file" name="picture" class="form-control" id="inputBP" placeholder="Изображение"
+             accept="image/x-png,image/gif,image/jpeg">
+      <div class="imageShow" style="background-image: url({{#if entity}}{{entity.picture}}{{/if}});"></div>
+    </div>
+
+    <!-- Ширина и Высота -->
+    <div class="form-group">
+      <label for="inputLatitude">Широта:</label>
+      <input type="number" step="0.000001" name="latitude"  class="form-control" id="inputLatitude" min="0"  max="999.999999" required placeholder="Широта" value="{{#if position}}{{position.latitude}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputLongitude">Долгота:</label>
+      <input type="number" step="0.000001" name="longitude"  class="form-control" id="inputLongitude" min="0"  max="999.99999" required placeholder="Долгота" value="{{#if position}}{{position.longitude}}{{/if}}">
+    </div>
+
+    <div class="form-group">
+      <label for="inputSort">Сортировка:</label>
+      <input type="number" name="sort"  class="form-control" id="inputSort" min="1"  max="999999" required placeholder="Введите индекс сортировки" value="{{#if entity}}{{entity.sort}}{{/if}}">
+    </div>
+
+    <div class="form-group">
+      <label for="selectRegion">Промоакции:</label>
+      <select id="selectRegion" class="custom-select" name="promotions[]" multiple size="10">
+        {{#each promotions}}{{inArray}}
+          <option value="{{this.id}}" {{#if ../entity}}{{#inArray ../entity.promotions this.id }}selected{{/inArray}}{{/if}}>{{this.title}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-success w-250">Сохранить</button>
+    <a href="/admin/stores" class="btn btn-secondary w-250">Назад</a>
+  </form>
+  <style>
+    .imageShow {
+      height: 200px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .display-block {
+      display: block;
+    }
+
+    .w-250 {
+      width: 250px;
+    }
+
+    .display-inline-block {
+      display: inline-block;
+    }
+    .flexable.form-group {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+
+  <script>
+    $("select[multiple]").mousedown(function(e){
+      e.preventDefault();
+
+      var select = this;
+      var scroll = select .scrollTop;
+
+      e.target.selected = !e.target.selected;
+
+      setTimeout(function(){select.scrollTop = scroll;}, 0);
+
+      $(select ).focus();
+    }).mousemove(function(e){e.preventDefault()});
+
+    $("select[multiple] option[selected]").toArray().forEach(function (option) {
+      var select = this;
+      var scroll = select.scrollTop;
+      setTimeout(function(){select.scrollTop = scroll;}, 0);
+      $(select ).focus();
+    });
+
+    let getHoursValue = function () {
+      return JSON.stringify([
+        {from: $('#inputPnFrom').val(), to: $('#inputPnTo').val()},
+        {from: $('#inputVtFrom').val(), to: $('#inputVtTo').val()},
+        {from: $('#inputSrFrom').val(), to: $('#inputSrTo').val()},
+        {from: $('#inputTcFrom').val(), to: $('#inputTcTo').val()},
+        {from: $('#inputPtFrom').val(), to: $('#inputPtTo').val()},
+        {from: $('#inputSbFrom').val(), to: $('#inputSbTo').val()},
+        {from: $('#inputVsFrom').val(), to: $('#inputVsTo').val()},
+      ])
+    }
+    $('form').eq(0).submit(function (event) {
+      $('#hiddenOpeningHours').val(getHoursValue());
+    });
+
+    $('input[type="file"]').change(function() {
+      if (this.files && this.files[0]) {
+        let reader = new FileReader(), thisItem = this;
+        reader.onload = function(e) {
+          $(thisItem).parent().find('.imageShow').attr('style','background-image: url(' + e.target.result + ')');
+        }
+        reader.readAsDataURL(this.files[0]);
+      } else {
+        $(this).parent().find('.imageShow').attr('style','');
+      }
+    });
+  </script>
+</div>
