@@ -23,24 +23,14 @@
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
                 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 				<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-		<link rel="stylesheet" href="/static/font/b-rub_tahoma/stylesheet.css">
 
 		<link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>
 		<link rel="stylesheet" type="text/css" href="/static/slick/slick-theme.css"/>
 
                 <link rel="stylesheet" href="/static/css/style.css">
 
-
-
-
-
             </head>
             <body>
-
-
-
-
-
 
 			<!-- HTML-код модального окна-->
 			<div id="myModalEdit" class="modal fade">
@@ -48,7 +38,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 
-							<p class="modal-my modal-my-zagol" id="myModalLabel">В Вашем городе нет наших магазинов!</p>
+							<p class="modal-my" id="myModalLabel">Наличие в магазинах города.</p>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
 								<span aria-hidden="true">×</span>
 							</button>
@@ -56,13 +46,12 @@
 
 						</div>
 						<div class="modal-body modal-my-text">
-							Будьте добры перейдите на страницу выбора города, где есть наши магазины.
-							Это необходимо для того, чтобы показать Вам актуальные товары и цены.
-							<span class="modal-my-gorod">Большое спасибо за сотрудничество.</span>
+							<span class="modal-my-gorod">Магазин 1.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-mnogo">много</span><br>
+							<span class="modal-my-gorod">Магазин 2.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-malo">мало</span><br>
+							<span class="modal-my-gorod">Магазин 3.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-dostat">достаточно</span><br>
+							<span class="modal-my-gorod">Магазин 4.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-mnogo">много</span><br>
+							<span class="modal-my-gorod">Магазин 5.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-malo">мало</span><br>
 						</div>
-						<a href="map.html" class="btn btn btn-primary" role="button">Перейти к выбору города</a>
-
-
 					</div>
 				</div>
 				<p id="myP"></p>
@@ -101,7 +90,7 @@
 			<form class="head__search col-lg-6 col-xl-4">
 				<input class="search__field" name="s" placeholder="Я хочу найти ..." type="text">
 				<select class="search__select">
-				<option disabled class="select__item select__item-title">Выбери категорию</option>
+					<option disabled class="select__item select__item-title">Выбери категорию</option>
 					<option class="select__item">Все категории</option>
 					<option class="select__item">Категория1</option>
 					<option class="select__item">Категория2</option>
@@ -122,9 +111,7 @@
 						<p id="select-city-go" class="your-city__title">
 							Ваш город
 						</p>
-
-
-						<a  id="myModalEditBtn" href="#" class="your-city__button">Выберите Ваш город</a>
+						<a href="map.html" class="your-city__button">Выберите Ваш город</a>
 					</div>
 				</div>
 
@@ -243,13 +230,11 @@
 						<a class="link-akcia" href="akcii.html">Наши акции</a>
 					</li>
 				</ul>
-
 				<div>
 
 					<a href="spisok.html"><button id="checkout" class="list-pokupka"> </button></a>
 
 				</div>
-
 			</nav>
 		</div>
 
@@ -260,23 +245,18 @@
 
 	</header>
 	<!-- ------------------------ HEADER END ----------------------- -->
-
-
 	<!-- ------------------------ Определение города ----------------------- -->
 
 	<!-- <div id="select-city-go">Выбор города</div> -->
 	<div id="modal_form">
 		<span id="modal_close">X</span>
-
-		<p>К сожалению в Вашем городе нет наших магазинов.
-		Выберите из списка</p>
 		<div id="spisok-gorodov">
 			<table>
 				<tr><td>Архангельск</td><td>Омск</td></tr>
 				<tr><td>Астрахань</td><td>Орел</td></tr>
 			</table>
 		</div>
-		<div id="insol-map-modal" ></div>
+		<div id="insol-map-modal"></div>
 	</div>
 	<div id="overlay"></div>
 
@@ -392,114 +372,132 @@
         });
 	</script>
 	<!-- ------------------------ Определение города END ----------------------- -->
-	<!-- ------------------------ carousel TOP ----------------------- -->
 
-	<div class="container-fluid">
-		<div class="row">
+		<!-- -----------------------------------ODIN TOVAR END ------------------------------------------->
 
-			<!--Carousel Wrapper-->
-			<div id="carousel-example-1z" class="carousel slide carousel-fade carousel-my" data-ride="carousel">
-				<!--Indicators-->
-				<ol class="carousel-indicators">
-					<li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-					<li data-target="#carousel-example-1z" data-slide-to="1"></li>
-					<li data-target="#carousel-example-1z" data-slide-to="2"></li>
-				</ol>
-				<!--/.Indicators-->
-				<!--Slides-->
-				<div class="carousel-inner" role="listbox">
-					<!--First slide-->
-					<div class="carousel-item active">
-						<a href="akcii.html"><img class="d-block w-100" src="/static/img/carousel-my1.jpg" alt="First slide"></a>
-					</div>
-					<!--/First slide-->
-					<!--Second slide-->
-					<div class="carousel-item">
-						<a href="akcii.html"><img class="d-block w-100" src="/static/img/carousel-my2.jpg" alt="Second slide"></a>
-					</div>
-					<!--/Second slide-->
-					<!--Third slide-->
-					<div class="carousel-item">
-						<a href="akcii.html"><img class="d-block w-100" src="/static/img/carousel-my3.jpg" alt="Third slide"></a>
-					</div>
-					<!--/Third slide-->
-				</div>
-				<!--/.Slides-->
-				<!--Controls-->
-				<a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-				<!--/.Controls-->
-			</div>
-			<!--/.Carousel Wrapper-->
+		<div class="b-page container-fluid">
 
-		</div>
-	</div>
+			<div class="vn-page container">
 
-	<!-- ------------------------ carousel TOP END ----------------------- -->
-
-
-
-
-	<!-- ------------------------ Zagolovok Наши лучшие акции ----------------------- -->
-
-		<div class="section" id="zagolovok-1">
-			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
 
-						<div class="title_box">
-							<div class="horizontal_line"></div>
-							<p class="text-title">Наши лучшие акции</p>
+					<div class="col-md-6 otstup-one">
+						<div class="fotorama"
+							 data-width="100%"
+							 data-ratio="800/600"
+							 data-minwidth="200"
+							 data-maxwidth="600"
+							 data-minheight="300"
+							 data-maxheight="100%
+							 data-thumbBorderColor="#ff0000" data-background="#FFFFFF" data-thumbBorderWidth="1" data-vertical="true" data-fullscreenIcon="true" data-navPosition="left">
+							<a href="img/barilla-1a.jpg"><img src="/static/img/barilla-1a.jpg"></a>
+							<a href="img/barilla-2a.jpg"><img src="/static/img/barilla-2a.jpg"></a>
+							<a href="img/barilla-3a.jpg"><img src="/static/img/barilla-3a.jpg"></a>
 
 						</div>
 
+
 					</div>
+
+					<div class="col-md-6 ot-padd ">
+
+
+						<p class="ot-text-skidka">Скидка 15%</p>
+							<p class="ot-text-zagol">Макароны <br>STELLINE Barilla 500Г<br></p>
+							<p class="ot-text-cena">	Цена со скидкой: 75р<br></p>
+							<p class="ot-text-old-cena">	Цена: 85р<br></p>
+							<p class="ot-text-opisanie">	По одной из версий, некий римский кардинал, увидев их впервые на своем столе, воскликнул: "О, макарони!" ("О, как мило!"). Маккерони - классика итальянской гастрономии, самый известный формат пасты. История макаронных изделий братьев Барилла из Италии началась в 1877 году, в городе Парма. Тогда в своем магазине хлебобулочных изделий Пьер Барилла решил реализовывать пасту собственного производства. Качество и состав продукта быстро вывели макароны барилла в лидеры продаж. Барилла – первые макароны, которые появились на прилавках в фасованном виде.<br></p>
+
+							<p class="item__in-shop">
+								Наличие	<a href="#" class="in-shop__link">в магазине1</a>
+							</p>
+							<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
+
+
+
+
+
+
+
+
+					</div>
+
 				</div>
-			</div>
-		</div>
-		<!-- ------------------------ Zagolovok Наши лучшие акции END ----------------------- -->
-
-		<!-- ------------------------ Banners ----------------------- -->
-		<div class="section" id="recl-banner">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6"><a href="akcii.html"><img class="banner-big" src="/static/img/banner-big-1.jpg"/></div></a>
-					<div class="col-md-6"><a href="akcii.html"><img class="banner-big" src="/static/img/banner-big-2.jpg"/></div></a>
-				</div>
 
 				<div class="row">
-					<div class="col-md-4"><a href="akcii.html"><img class="banner-big" src="/static/img/banner-small-1.jpg"/></div></a>
-					<div class="col-md-4"><a href="akcii.html"><img class="banner-big" src="/static/img/banner-small-2.jpg"/></div></a>
-					<div class="col-md-4"><a href="akcii.html"><img class="banner-big" src="/static/img/banner-small-3.jpg"/></div></a>
-				</div>
 
-			</div>
-		</div>
-		<!-- ------------------------ Banners  END ----------------------- -->
+					<div class="col-md-12  border-0 add-to-list">
 
-		<!-- ------------------------ Zagolovok Наши лучшие предложения ----------------------- -->
+						<div class="row">
+							<div class="product-tabs">
+										<p  class="product-tabs1 product-tabs-zagolov">Характеристики
+											<span style="color:grey;font-size: 22px; font-weight: 300;">|</span></p>
 
-		<div class="section" id="zagolovok-1">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
+								<div class="row caracteristicas box-item-parent">
 
-						<div class="title_box">
-							<div class="horizontal_line"></div>
-							<p class="text-title">Наши лучшие предложения</p>
+
+
+									<div class="col-md-6 box-item product-tabs2">
+										<div class="col-md-12 border-0 feature feature-text-ingredients1">
+
+												<p class="product-tabs-text-zagol">Состав</p>
+												<p class="product-tabs-text-bazov">Мука из твердых сортов пшеницы, вода.</p>
+												<p class="product-tabs-text-zagol">Энергетическая и пищевая ценность</p>
+												<p class="product-tabs-text-bazov">Пищевая и Энергетическая ценность на 100г продукта: белки 12. 5г, жир 1. 5г, углеводы 71. 7г, 356ккал.</p>
+											<p class="product-tabs-text-bazov">В середине 20 века макаронные изделия Барилла стали известны во всем мире. Сегодня выпускается более 10 видов макарон итальянского бренда. На основе спагетти, гнезд феттучини, трубочек каннеллони и лапши существует много рецептов. Популярность итальянской кухни растет, и сегодня большинство ресторанов имеют в меню блюда из пасты.</p>
+
+										</div>
+									</div>
+
+
+									<div class="col-md-6 box-item product-tabs2">
+										<div class="col-md-12 border-0 feature feature-text-ingredients2">
+
+											<p class="product-tabs-text-zagol">Инструкция по использованию</p>
+											<p class="product-tabs-text-bazov">Шефы Академии Barilla рекомендуют варить спагетти 8 минут и заправлять любым соусом на ваш вкус: Путанеска, Болоньезе, Капрезе, сливочный или Песто. Чтобы сварить идеальные макароны al dente, нужно использовать формулу 100х1х7 (где 100г сухих изделий варится в 1 литре воды с 7 граммами соли). Не нужно добавлять при варке масло и не следует промывать макароны .</p>
+
+										</div>
+									</div>
+
+									<div class="col-md-6  box-item product-tabs3">
+										<div class="col-md-12 border-0 feature feature-text-ingredients3">
+
+											<p class="product-tabs-text-zagol">Производитель</p>
+											<p class="product-tabs-text-bazov">Harrys, Barilla, Италия</p>
+											<p class="product-tabs-text-bazov">Итальянская компания по производству продуктов питания, пасты, производитель кондитерских изделий. Производственные мощности включают площадки во многих странах мира.</p>
+
+										</div>
+									</div>
+
+									<div class="col-md-6 box-item product-tabs3">
+										<div class="col-md-12 border-0 feature feature-text-ingredients4">
+
+											<p class="product-tabs-text-zagol">Хранение</p>
+											<p class="product-tabs-text-bazov">При температуре до +30`C, с относительной влажностью воздуха не более 75%, в сухом прохладном месте</p>
+
+										</div>
+									</div>
+
+
+
+								</div>
+							</div>
 						</div>
 
+
 					</div>
+
+
 				</div>
+
+
+
 			</div>
 		</div>
-		<!-- ------------------------ Zagolovok Наши лучшие акции END ----------------------- -->
+
+		<!-- -----------------------------------ODIN TOVAR END ------------------------------------------->
+
+			<div class="otstup"> </div>   <!-- ------- otstup ------------->
 
 
 			<!-- ---------------------------------- KARUSEL slick  --------------------------------------->
@@ -855,6 +853,57 @@
 
 				</div>
 			</section>
+			<div class="otstup"> </div>   <!-- ------- otstup ------------->
+			<footer>
+
+				<!-- SOCIAL -->
+				<nav class="social container-fluid">
+					<div class="social-bar container row col-xl-6">
+						<a href="#" class="social-bar__f col-md-3"><img src="/static/img/f.png" alt="social-icon" />Прочитай о нас</a>
+						<a href="#" class="social-bar__t col-md-3"><img src="/static/img/t.png" alt="social-icon" />Следи за нами</a>
+						<a href="#" class="social-bar__yt col-md-3"><img src="/static/img/yt.png" alt="social-icon" />Смотри о нас</a>
+						<a href="#" class="social-bar__i col-md-3"><img src="/static/img/i.png" alt="social-icon" />Расскажи о нас</a>
+					</div>
+				</nav>
+				<!-- SOCIAL END -->
+				<!-- FOOTER -->
+
+				<div class="footer container-fluid">
+					<div class="footer__footer-content container row d-flex">
+						<div class="col-lg-3">
+							<a href="index.html"><img src="/static/img/logo-footer.png" alt="Megamag" /></a>
+						</div>
+
+						<div class="footer__adres col-sm-6 col-lg-4">
+							<p class="adres">Адрес</p>
+							<p class="adres-text">
+								Москва, Красносельский, Краснопрудная улица, 28<br />
+								Телефон: +7 495 012-3456<br />
+								Часы работы: пн-вс 10.00-21.00<br />
+							</p>
+							<p class="adres-copyrith">
+								© 2018, megamag2018.com
+							</p>
+						</div>
+
+						<div class="footer__ur-info col-sm-6 col-lg-5">
+							<p class="ur-info">
+								Юридическая информация
+							</p>
+							<p class="ur-info-text">
+								Наименование организации ИП Иванов Иван Иванович<br />
+								ИНН 771993585943<br />
+								ОГРНИП 318774600277350<br />
+								Фактический адрес г. Москва, ул. Сущевский вал, д.5, стр.20<br />
+							</p>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- FOOTER END -->
+			</footer>
+
 
 
 			<script type="text/javascript" src="/static/slick/jquery-1.11.0.min.js"></script>
@@ -919,60 +968,8 @@
                 });
 			</script>
 
-
-			<footer>
-
-				<!-- SOCIAL -->
-				<nav class="social container-fluid">
-					<div class="social-bar container row col-xl-6">
-						<a href="#" class="social-bar__f col-md-3"><img src="/static/img/f.png" alt="social-icon" />Прочитай о нас</a>
-						<a href="#" class="social-bar__t col-md-3"><img src="/static/img/t.png" alt="social-icon" />Следи за нами</a>
-						<a href="#" class="social-bar__yt col-md-3"><img src="/static/img/yt.png" alt="social-icon" />Смотри о нас</a>
-						<a href="#" class="social-bar__i col-md-3"><img src="/static/img/i.png" alt="social-icon" />Расскажи о нас</a>
-					</div>
-				</nav>
-				<!-- SOCIAL END -->
-				<!-- FOOTER -->
-
-				<div class="footer container-fluid">
-					<div class="footer__footer-content container row d-flex">
-						<div class="col-lg-3">
-							<a href="index.html"><img src="/static/img/logo-footer.png" alt="Megamag" /></a>
-						</div>
-
-						<div class="footer__adres col-sm-6 col-lg-4">
-							<p class="adres">Адрес</p>
-							<p class="adres-text">
-								Москва, Красносельский, Краснопрудная улица, 28<br />
-								Телефон: +7 495 012-3456<br />
-								Часы работы: пн-вс 10.00-21.00<br />
-							</p>
-							<p class="adres-copyrith">
-								© 2018, megamag2018.com
-							</p>
-						</div>
-
-						<div class="footer__ur-info col-sm-6 col-lg-5">
-							<p class="ur-info">
-								Юридическая информация
-							</p>
-							<p class="ur-info-text">
-								Наименование организации ИП Иванов Иван Иванович<br />
-								ИНН 771993585943<br />
-								ОГРНИП 318774600277350<br />
-								Фактический адрес г. Москва, ул. Сущевский вал, д.5, стр.20<br />
-							</p>
-
-						</div>
-					</div>
-				</div>
-
-				<!-- FOOTER END -->
-				</footer>
-
 			<script src="/static/js/RudraCart.js"></script>
-
-		<script src="https://use.fontawesome.com/1d4d05801d.js"></script>
+			<script src="https://use.fontawesome.com/1d4d05801d.js"></script>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>

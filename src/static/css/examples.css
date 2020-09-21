@@ -1,0 +1,31 @@
+
+.main {
+min-height: 100%;
+}
+* html .main {
+height: 100%;
+}
+.rasporka {
+clear: both;
+height: 60px;
+}
+.validateLinks {
+border-top: 1px solid #55b05a;
+padding: 20px 0 0 20px;
+height: 39px;
+background: #fff;
+margin-top: -60px;
+}
+* html .validateLinks {
+height: 60px;
+}
+.validateLinks a {
+color: #365d95;
+}
+.topPanel{
+	height: 90px;
+	text-align:center;
+	border-bottom: 1px solid #55b05a;
+	margin-bottom: 40px;
+	padding: 3px 0;
+}

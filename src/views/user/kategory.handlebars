@@ -30,17 +30,8 @@
 
                 <link rel="stylesheet" href="/static/css/style.css">
 
-
-
-
-
             </head>
             <body>
-
-
-
-
-
 
 			<!-- HTML-код модального окна-->
 			<div id="myModalEdit" class="modal fade">
@@ -48,7 +39,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 
-							<p class="modal-my modal-my-zagol" id="myModalLabel">В Вашем городе нет наших магазинов!</p>
+							<p class="modal-my" id="myModalLabel">Наличие в магазинах города.</p>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
 								<span aria-hidden="true">×</span>
 							</button>
@@ -56,13 +47,12 @@
 
 						</div>
 						<div class="modal-body modal-my-text">
-							Будьте добры перейдите на страницу выбора города, где есть наши магазины.
-							Это необходимо для того, чтобы показать Вам актуальные товары и цены.
-							<span class="modal-my-gorod">Большое спасибо за сотрудничество.</span>
+							<span class="modal-my-gorod">Магазин 1.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-mnogo">много</span><br>
+							<span class="modal-my-gorod">Магазин 2.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-malo">мало</span><br>
+							<span class="modal-my-gorod">Магазин 3.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-dostat">достаточно</span><br>
+							<span class="modal-my-gorod">Магазин 4.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-mnogo">много</span><br>
+							<span class="modal-my-gorod">Магазин 5.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-malo">мало</span><br>
 						</div>
-						<a href="map.html" class="btn btn btn-primary" role="button">Перейти к выбору города</a>
-
-
 					</div>
 				</div>
 				<p id="myP"></p>
@@ -101,7 +91,7 @@
 			<form class="head__search col-lg-6 col-xl-4">
 				<input class="search__field" name="s" placeholder="Я хочу найти ..." type="text">
 				<select class="search__select">
-				<option disabled class="select__item select__item-title">Выбери категорию</option>
+					<option disabled class="select__item select__item-title">Выбери категорию</option>
 					<option class="select__item">Все категории</option>
 					<option class="select__item">Категория1</option>
 					<option class="select__item">Категория2</option>
@@ -122,9 +112,7 @@
 						<p id="select-city-go" class="your-city__title">
 							Ваш город
 						</p>
-
-
-						<a  id="myModalEditBtn" href="#" class="your-city__button">Выберите Ваш город</a>
+						<a href="map.html" class="your-city__button">Выберите Ваш город</a>
 					</div>
 				</div>
 
@@ -243,13 +231,11 @@
 						<a class="link-akcia" href="akcii.html">Наши акции</a>
 					</li>
 				</ul>
-
 				<div>
 
 					<a href="spisok.html"><button id="checkout" class="list-pokupka"> </button></a>
 
 				</div>
-
 			</nav>
 		</div>
 
@@ -260,23 +246,18 @@
 
 	</header>
 	<!-- ------------------------ HEADER END ----------------------- -->
-
-
 	<!-- ------------------------ Определение города ----------------------- -->
 
 	<!-- <div id="select-city-go">Выбор города</div> -->
 	<div id="modal_form">
 		<span id="modal_close">X</span>
-
-		<p>К сожалению в Вашем городе нет наших магазинов.
-		Выберите из списка</p>
 		<div id="spisok-gorodov">
 			<table>
 				<tr><td>Архангельск</td><td>Омск</td></tr>
 				<tr><td>Астрахань</td><td>Орел</td></tr>
 			</table>
 		</div>
-		<div id="insol-map-modal" ></div>
+		<div id="insol-map-modal"></div>
 	</div>
 	<div id="overlay"></div>
 
@@ -392,71 +373,17 @@
         });
 	</script>
 	<!-- ------------------------ Определение города END ----------------------- -->
-	<!-- ------------------------ carousel TOP ----------------------- -->
 
-	<div class="container-fluid">
-		<div class="row">
+		<!-- ------------------------ Zagolovok Категории ----------------------- -->
 
-			<!--Carousel Wrapper-->
-			<div id="carousel-example-1z" class="carousel slide carousel-fade carousel-my" data-ride="carousel">
-				<!--Indicators-->
-				<ol class="carousel-indicators">
-					<li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
-					<li data-target="#carousel-example-1z" data-slide-to="1"></li>
-					<li data-target="#carousel-example-1z" data-slide-to="2"></li>
-				</ol>
-				<!--/.Indicators-->
-				<!--Slides-->
-				<div class="carousel-inner" role="listbox">
-					<!--First slide-->
-					<div class="carousel-item active">
-						<a href="akcii.html"><img class="d-block w-100" src="/static/img/carousel-my1.jpg" alt="First slide"></a>
-					</div>
-					<!--/First slide-->
-					<!--Second slide-->
-					<div class="carousel-item">
-						<a href="akcii.html"><img class="d-block w-100" src="/static/img/carousel-my2.jpg" alt="Second slide"></a>
-					</div>
-					<!--/Second slide-->
-					<!--Third slide-->
-					<div class="carousel-item">
-						<a href="akcii.html"><img class="d-block w-100" src="/static/img/carousel-my3.jpg" alt="Third slide"></a>
-					</div>
-					<!--/Third slide-->
-				</div>
-				<!--/.Slides-->
-				<!--Controls-->
-				<a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-				<!--/.Controls-->
-			</div>
-			<!--/.Carousel Wrapper-->
-
-		</div>
-	</div>
-
-	<!-- ------------------------ carousel TOP END ----------------------- -->
-
-
-
-
-	<!-- ------------------------ Zagolovok Наши лучшие акции ----------------------- -->
-
-		<div class="section" id="zagolovok-1">
-			<div class="container">
+		<div class="b-page container-fluid">
+			<div class="vn-page container">
 				<div class="row">
 					<div class="col-md-12">
 
 						<div class="title_box">
 							<div class="horizontal_line"></div>
-							<p class="text-title">Наши лучшие акции</p>
-
+							<p class="text-title-grey">Категории товаров</p>
 						</div>
 
 					</div>
@@ -465,23 +392,116 @@
 		</div>
 		<!-- ------------------------ Zagolovok Наши лучшие акции END ----------------------- -->
 
-		<!-- ------------------------ Banners ----------------------- -->
-		<div class="section" id="recl-banner">
-			<div class="container">
+
+		<!-- ------------------------ Категории товаров ----------------------- -->
+		<div class="b-page container-fluid">
+
+			<div class="vn-page container">
+
 				<div class="row">
-					<div class="col-md-6"><a href="akcii.html"><img class="banner-big" src="/static/img/banner-big-1.jpg"/></div></a>
-					<div class="col-md-6"><a href="akcii.html"><img class="banner-big" src="/static/img/banner-big-2.jpg"/></div></a>
+
+						<div class="categor-pic">
+							<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
+								Подкатегория 2<br>
+								Подкатегория 3<br>
+								Подкатегория 4<br>
+								Подкатегория 5<br>
+							</div></a>
+							<a href="tovary.html"><img class="categor-img" src="/static/img/categor1.jpg"/></a>
+						</div>
+
+
+
+						<div class="categor-pic">
+							<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
+								Подкатегория 2<br>
+								Подкатегория 3<br>
+								Подкатегория 4<br>
+								Подкатегория 5<br>
+							</div></a>
+							<a href="tovary.html"><img  class="categor-img" src="/static/img/categor2.jpg"/></a>
+						</div>
+
+
+
+						<div class="categor-pic">
+							<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
+								Подкатегория 2<br>
+								Подкатегория 3<br>
+								Подкатегория 4<br>
+								Подкатегория 5<br>
+							</div></a>
+							<a href="tovary.html"><img  class="categor-img" src="/static/img/categor3.jpg"/></a>
+						</div>
+
+
+
+						<div class="categor-pic">
+							<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
+								Подкатегория 2<br>
+								Подкатегория 3<br>
+								Подкатегория 4<br>
+								Подкатегория 5<br>
+							</div></a>
+							<a href="tovary.html"><img  class="categor-img" src="/static/img/categor4.jpg"/></a>
+						</div>
 				</div>
 
 				<div class="row">
-					<div class="col-md-4"><a href="akcii.html"><img class="banner-big" src="/static/img/banner-small-1.jpg"/></div></a>
-					<div class="col-md-4"><a href="akcii.html"><img class="banner-big" src="/static/img/banner-small-2.jpg"/></div></a>
-					<div class="col-md-4"><a href="akcii.html"><img class="banner-big" src="/static/img/banner-small-3.jpg"/></div></a>
+
+					<div class="categor-pic">
+						<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
+							Подкатегория 2<br>
+							Подкатегория 3<br>
+							Подкатегория 4<br>
+							Подкатегория 5<br>
+						</div></a>
+						<a href="tovary.html"><img class="categor-img" src="/static/img/categor5.jpg"/></a>
+					</div>
+
+
+
+					<div class="categor-pic">
+						<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
+							Подкатегория 2<br>
+							Подкатегория 3<br>
+							Подкатегория 4<br>
+							Подкатегория 5<br>
+						</div></a>
+						<a href="tovary.html"><img  class="categor-img" src="/static/img/categor6.jpg"/></a>
+					</div>
+
+
+
+					<div class="categor-pic">
+						<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
+							Подкатегория 2<br>
+							Подкатегория 3<br>
+							Подкатегория 4<br>
+							Подкатегория 5<br>
+						</div></a>
+						<a href="tovary.html"><img  class="categor-img" src="/static/img/categor7.jpg"/></a>
+					</div>
+
+
+
+					<div class="categor-pic">
+						<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
+							Подкатегория 2<br>
+							Подкатегория 3<br>
+							Подкатегория 4<br>
+							Подкатегория 5<br>
+						</div></a>
+						<a href="tovary.html"><img  class="categor-img" src="/static/img/categor8.jpg"/></a>
+					</div>
 				</div>
+
 
 			</div>
 		</div>
-		<!-- ------------------------ Banners  END ----------------------- -->
+
+
+		<!-- ------------------------ Categoriy  end ----------------------- -->
 
 		<!-- ------------------------ Zagolovok Наши лучшие предложения ----------------------- -->
 
@@ -492,7 +512,7 @@
 
 						<div class="title_box">
 							<div class="horizontal_line"></div>
-							<p class="text-title">Наши лучшие предложения</p>
+							<p style="top: 10px" class="text-title">Наши лучшие предложения</p>
 						</div>
 
 					</div>
@@ -502,6 +522,8 @@
 		<!-- ------------------------ Zagolovok Наши лучшие акции END ----------------------- -->
 
 
+
+			<!-- ---------------------------------- KARUSEL slick  --------------------------------------->
 			<!-- ---------------------------------- KARUSEL slick  --------------------------------------->
 			<section>
 				<div class="container">
@@ -969,9 +991,7 @@
 
 				<!-- FOOTER END -->
 				</footer>
-
 			<script src="/static/js/RudraCart.js"></script>
-
 		<script src="https://use.fontawesome.com/1d4d05801d.js"></script>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>

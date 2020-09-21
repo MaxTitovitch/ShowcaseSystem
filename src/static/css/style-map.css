@@ -1,0 +1,15 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+button {
+    margin: 10px;
+
+}
+#shops li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+#cityShop {
+    margin: 10px;
+}
