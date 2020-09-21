@@ -1,0 +1,46 @@
+<div class="jumbotron">
+  <h1>Промоакции</h1>
+  <a class="btn btn-success float-right mb-3 mr-3" href="/admin/products/one" style="width: 100px">
+    Добавить
+  </a>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Актикул</th>
+      <th scope="col" >Изображение</th>
+      <th scope="col" >Название</th>
+      <th scope="col" >Единица измерения</th>
+      <th scope="col" >Единица товара</th>
+      <th scope="col" >SKU-артикул</th>
+      <th scope="col" class="text-center">Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each entities}}
+      <tr>
+        <th scope="row">{{ this.article }}</th>
+        <td width="20%"><img src="{{ this.picture }}" alt="{{ this.picture }}" style="width: 100%;"></td>
+        <td>{{ this.shortName }}</td>
+        <td>{{ this.measuredIn }}</td>
+        <td>{{ this.unit }}</td>
+        <td>{{ this.sku }}</td>
+        <td class="text-center">
+          <a class="btn btn-warning mb-1" href="/admin/products/one/{{ this.article }}" style="width: 100px">
+            Изменить
+          </a>
+          <form action="/admin/products/delete/{{ this.article }}" method="post">
+            <button type="submit" class="btn btn-danger" style="width: 100px">
+              Удалить
+            </button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+
+  {{#if entities.length }}
+  {{else}}
+    <h2>Записи не найдены</h2>
+  {{/if}}
+</div>

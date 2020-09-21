@@ -85,6 +85,7 @@ createConnection().then(async connection => {
     app.use('/admin/regions', auth, require('./routes/region'));
     app.use('/admin/promotions', auth, require('./routes/promotion'));
     app.use('/admin/categories', auth, require('./routes/category'));
+    app.use('/admin/products', auth, require('./routes/product'));
     app.use('/', require('./routes/user'));
 
 

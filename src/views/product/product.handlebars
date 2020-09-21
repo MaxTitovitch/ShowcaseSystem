@@ -1,0 +1,102 @@
+<div class="jumbotron">
+  <h1>{{nameAction}} товара</h1>
+
+  <form action="{{path}}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="inputId">Артикул:</label>
+      <input type="text" name="article"  class="form-control" id="inputId" max="50" required placeholder="Введите артикул" value="{{#if entity}}{{entity.article}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputName">Название:</label>
+      <input type="text" name="name"  class="form-control" id="inputName" max="255" required placeholder="Введите название" value="{{#if entity}}{{entity.name}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputShortName">Кратное название:</label>
+      <input type="text" name="short_name"  class="form-control" id="inputShortName" max="255" required placeholder="Введите краткое название" value="{{#if entity}}{{entity.shortName}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputDescription">Описание:</label>
+      <textarea name="description" class="form-control" id="inputDescription" maxlength="4000" placeholder="Описание">{{#if entity}}{{entity.description}}{{/if}}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="inputMeasured">Единица измерения:</label>
+      <input type="text" name="measured_in"  class="form-control" id="inputMeasured" max="6" required placeholder="Единица измерения" value="{{#if entity}}{{entity.measuredIn}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputUnit">Единица товара:</label>
+      <input type="number" name="unit"  class="form-control" id="inputUnit" max="999999999.99" required placeholder="Единица товара" value="{{#if entity}}{{entity.unit}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputPicture">Главное изображение:</label>
+      <input type="file" name="picture" class="form-control" id="inputPicture" placeholder="Главное изображение"
+             accept="image/x-png,image/gif,image/jpeg" >
+      <div class="imageShow" style="background-image: url({{#if entity}}{{entity.picture}}{{/if}});"></div>
+    </div>
+    <div class="form-group">
+      <label for="inputThumbnail">Уменьшеное изображение:</label>
+      <input type="file" name="thumbnail" class="form-control" id="inputThumbnail" placeholder="Уменьшеное изображение"
+             accept="image/x-png,image/gif,image/jpeg" >
+      <div class="imageShow" style="background-image: url({{#if entity}}{{entity.thumbnail}}{{/if}});"></div>
+    </div>
+    <div class="form-group">
+      <label for="inputSKU">SKU-артикул:</label>
+      <input type="text" name="sku"  class="form-control" id="inputSKU" max="50" required placeholder="Введите SKU-артикул" value="{{#if entity}}{{entity.sku}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputBrand">Бренд:</label>
+      <textarea name="brand" class="form-control" id="inputBrand" maxlength="4000" required placeholder="Бренд">{{#if entity}}{{entity.brand}}{{/if}}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="inputOrigin">Страна-производитель:</label>
+      <input type="text" name="origin"  class="form-control" id="inputOrigin" max="255" required placeholder="Введите страну-производитель" value="{{#if entity}}{{entity.origin}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputComposition">Состав:</label>
+      <textarea name="composition" class="form-control" id="inputComposition" maxlength="4000" placeholder="Состав">{{#if entity}}{{entity.composition}}{{/if}}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="inputWeight">Вес:</label>
+      <input type="number" name="weight"  class="form-control" id="inputWeight" max="999999.999" placeholder="Вес товара" value="{{#if entity}}{{entity.weight}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputVolume">Объём:</label>
+      <input type="number" name="volume"  class="form-control" id="inputVolume" max="999999.999" placeholder="Объём товара" value="{{#if entity}}{{entity.volume}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputPictureSet">Изображения:</label>
+      <input type="file" name="picture_set" class="form-control" id="inputPictureSet" placeholder="Уменьшеное изображение"
+             accept="image/x-png,image/gif,image/jpeg" multiple>
+      {{#each entity.pictureSet}}
+        <div class="imageShow" style="background-image: url({{this}});"></div>
+      {{/each}}
+    </div>
+
+    <button type="submit" class="btn btn-success w-25">Сохранить</button>
+    <a href="/admin/products" class="btn btn-secondary w-25">Назад</a>
+  </form>
+  <style>
+    .imageShow {
+      height: 200px;
+      width: 25%;
+      display: inline-flex;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      border: 1px dotted rgba(0,0,0,0.1);
+    }
+  </style>
+  <script>
+    $('input[type="file"]').change(function() {
+      $(this).parent().find('.imageShow').remove();
+      if (this.files) {
+        for (let i = 0; i < this.files.length; i++) {
+          let reader = new FileReader(), thisItem = this;
+          reader.onload = function(e) {
+            $(thisItem).parent().append('<div class="imageShow" style="background-image: url(' + e.target.result + ');"></div>');
+          }
+          reader.readAsDataURL(this.files[i]);
+        }
+      }
+    });
+  </script>
+</div>

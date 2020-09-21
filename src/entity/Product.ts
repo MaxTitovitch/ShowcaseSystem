@@ -12,7 +12,7 @@ export class Product {
   @Column("varchar2", { name: "DESCRIPTION", nullable: true, length: 4000 })
   description: string | null;
 
-  @Column("number", { name: "WEIGHT", nullable: true, precision: 6, scale: 3 })
+  @Column("number", { name: "WEIGHT", nullable: true, precision: 9, scale: 3 })
   weight: number | null;
 
   @Column("varchar2", { name: "COMPOSITION", nullable: true, length: 4000 })
@@ -30,7 +30,7 @@ export class Product {
   @Column("varchar2", { name: "PICTURE", nullable: true, length: 200 })
   picture: string | null;
 
-  @Column("number", { name: "VOLUME", nullable: true, precision: 6, scale: 3 })
+  @Column("number", { name: "VOLUME", nullable: true, precision: 9, scale: 3 })
   volume: number | null;
 
   @Column("varchar2", { name: "SKU", length: 50 })
