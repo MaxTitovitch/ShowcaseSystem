@@ -78,10 +78,6 @@ router.post('/delete/:index?',  async (req, res) => {
 });
 
 
-
-
-
-
 router.post('/:parent/products/one/:index?',  async (req, res) => {
   try {
     let object1 = {
