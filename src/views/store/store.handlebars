@@ -101,7 +101,7 @@
     <div class="form-group">
       <label for="selectRegion">Промоакции:</label>
       <select id="selectRegion" class="custom-select" name="promotions[]" multiple size="10">
-        {{#each promotions}}{{inArray}}
+        {{#each promotions}}
           <option value="{{this.id}}" {{#if ../entity}}{{#inArray ../entity.promotions this.id }}selected{{/inArray}}{{/if}}>{{this.title}}</option>
         {{/each}}
       </select>

@@ -28,6 +28,10 @@ createConnection().then(async connection => {
             } catch (e) {
                 return '';
             }
+        },
+        consoleLog(value) {
+            console.log(value);
+            return value;
         }
     }}));
     app.set('view engine', 'handlebars');

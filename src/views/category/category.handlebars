@@ -54,14 +54,109 @@
     <button type="submit" class="btn btn-success w-25">Сохранить</button>
     <a href="/admin/categories" class="btn btn-secondary w-25">Назад</a>
   </form>
+
+  {{#if entity }}
+    <h2 class="mt-5">Товары категории</h2>
+
+    {{#each categoryProducts}}
+      <form class="form-inline-same" action="/admin/categories/{{this.categoryId}}/products/one/{{this.productId}}" method="post">
+        <div class="form-group w-25 p-2">
+          <label for="selectProduct">Товар:</label>
+          <select id="selectProduct" class="custom-select" name="product_id" disabled>
+            {{#each ../products}}
+              <option value="{{this.article}}" {{#is this.id ../this.productId}}selected{{/is}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="form-group w-25 p-2">
+          <label for="inputName">Сортировка:</label>
+          <input type="number" name="sort"  class="form-control" id="inputName" min="1"  max="999999" required placeholder="Сортировка" value="{{this.sort}}">
+        </div>
+
+        <div class="form-group w-25 p-2">
+          <label for="selectRecommend">Рекомендуемые:</label>
+          <select id="selectRecommend" class="custom-select" name="recommended_products[]" multiple size="5">
+            {{#each ../products}}
+              <option value="{{this.article}}" {{#inArray ../this.recommendedProducts this.article }}selected{{/inArray}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="w-25 mt-35">
+          <button type="submit" class="btn btn-success w-100">Сохранить</button>
+          <button type="button" class="delete-current btn btn-danger w-100">Удалить</button>
+        </div>
+      </form>
+    {{/each}}
+
+    <form class="form-inline-same" action="/admin/categories/{{entity.id}}/products/one" method="post">
+      <div class="form-group w-25 p-2">
+        <label for="selectProduct">Товар:</label>
+        <select id="selectProduct" class="custom-select" name="product_id" required>
+          {{#each products}}
+            <option value="{{this.article}}" {{#inArray ../disabledId this.article}}disabled{{/inArray}}>{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="form-group w-25 p-2">
+        <label for="inputName">Сортировка:</label>
+        <input type="number" name="sort"  class="form-control" id="inputName" min="1"  max="999999" required placeholder="Сортировка">
+      </div>
+
+      <div class="form-group w-25 p-2">
+        <label for="selectRecommend">Рекомендуемые:</label>
+        <select id="selectRecommend" class="custom-select" name="recommended_products[]" multiple size="5">
+          {{#each products}}
+            <option value="{{this.article}}" >{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="w-25 mt-35">
+        <button type="submit" class="btn btn-success w-100">Добавить</button>
+<!--        <button type="button" class="delete-current btn btn-danger w-100">Удалить</button>-->
+      </div>
+    </form>
+
+  {{/if}}
+
+
+
+
+
+
+
+
+
+
   <style>
+    .mt-35 {
+      margin-top: 35px;
+    }
+    .form-inline-same {
+      display: flex;
+      justify-content: space-between;
+    }
     .imageShow {
       height: 200px;
       background-size: contain;
       background-repeat: no-repeat;
     }
+    .justify-right {
+      display: flex;
+      justify-content: flex-end;
+    }
   </style>
   <script>
+    $('.delete-current').toArray().forEach(function (btn) {
+      $(btn).click(function (event) {
+        let form =  $(this).closest('form')
+        form.attr('action', form.attr('action') + '/delete');
+        form.submit();
+      });
+    })
     $('input[type="file"]').change(function() {
       if (this.files && this.files[0]) {
         let reader = new FileReader(), thisItem = this;
@@ -73,5 +168,17 @@
         $(this).parent().find('.imageShow').attr('style','');
       }
     });
+    $("select[multiple]").mousedown(function(e){
+      e.preventDefault();
+
+      var select = this;
+      var scroll = select .scrollTop;
+
+      e.target.selected = !e.target.selected;
+
+      setTimeout(function(){select.scrollTop = scroll;}, 0);
+
+      $(select ).focus();
+    }).mousemove(function(e){e.preventDefault()});
   </script>
 </div>
