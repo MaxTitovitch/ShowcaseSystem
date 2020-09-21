@@ -1,0 +1,77 @@
+<div class="jumbotron">
+  <h1>{{nameAction}} категории</h1>
+
+  <form action="{{path}}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="inputName">Название:</label>
+      <input type="text" name="name"  class="form-control" id="inputName" max="255" required placeholder="Введите название" value="{{#if entity}}{{entity.name}}{{/if}}">
+    </div>
+
+    <div class="form-group">
+      <label for="selectRegion">Регион:</label>
+
+      <select id="selectRegion" class="custom-select" name="region_id">
+        {{#each regions}}
+            <option value="{{this.id}}" {{#is this.id ../entity.regionId}}selected{{/is}}>{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="selectParent">Родительская:</label>
+      {{#eq entity null}}
+        {{#equalsLength parents 0}}
+          <input type="hidden" name="id" value="1">
+        {{/equalsLength}}
+      {{/eq}}
+      <select id="selectParent" class="custom-select" name="parent_id">
+        {{#eq entity null}}
+            <option value="0" selected>Текущая категория</option>
+        {{else}}
+            <option value="{{entity.id}}" {{#is entity.parentId entity.id}}selected{{/is}}>{{entity.name}}</option>
+        {{/eq}}
+        {{#each parents}}
+          <option value="{{this.id}}" {{#is this.id ../entity.parentId}}selected{{/is}}>{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+
+    <div class="custom-control custom-switch mb-3">
+      <input type="checkbox" name="hidden" class="custom-control-input" id="switchHidden" value="1" {{#if entity}}{{#if entity.hidden}}checked{{/if}}{{/if}}>
+      <label class="custom-control-label" for="switchHidden">Скрывать?</label>
+    </div>
+    <div class="form-group">
+      <label for="inputName">Сортировка:</label>
+      <input type="number" name="sort"  class="form-control" id="inputName" min="1"  max="999999" required placeholder="Введите индекс сортировки" value="{{#if entity}}{{entity.sort}}{{/if}}">
+    </div>
+    <div class="form-group">
+      <label for="inputBP">Изображение-заглушка:</label>
+      <input type="file" name="product_dummy_picture" class="form-control" id="inputBP" placeholder="Изображение-заглушка"
+             accept="image/x-png,image/gif,image/jpeg">
+      <div class="imageShow" style="background-image: url({{#if entity}}{{entity.productDummyPicture}}{{/if}});"></div>
+    </div>
+
+    <button type="submit" class="btn btn-success w-25">Сохранить</button>
+    <a href="/admin/categories" class="btn btn-secondary w-25">Назад</a>
+  </form>
+  <style>
+    .imageShow {
+      height: 200px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  </style>
+  <script>
+    $('input[type="file"]').change(function() {
+      if (this.files && this.files[0]) {
+        let reader = new FileReader(), thisItem = this;
+        reader.onload = function(e) {
+          $(thisItem).parent().find('.imageShow').attr('style','background-image: url(' + e.target.result + ')');
+        }
+        reader.readAsDataURL(this.files[0]);
+      } else {
+        $(this).parent().find('.imageShow').attr('style','');
+      }
+    });
+  </script>
+</div>

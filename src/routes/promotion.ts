@@ -62,7 +62,6 @@ router.post('/one/:index?', upload.fields([
       if(object.pictureSmall == '') {
         delete object.pictureSmall;
       }
-      console.log(object);
       promotion = await getRepository(Promotion).update({id: req.params.index}, object);
       promotion.id = req.params.index;
     } else {

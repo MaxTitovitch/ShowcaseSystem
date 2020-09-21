@@ -13,6 +13,7 @@ const expressHandlebars = require('express-handlebars');
 const flash = require('connect-flash');
 const session = require('express-session');
 const crypto = require('crypto');
+const helpers = require('handlebars-helpers')();
 
 
 createConnection().then(async connection => {
@@ -83,12 +84,13 @@ createConnection().then(async connection => {
     app.use('/admin/admins', auth, require('./routes/admin'));
     app.use('/admin/regions', auth, require('./routes/region'));
     app.use('/admin/promotions', auth, require('./routes/promotion'));
+    app.use('/admin/categories', auth, require('./routes/category'));
     app.use('/', require('./routes/user'));
 
 
-    // app.use((req, res, next) => {
-    //     res.redirect("/");
-    // });
+    app.use((req, res, next) => {
+        res.redirect("/");
+    });
 
     app.listen(3000, () => console.log('Server started listening on port 3000!'))
 }).catch(error => console.log(error));
