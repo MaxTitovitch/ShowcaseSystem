@@ -152,7 +152,7 @@
               </div>
               <div class="your-city__text-wrap">
                 <p id="select-city-go-1" class="your-city__title">
-                  Ваш город
+                  Ваш город -  <span class="region-name-n">{{region.name}}</span>
                 </p>
                 <a  id="myModalEditBtn2" href="#" class="your-city__button">Выберите Ваш город</a>
               </div>
@@ -164,7 +164,7 @@
               </div>
               <div class="your-shop__text-wrap">
                 <p class="your-shop__title">
-                  Ваш магазин
+                  Ваш магазин - <span class="store-name-n">{{store.name}}</span>
                 </p>
                 <a href="/map" class="your-shop__button">Выберите Ваш магазин</a>
               </div>
@@ -369,21 +369,14 @@
 				<ul class="path">
 
 					<li class="path-item">
-						<a href="#" class="path-link">Главная</a>
+						<a href="/" class="path-link">Главная</a>
 					</li>
 					<li class="path-item">
 						<p>/</p>
 					</li>
 
 					<li class="path-item">
-						<a href="#" class="path-link">Категория 1</a>
-					</li>
-					<li class="path-item">
-						<p>/</p>
-					</li>
-
-					<li class="path-item">
-						<a href="#" class="path-link">Подкатегория 1</a>
+						<a href="/map" class="path-link">Карта</a>
 					</li>
 				</ul>
 			</div>
@@ -402,7 +395,7 @@
 					<div id="cityShop">
 						<select name="cities" id="cities" class="cities-magazines"></select>
 
-						<form class="map__search">
+						<form class="map__search" method="get" action="/map">
 							<input class="map__field" name="s" placeholder="Найти магазин" type="text">
 							<button class="map__buttom" type="submit"></button>
 						</form>
@@ -436,20 +429,20 @@
 
                     // Список городов и магазинов в них
                     var shopList = [
+                      {{#each regions}}
                         {
-                            'cityName': 'Москва',
+                            'cityName': '{{this.name}}',
                             'shops': [
-                                {'coordinates': [55.72532368326033, 37.748675112058876], 'name': '<span class="mag-name">Магазин 1.</span> <br>Рязанский проспект, 6Ас21<br>Часы работы: 8.00-21.00<br><span class="mag-opisanie"><a href="one-magaz.html">О магазине</a></span><hr>'},
-                                {'coordinates': [55.701677873469, 37.57358050756649], 'name': '<span class="mag-name">Магазин 2.</span><br>Ленинский проспект, 47с2<br>Часы работы: 8.00-21.00<br><span class="mag-opisanie"><a href="one-magaz.html">О магазине</a></span><hr>'}
-                            ]
+
+                              {{#each this.stores}}
+                                {
+                                  'coordinates': [{{this.latitude}}, {{this.longitude}}],
+                                  'name': '<div class="shop-send"><span class="mag-name">{{this.name}}.</span> <br>{{this.address}}<br>Часы работы: {{arrayHours shop.openingHours 0 'from'}}-{{arrayHours shop.openingHours 0 'to'}}<br><span class="mag-opisanie"><a href="/shop/{{this.id}}">О магазине</a></span></div><hr>'
+                                },
+                              {{/each}}
+                                ]
                         },
-                        {
-                            'cityName': 'Санкт-Петербург',
-                            'shops': [
-                                {'coordinates': [59.863210042666125, 30.37903938671841], 'name': '<span class="mag-name">Магазин 1.</span><br>Будапештская улица, 36к2<br>Часы работы: 8.00-21.00<br><span class="mag-opisanie"><a href="one-magaz.html">О магазине</a></span><hr>'},
-                                {'coordinates': [59.99486277158917, 30.406505207030918], 'name': '<span class="mag-name">Магазин 2.</span><br>Проспект Непокорённых<br>Часы работы: 8.00-21.00<br><span class="mag-opisanie"><a href="one-magaz.html">О магазине</a></span><hr>'}
-                            ]
-                        }
+                      {{/each}}
                     ];
 
                     ymaps.ready(init);
@@ -516,8 +509,25 @@
                         $('#shops').html('');
                         for (var c = 0; c < shopList[cityId].shops.length; c++) {
                             $('#shops').append('<li value="' + c + '">' + shopList[cityId].shops[c].name + '</li>');
-                        }
 
+                        }
+                      $('.shop-send').toArray().forEach(function (el) {
+                          $(el).click(function (event) {
+                            let id = $(this).find('a').attr('href').split('/').reverse()[0];
+                            let path = '/shop-check/' + id;
+                            console.log(path)
+                            $.ajax({
+                              type: 'GET',
+                              url: path,
+                              data: '',
+                              success: function (r) {
+                                $('.store-name-n').text(r.store)
+                                $('.region-name-n').text(r.region)
+                                console.log(r)
+                              }
+                            });
+                          });
+                      })
                     });
 
                     // Клик на адрес

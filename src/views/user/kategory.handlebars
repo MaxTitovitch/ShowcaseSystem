@@ -156,7 +156,7 @@
               </div>
               <div class="your-city__text-wrap">
                 <p id="select-city-go-1" class="your-city__title">
-                  Ваш город
+                  Ваш город -  <span class="region-name-n">{{region.name}}</span>
                 </p>
                 <a  id="myModalEditBtn2" href="#" class="your-city__button">Выберите Ваш город</a>
               </div>
@@ -168,7 +168,7 @@
               </div>
               <div class="your-shop__text-wrap">
                 <p class="your-shop__title">
-                  Ваш магазин
+                  Ваш магазин - <span class="store-name-n">{{store.name}}</span>
                 </p>
                 <a href="/map" class="your-shop__button">Выберите Ваш магазин</a>
               </div>
@@ -387,6 +387,8 @@
 
 				<div class="row">
 
+
+          {{#each mainCategories}}
 						<div class="categor-pic">
 							<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
 								Подкатегория 2<br>
@@ -396,6 +398,7 @@
 							</div></a>
 							<a href="tovary.html"><img class="categor-img" src="/static/img/categor1.jpg"/></a>
 						</div>
+          {{/each}}
 
 
 

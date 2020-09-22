@@ -239,7 +239,7 @@ border: 1px solid grey ;
 .your-city__title{
   padding: 5px 0 0 8px;
   margin-bottom: 0 !important;
-  height: 20px;
+  /*height: 20px;*/
 
   font-family: 'Roboto', sans-serif;
     font-weight: 500;
@@ -265,7 +265,7 @@ border: 1px solid grey ;
 .your-shop__title{
   padding: 5px 0 0 8px;
   margin-bottom: 0 !important;
-  height: 20px;
+  /*height: 20px;*/
 
   font-family: 'Roboto', sans-serif;
     font-weight: 500;

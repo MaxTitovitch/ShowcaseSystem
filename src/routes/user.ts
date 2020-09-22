@@ -48,8 +48,8 @@ router.use(async (req, res, next) => {
     res.cookie('region', region);
   }
   let categories = await getRepository(Category).createQueryBuilder("category").orderBy('sort').getMany();
-  let categoriesMenu = await getRepository(Category).createQueryBuilder("category").where('id = parent_id').orderBy('sort').limit(4).getMany();
-
+  let categoriesMenu = await getRepository(Category).createQueryBuilder("category").where('id = parent_id').orderBy('sort').getMany();
+console.log(store, region)
   let products = await getActions(store);
   res.locals.store = store;
   res.locals.region = region;
@@ -99,8 +99,22 @@ router.get('/categories/:index', (req, res) => {
   res.render("user/tovary", {layout: null});
 });
 
-router.get('/map', (req, res) => {
-  res.render("user/map", {layout: null});
+router.get('/map', async (req, res) => {
+  let regions = await getRepository(Region).createQueryBuilder("REGION")
+      .leftJoinAndSelect("REGION.stores", "STORE").orderBy('REGION.ID').getMany();
+  // let regions = await getRepository(Region).createQueryBuilder("REGION").orderBy('ID').getMany();
+  res.render("user/map", {layout: null, regions});
+});
+
+router.get('/shop-check/:index', async (req, res) => {
+  let store = await getRepository(Store).createQueryBuilder("STORE")
+    .leftJoinAndSelect("STORE.region", "REGION")
+    .where(`"STORE"."ID" = ${req.params.index}`).getOne();
+  let region = store.region;
+  res.cookie('store', store);
+  res.cookie('region', region);
+
+  res.send({store: store.name, region: region.name});
 });
 
 router.get('/shop/:index/:success?', async (req, res) => {
