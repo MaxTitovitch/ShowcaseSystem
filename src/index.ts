@@ -35,9 +35,43 @@ createConnection().then(async connection => {
         },
         getPriceProduct (product, isOld = true) {
             if(isOld) {
-                return product.productPriceStores[0].price + "руб.";
+                    return product.productPriceStores[0].price + "руб.";
             } else {
                 return product.productPriceStores[0].discountPrice ? product.productPriceStores[0].discountPrice + "руб." : null;
+            }
+        },
+        getPriceProductPrice (product, isOld = true, prep = '', isReturnOld, prep2 = '') {
+            if(isOld) {
+                if(product.productPriceStores[0].discountPrice) {
+                    return prep + product.productPriceStores[0].price + "руб.";
+                }
+            } else {
+                if(!product.productPriceStores[0].discountPrice && isReturnOld) {
+                    return prep2  + product.productPriceStores[0].price + "руб.";
+                }
+                return product.productPriceStores[0].discountPrice ? (prep || '') + product.productPriceStores[0].discountPrice + "руб." : null;
+            }
+        },
+        getDiscountProduct (product) {
+            if(product.productPriceStores[0].discountPrice) {
+                return `Скидка ${(product.productPriceStores[0].price / (product.productPriceStores[0].price - product.productPriceStores[0].discountPrice)).toFixed(0)} %`;
+            }else {
+                return '';
+            }
+        },
+        getRomp(product){
+            if (product.productAvailabilityStores[0].quantity < 10 ) {
+                return '/static/img/boxes.png';
+            }else if (product.productAvailabilityStores[0].quantity >= 10 && product.productAvailabilityStores[0].quantity < 20) {
+                return '/static/img/boxes1.png';
+            }else if (product.productAvailabilityStores[0].quantity >= 20 && product.productAvailabilityStores[0].quantity < 30) {
+                return '/static/img/boxes2.png';
+            }else if (product.productAvailabilityStores[0].quantity >= 30 && product.productAvailabilityStores[0].quantity < 40) {
+                return '/static/img/boxes3.png';
+            }else if (product.productAvailabilityStores[0].quantity >= 40 && product.productAvailabilityStores[0].quantity < 50) {
+                return '/static/img/boxes4.png';
+            }else  {
+                return '/static/img/boxes5.png';
             }
         }
     }}));

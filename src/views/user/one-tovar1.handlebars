@@ -377,9 +377,10 @@
 							 data-minheight="300"
 							 data-maxheight="100%
 							 data-thumbBorderColor="#ff0000" data-background="#FFFFFF" data-thumbBorderWidth="1" data-vertical="true" data-fullscreenIcon="true" data-navPosition="left">
-							<a href="img/barilla-1a.jpg"><img src="/static/img/barilla-1a.jpg"></a>
-							<a href="img/barilla-2a.jpg"><img src="/static/img/barilla-2a.jpg"></a>
-							<a href="img/barilla-3a.jpg"><img src="/static/img/barilla-3a.jpg"></a>
+              <a href="{{product.picture}}"><img src="{{product.picture}}"></a>
+              {{#each product.pictureSet }}
+                <a href="{{this}}"><img src="{{this}}"></a>
+              {{/each}}
 
 						</div>
 
@@ -389,24 +390,15 @@
 					<div class="col-md-6 ot-padd ">
 
 
-						<p class="ot-text-skidka">Скидка 15%</p>
-							<p class="ot-text-zagol">Макароны <br>STELLINE Barilla 500Г<br></p>
-							<p class="ot-text-cena">	Цена со скидкой: 75р<br></p>
-							<p class="ot-text-old-cena">	Цена: 85р<br></p>
-							<p class="ot-text-opisanie">	По одной из версий, некий римский кардинал, увидев их впервые на своем столе, воскликнул: "О, макарони!" ("О, как мило!"). Маккерони - классика итальянской гастрономии, самый известный формат пасты. История макаронных изделий братьев Барилла из Италии началась в 1877 году, в городе Парма. Тогда в своем магазине хлебобулочных изделий Пьер Барилла решил реализовывать пасту собственного производства. Качество и состав продукта быстро вывели макароны барилла в лидеры продаж. Барилла – первые макароны, которые появились на прилавках в фасованном виде.<br></p>
-
-							<p class="item__in-shop">
-								Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-							</p>
-							<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-
-
-
-
-
-
-
-
+            <p class="ot-text-skidka">{{getDiscountProduct product}}</p>
+            <p class="ot-text-zagol">{{product.name}}<br></p>
+            <p class="ot-text-cena">{{getPriceProductPrice product false 'Цена со скидкой: ' true 'Цена: '}}<br></p>
+            <p class="ot-text-old-cena">{{getPriceProductPrice product true 'Цена: ' true}}<br></p>
+            <p class="ot-text-opisanie">{{product.description}}<br></p>
+            <p class="item__in-shop">
+              Наличие <a href="/store/{{store.id}}" class="in-shop__link">в магазине {{store.name}}</a>
+            </p>
+            <img class="item__werehouse" src="{{getRomp product}}" alt="werehouse"/>
 					</div>
 
 				</div>
@@ -416,7 +408,7 @@
 					<div class="col-md-12  border-0 add-to-list">
 
 						<div class="row">
-							<div class="product-tabs">
+							<div class="product-tabs w-100">
 										<p  class="product-tabs1 product-tabs-zagolov">Характеристики
 											<span style="color:grey;font-size: 22px; font-weight: 300;">|</span></p>
 
@@ -428,11 +420,7 @@
 										<div class="col-md-12 border-0 feature feature-text-ingredients1">
 
 												<p class="product-tabs-text-zagol">Состав</p>
-												<p class="product-tabs-text-bazov">Мука из твердых сортов пшеницы, вода.</p>
-												<p class="product-tabs-text-zagol">Энергетическая и пищевая ценность</p>
-												<p class="product-tabs-text-bazov">Пищевая и Энергетическая ценность на 100г продукта: белки 12. 5г, жир 1. 5г, углеводы 71. 7г, 356ккал.</p>
-											<p class="product-tabs-text-bazov">В середине 20 века макаронные изделия Барилла стали известны во всем мире. Сегодня выпускается более 10 видов макарон итальянского бренда. На основе спагетти, гнезд феттучини, трубочек каннеллони и лапши существует много рецептов. Популярность итальянской кухни растет, и сегодня большинство ресторанов имеют в меню блюда из пасты.</p>
-
+												<p class="product-tabs-text-bazov">{{product.composition}}</p>
 										</div>
 									</div>
 
@@ -441,7 +429,7 @@
 										<div class="col-md-12 border-0 feature feature-text-ingredients2">
 
 											<p class="product-tabs-text-zagol">Инструкция по использованию</p>
-											<p class="product-tabs-text-bazov">Шефы Академии Barilla рекомендуют варить спагетти 8 минут и заправлять любым соусом на ваш вкус: Путанеска, Болоньезе, Капрезе, сливочный или Песто. Чтобы сварить идеальные макароны al dente, нужно использовать формулу 100х1х7 (где 100г сухих изделий варится в 1 литре воды с 7 граммами соли). Не нужно добавлять при варке масло и не следует промывать макароны .</p>
+											<p class="product-tabs-text-bazov">{{product.description}}.</p>
 
 										</div>
 									</div>
@@ -450,20 +438,10 @@
 										<div class="col-md-12 border-0 feature feature-text-ingredients3">
 
 											<p class="product-tabs-text-zagol">Производитель</p>
-											<p class="product-tabs-text-bazov">Harrys, Barilla, Италия</p>
-											<p class="product-tabs-text-bazov">Итальянская компания по производству продуктов питания, пасты, производитель кондитерских изделий. Производственные мощности включают площадки во многих странах мира.</p>
-
+											<p class="product-tabs-text-bazov">{{product.brand}}</p>
 										</div>
 									</div>
 
-									<div class="col-md-6 box-item product-tabs3">
-										<div class="col-md-12 border-0 feature feature-text-ingredients4">
-
-											<p class="product-tabs-text-zagol">Хранение</p>
-											<p class="product-tabs-text-bazov">При температуре до +30`C, с относительной влажностью воздуха не более 75%, в сухом прохладном месте</p>
-
-										</div>
-									</div>
 
 
 

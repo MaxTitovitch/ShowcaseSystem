@@ -146,12 +146,26 @@ router.post('/shop/:index', async (req, res) => {
   }
 });
 
-router.get('/product/:index', (req, res) => {
-  res.render("user/one-tovar", {layout: null});
+router.get('/product/:index', async (req, res) => {
+  let product = await getRepository(Product).createQueryBuilder("PRODUCT")
+      .leftJoinAndSelect("PRODUCT.productAvailabilityStores", "PRODUCT_AVAILABILITY_STORE")
+      .leftJoinAndSelect("PRODUCT.productPriceStores", "PRODUCT_PRICE_STORE")
+  //     // TODO Раскомент
+  //     //  .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + store.id)
+      .where(`"PRODUCT"."ARTICLE" = '${req.params.index}'`).getOne();
+  product.pictureSet = JSON.parse(product.pictureSet);
+  res.render("user/one-tovar", {layout: null, product});
 });
 
-router.get('/product-show/:index', (req, res) => {
-  res.render("user/one-tovar1", {layout: null});
+router.get('/product-show/:index', async (req, res) => {
+  let product = await getRepository(Product).createQueryBuilder("PRODUCT")
+      .leftJoinAndSelect("PRODUCT.productAvailabilityStores", "PRODUCT_AVAILABILITY_STORE")
+      .leftJoinAndSelect("PRODUCT.productPriceStores", "PRODUCT_PRICE_STORE")
+      //     // TODO Раскомент
+      //     //  .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + store.id)
+      .where(`"PRODUCT"."ARTICLE" = '${req.params.index}'`).getOne();
+  product.pictureSet = JSON.parse(product.pictureSet);
+  res.render("user/one-tovar1", {layout: null, product});
 });
 
 router.get('/list', (req, res) => {
