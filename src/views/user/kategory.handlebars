@@ -199,11 +199,11 @@
                 <!-- dropdown-list-lvl2 -->
                 {{#each categories}}
                   {{#is this.id this.parentId}}
-                    <a class="dropdown-item submenu " href="/categories/{{this.id}}">{{this.name}}</a>
+                    <a class="dropdown-item submenu " href="/categories-show/{{this.id}}">{{this.name}}</a>
                     <div class="dropdown-menu" >
                       {{#each ../categories}}
                         {{#is this.parentId ../this.id}}
-                          <a class="dropdown-item" href="/categories/{{this.id}}">{{this.name}}</a>
+                          <a class="dropdown-item" href="/categories-show/{{this.id}}">{{this.name}}</a>
                         {{/is}}
                       {{/each}}
                     </div>
@@ -387,103 +387,17 @@
 
 				<div class="row">
 
-
           {{#each mainCategories}}
-						<div class="categor-pic">
-							<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
-								Подкатегория 2<br>
-								Подкатегория 3<br>
-								Подкатегория 4<br>
-								Подкатегория 5<br>
-							</div></a>
-							<a href="tovary.html"><img class="categor-img" src="/static/img/categor1.jpg"/></a>
+					<div class="categor-pic col-md-3 col-sm-6">
+            <div data-href="/categories-show/{{this.id}}" class="categor-teni" style="height: 190px">
+              {{#each this.categories}}
+                <a class="text-light" href="/categories-show/{{this.id}}">{{this.name}}</a><br>
+              {{/each}}
 						</div>
+						<a class="go-location" href="/categories-show/{{this.id}}" style="display: block; height: 190px"><img class="categor-img" style="height: 190px;" src="{{this.productDummyPicture}}"/></a>
+					</div>
           {{/each}}
 
-
-
-						<div class="categor-pic">
-							<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
-								Подкатегория 2<br>
-								Подкатегория 3<br>
-								Подкатегория 4<br>
-								Подкатегория 5<br>
-							</div></a>
-							<a href="tovary.html"><img  class="categor-img" src="/static/img/categor2.jpg"/></a>
-						</div>
-
-
-
-						<div class="categor-pic">
-							<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
-								Подкатегория 2<br>
-								Подкатегория 3<br>
-								Подкатегория 4<br>
-								Подкатегория 5<br>
-							</div></a>
-							<a href="tovary.html"><img  class="categor-img" src="/static/img/categor3.jpg"/></a>
-						</div>
-
-
-
-						<div class="categor-pic">
-							<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
-								Подкатегория 2<br>
-								Подкатегория 3<br>
-								Подкатегория 4<br>
-								Подкатегория 5<br>
-							</div></a>
-							<a href="tovary.html"><img  class="categor-img" src="/static/img/categor4.jpg"/></a>
-						</div>
-				</div>
-
-				<div class="row">
-
-					<div class="categor-pic">
-						<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
-							Подкатегория 2<br>
-							Подкатегория 3<br>
-							Подкатегория 4<br>
-							Подкатегория 5<br>
-						</div></a>
-						<a href="tovary.html"><img class="categor-img" src="/static/img/categor5.jpg"/></a>
-					</div>
-
-
-
-					<div class="categor-pic">
-						<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
-							Подкатегория 2<br>
-							Подкатегория 3<br>
-							Подкатегория 4<br>
-							Подкатегория 5<br>
-						</div></a>
-						<a href="tovary.html"><img  class="categor-img" src="/static/img/categor6.jpg"/></a>
-					</div>
-
-
-
-					<div class="categor-pic">
-						<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
-							Подкатегория 2<br>
-							Подкатегория 3<br>
-							Подкатегория 4<br>
-							Подкатегория 5<br>
-						</div></a>
-						<a href="tovary.html"><img  class="categor-img" src="/static/img/categor7.jpg"/></a>
-					</div>
-
-
-
-					<div class="categor-pic">
-						<a href="tovary.html"><div class="categor-teni">Подкатегория 1<br>
-							Подкатегория 2<br>
-							Подкатегория 3<br>
-							Подкатегория 4<br>
-							Подкатегория 5<br>
-						</div></a>
-						<a href="tovary.html"><img  class="categor-img" src="/static/img/categor8.jpg"/></a>
-					</div>
 				</div>
 
 
@@ -601,6 +515,13 @@
 			<script type="text/javascript" src="/static/slick/slick.min.js"></script>
 
 			<script>
+                $('[data-href]').toArray().forEach(function (el) {
+                  $(el).click(function (event) {
+                    // console.log(location.origin + $(this).data('href'))
+                    // document.location.replace(location.origin + $(this).data('href'));
+                    location.href = location.origin + $(this).data('href')
+                  })
+                })
                 $(document).ready(function(){
                     $('.product-slider').slick({
                         infinite: true,

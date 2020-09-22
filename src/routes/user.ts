@@ -17,7 +17,8 @@ let getActions = async function(store) {
       .orderBy('id').getMany(), rand;
   rand = Math.floor(Math.random() * promotions.length);
   let promotionFirst = promotions[rand];
-  promotions.slice(rand, 1);
+
+  promotions = [...promotions.slice(0, rand), ...promotions.slice(rand + 1)];
   rand = Math.floor(Math.random() * promotions.length);
   let promotionSecond = promotions[rand];
 
@@ -47,8 +48,8 @@ router.use(async (req, res, next) => {
     res.cookie('store', store);
     res.cookie('region', region);
   }
-  let categories = await getRepository(Category).createQueryBuilder("category").orderBy('sort').getMany();
-  let categoriesMenu = await getRepository(Category).createQueryBuilder("category").where('id = parent_id').orderBy('sort').getMany();
+  let categories = await getRepository(Category).createQueryBuilder("category").where('hidden = 0').orderBy('sort', 'DESC').getMany();
+  let categoriesMenu = await getRepository(Category).createQueryBuilder("category").where('id = parent_id').andWhere('hidden = 0').limit(5).orderBy('sort', 'DESC').getMany();
 console.log(store, region)
   let products = await getActions(store);
   res.locals.store = store;
@@ -91,12 +92,16 @@ router.get('/shares/:index', (req, res) => {
   res.render("user/akcii-one", {layout: null});
 });
 
-router.get('/categories', (req, res) => {
-  res.render("user/kategory", {layout: null});
+router.get('/categories-show/:index', (req, res) => {
+  res.render("user/tovary", {layout: null});
 });
 
-router.get('/categories/:index', (req, res) => {
-  res.render("user/tovary", {layout: null});
+router.get('/categories/:index', async (req, res) => {
+  let mainCategories = await getRepository(Category).createQueryBuilder("CATEGORY")
+      .leftJoinAndSelect("CATEGORY.categories", "CATEGORY_SON")
+      .andWhere(`CATEGORY.PARENT_ID = '${req.params.index}'`)
+      .orderBy('CATEGORY.sort').getMany();
+  res.render("user/kategory", {layout: null, mainCategories});
 });
 
 router.get('/map', async (req, res) => {

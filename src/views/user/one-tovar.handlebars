@@ -201,11 +201,11 @@
           <!-- dropdown-list-lvl2 -->
           {{#each categories}}
             {{#is this.id this.parentId}}
-              <a class="dropdown-item submenu " href="/categories/{{this.id}}">{{this.name}}</a>
+              <a class="dropdown-item submenu " href="/categories-show/{{this.id}}">{{this.name}}</a>
               <div class="dropdown-menu">
                 {{#each ../categories}}
                   {{#is this.parentId ../this.id}}
-                    <a class="dropdown-item" href="/categories/{{this.id}}">{{this.name}}</a>
+                    <a class="dropdown-item" href="/categories-show/{{this.id}}">{{this.name}}</a>
                   {{/is}}
                 {{/each}}
               </div>
