@@ -50,16 +50,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
           <span aria-hidden="true">×</span>
         </button>
-
-
       </div>
-      <div class="modal-body modal-my-text">
-        <span class="modal-my-gorod">Магазин 1.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-mnogo">много</span><br>
-        <span class="modal-my-gorod">Магазин 2.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-malo">мало</span><br>
-        <span class="modal-my-gorod">Магазин 3.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-dostat">достаточно</span><br>
-        <span class="modal-my-gorod">Магазин 4.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-mnogo">много</span><br>
-        <span class="modal-my-gorod">Магазин 5.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-malo">мало</span><br>
-      </div>
+        <div class="products-store modal-body modal-my-text ">
+
+<!--              <span class="modal-my-gorod">{-{this.store.name}}</span> {-{this.store.address}}<span class="modal-my-kolichestvo-mnogo">{-{getTextQuantity this.availability}}</span><br>-->
+
+          <span class="modal-my-gorod">Магазин 2.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-malo">мало</span><br>
+          <span class="modal-my-gorod">Магазин 3.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-dostat">достаточно</span><br>
+          <span class="modal-my-gorod">Магазин 4.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-mnogo">много</span><br>
+          <span class="modal-my-gorod">Магазин 5.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-malo">мало</span><br>
+        </div>
     </div>
   </div>
   <p id="myP"></p>
@@ -68,13 +68,39 @@
 <script>
   $(function () {
     var text = ''
-    $('#myModalEditBtn').click(function (e) {
-      // отменяем стандартное поведение браузера при нажатии на ссылку
-      e.preventDefault()
-      // передаем в контент элемента с id="myP" содержимое переменной text
-      $('#myP').text(text)
-      // открываем модальное окно
-      $('#myModalEdit').modal('show')
+    $('.myModalEditBtn').toArray().forEach(function (click) {
+      $(click).click(function (e) {
+        // отменяем стандартное поведение браузера при нажатии на ссылку
+        e.preventDefault()
+        // передаем в контент элемента с id="myP" содержимое переменной text
+        $('#myP').text(text);
+
+        let id = $(this).data('title');
+        let path = '/availability/' + id;
+        console.log(path)
+        $.ajax({
+          type: 'POST',
+          url: path,
+          data: '',
+          success: function (r) {
+            $('.products-store').eq(0).empty();
+            let productStore = $('.products-store');
+            for (let i = 0; i < r.length; i++) {
+              let availability = r[i].availability;
+              switch (availability) {
+                case 0: availability = {classNode: 'modal-my-kolichestvo-malo', val: 'Нету' }; break;
+                case 1: availability = {classNode: 'modal-my-kolichestvo-malo', val: 'Мало' }; break;
+                default:case 2: availability = {classNode: 'modal-my-kolichestvo-dostat', val: 'Достаточно' }; break;
+                case 3: availability = {classNode: 'modal-my-kolichestvo-mnogo', val: 'Много' }; break;
+              }
+              productStore.append(`<a href="/shop/${r[i].store.id}" class="modal-my-gorod">${r[i].store.name}</a> ${r[i].store.address}<span class="${availability.classNode}">${availability.val}</span><br>`)
+            }
+            $('#myModalEdit').modal('show');
+            console.log(r)
+          }
+        });
+        // открываем модальное окно
+      })
     })
   })
 </script>
@@ -544,8 +570,8 @@
               {{/hasAction}}
               <input class="like-bar__box" type="checkbox" id="s1" name="cc"/>
               <label class="like-bar__text" for="s1"></label><br/>
-              <a href="one-tovar.html"><img style="height: 200px" src="{{this.thumbnail}}" alt="{{this.name}}" class="img-fluid w-100"/></a>
-              <a href="one-tovar.html" class="item__description">
+              <a href="/products/{{this.article}}"><img style="height: 200px" src="{{this.thumbnail}}" alt="{{this.name}}" class="img-fluid w-100"/></a>
+              <a href="/products/{{this.article}}" class="item__description">
                 {{this.name}}
               </a>
               <p class="item__price">{{getPriceProductPrice this false '' true '' '₽'}}<span class="item__old-price">{{getPriceProductPrice this true '' true '₽' '₽'}}</span>
@@ -562,470 +588,10 @@
                   </div>
                 </div>
               </div>
-              <p class="item__in-shop">Наличие в магазине <a data-title="{{this.article}}" id="myModalEditBtn" href="#" class="in-shop__link">{{../store.name}}</a></p>
+              <p class="item__in-shop">Наличие в магазине <a data-title="{{this.article}}" href="#" class="myModalEditBtn in-shop__link">{{../store.name}}</a></p>
               <img class="item__werehouse" src="{{getRomp this}}" alt="werehouse"/>
             </div>
           {{/each}}
-
-
-<!--          <div class="shop__item">-->
-
-
-<!--            <input class="like-bar__box" type="checkbox" id="s2" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s2"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-2.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Макароны Baronia Пене Ригате, 500 г-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              95<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									105<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="2"-->
-<!--                          data-title="Макароны Baronia Пене Ригате, 500 г"-->
-<!--                          data-price="105"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
-<!--          <div class="shop__item">-->
-
-
-<!--            <input class="like-bar__box" type="checkbox" id="s3" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s3"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-3.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Макароны Pietro Coricelli Фузилли, 500 г-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              125<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									145<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="3"-->
-<!--                          data-title="Макароны Pietro Coricelli Фузилли, 500 г"-->
-<!--                          data-price="145"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
-<!--          <div class="shop__item">-->
-
-<!--            <div class="lenta-akcii">-24%</div>-->
-
-
-<!--            <input class="like-bar__box" type="checkbox" id="s4" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s4"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-4.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Макароны Borges <br/>Spaghetti, 500 г-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              75<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									85<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="4"-->
-<!--                          data-title="Макароны Borges Spaghetti, 500 г"-->
-<!--                          data-price="85"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
-<!--          <div class="shop__item">-->
-
-<!--            <input class="like-bar__box" type="checkbox" id="s5" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s5"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-5.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Adriana Pasta цельно-зерновые фузилли, 500 г-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              175<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									185<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="5"-->
-<!--                          data-title="Adriana Pasta цельно-зерновые фузилли, 500 г'"-->
-<!--                          data-price="185"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
-<!--          <div class="shop__item">-->
-<!--            <div class="lenta-akcii">-10%</div>-->
-
-
-<!--            <input class="like-bar__box" type="checkbox" id="s6" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s6"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-6.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Макрона буравчик, <br/>450 г-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              35<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									45<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="6"-->
-<!--                          data-title="Макрона буравчик, 450 г"-->
-<!--                          data-price="45"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
-<!--          <div class="shop__item">-->
-
-<!--            <div class="lenta-akcii">-30%</div>-->
-
-
-<!--            <input class="like-bar__box" type="checkbox" id="s7" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s7"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-7.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Adriana Pasta цельно-зерновые спагетти, 500 г-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              115<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									135<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="7"-->
-<!--                          data-title="Adriana Pasta цельно-зерновые спагетти, 500 г"-->
-<!--                          data-price="135"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
-<!--          <div class="shop__item">-->
-
-
-<!--            <input class="like-bar__box" type="checkbox" id="s8" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s8"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-8.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Glocken Makaroni <br/>макароны, 500 г-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              75<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									85<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="8"-->
-<!--                          data-title="Glocken Makaroni макароны, 500 г"-->
-<!--                          data-price="85"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
-
-<!--          <div class="shop__item">-->
-<!--            <div class="lenta-akcii">-18%</div>-->
-
-
-<!--            <input class="like-bar__box" type="checkbox" id="s5" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s5"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-9.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Dalla Costa Minchiette Фигурные без яиц-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              155<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									185<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="9"-->
-<!--                          data-title="Dalla Costa Minchiette Фигурные без яиц"-->
-<!--                          data-price="185"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
-<!--          <div class="shop__item">-->
-
-
-<!--            <input class="like-bar__box" type="checkbox" id="s6" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s6"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-10.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Флёр Альпин <br/>Органик паста звездочки-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              95<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									105<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="10"-->
-<!--                          data-title="Флёр Альпин Органик паста звездочки"-->
-<!--                          data-price="105"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
-<!--          <div class="shop__item">-->
-<!--            <div class="lenta-akcii">-70%</div>-->
-
-
-<!--            <input class="like-bar__box" type="checkbox" id="s7" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s7"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-11.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Adriana Pasta цельно-зерновые спагетти, 500 г-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              165<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									185<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="11"-->
-<!--                          data-title="Adriana Pasta цельно-зерновые спагетти, 500 г"-->
-<!--                          data-price="185"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
-<!--          <div class="shop__item">-->
-
-
-<!--            <input class="like-bar__box" type="checkbox" id="s8" name="cc"/>-->
-<!--            <label class="like-bar__text" for="s8"></label><br/>-->
-
-<!--            <a href="one-tovar.html"><img src="/static/img/item-fhoto-12.jpg" alt="makfa" class="img-fluid"/></a>-->
-<!--            <a href="one-tovar.html" class="item__description">-->
-<!--              Макароны Baronia <br/>Пеннони Гиганти, 500 г-->
-<!--            </a>-->
-<!--            <p class="item__price">-->
-<!--              75<span class="b-rub">Р</span>-->
-<!--              <span class="item__old-price">-->
-<!--									85<span class="b-rub">Р</span>-->
-<!--								</span>-->
-<!--            </p>-->
-
-<!--            <div>-->
-<!--              <div class="item">-->
-<!--                <div class="quantity" style="display: none">-->
-<!--                  <button class="decrement btn btn-primary">-</button>-->
-<!--                  <button class="count btn btn-default">1</button>-->
-<!--                  <button class="increment btn btn-primary">+</button>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <button class="add_item btn btn-outline-primary"-->
-<!--                          data-id="12"-->
-<!--                          data-title="Макароны Baronia Пеннони Гиганти, 500 г"-->
-<!--                          data-price="85"-->
-<!--                  >Положить в список покупок-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <p class="item__in-shop">-->
-<!--              Наличие <a href="#" class="in-shop__link">в магазине1</a>-->
-<!--            </p>-->
-<!--            <img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>-->
-<!--          </div>-->
-
 
           <div class="justify-content-center aside__path_niz col-sm-12" style="display: flex">
 

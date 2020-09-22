@@ -97,13 +97,11 @@ body {
 }
 
 .modal-my-kolichestvo-mnogo {
-    margin-left: 40px;
     color: #127f00;
     font-weight: 600;
 }
 
 .modal-my-kolichestvo-malo {
-    margin-left: 40px;
     color: red;
     font-weight: 600;
 }
@@ -115,9 +113,13 @@ body {
 }
 
 .modal-my-kolichestvo-dostat {
-    margin-left: 40px;
-    color: black
+    color: black;
     font-weight: 600;
+}
+
+.modal-my-kolichestvo-dostat, .modal-my-kolichestvo-malo, .modal-my-kolichestvo-mnogo {
+    float: right;
+    margin-right: 40px;
 }
 
 /* Modal end */

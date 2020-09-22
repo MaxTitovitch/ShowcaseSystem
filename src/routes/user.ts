@@ -6,6 +6,7 @@ import {Category} from "../entity/Category";
 import {ProductPriceStore} from "../entity/ProductPriceStore";
 import {Product} from "../entity/Product";
 import {Promotion} from "../entity/Promotion";
+import {ProductAvailabilityStore} from "../entity/ProductAvailabilityStore";
 
 const express = require('express');
 const router = express.Router();
@@ -138,6 +139,15 @@ router.get('/shop-check/:index', async (req, res) => {
   res.cookie('region', region);
 
   res.send({store: store.name, region: region.name});
+});
+
+router.post('/availability/:index', async (req, res) => {
+  let productAvailabilityStores = await getRepository(ProductAvailabilityStore).createQueryBuilder("PRODUCT_AVAILABILITY_STORE")
+      .leftJoinAndSelect("PRODUCT_AVAILABILITY_STORE.store", "STORE")
+      .where(`"PRODUCT_AVAILABILITY_STORE"."PRODUCT_ID" = '${req.params.index}'`)
+      .orderBy('PRODUCT_AVAILABILITY_STORE.STORE_ID').getMany();
+  console.log(productAvailabilityStores)
+  res.send(productAvailabilityStores);
 });
 
 router.get('/shop/:index/:success?', async (req, res) => {

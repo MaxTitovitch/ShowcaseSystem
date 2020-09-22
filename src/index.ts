@@ -4,6 +4,8 @@ import * as express from "express";
 // import * as bodyParser from "body-parser";
 import {Admin} from "./entity/Admin";
 import {User} from "./controller/User";
+import {Product} from "./entity/Product";
+import {ProductAvailabilityStore} from "./entity/ProductAvailabilityStore";
 
 const morgan = require('morgan');
 const path = require('path');
@@ -92,6 +94,17 @@ createConnection().then(async connection => {
             if(product.productPriceStores[0].discountPrice) {
                 return options.fn((product.productPriceStores[0].price / (product.productPriceStores[0].price - product.productPriceStores[0].discountPrice)).toFixed(0));
             }else {
+                return options.inverse(false);
+            }
+        },
+        async getProductStoreInfo(product, options) {
+            try {
+                let productAvailabilityStores = await getRepository(ProductAvailabilityStore).createQueryBuilder("PRODUCT_AVAILABILITY_STORE")
+                    .leftJoinAndSelect("PRODUCT_AVAILABILITY_STORE.store", "STORE")
+                    .where(`"PRODUCT_AVAILABILITY_STORE"."PRODUCT_ID" = '${product.article}'`)
+                    .orderBy('PRODUCT_AVAILABILITY_STORE.STORE_ID').getMany();
+                return options.fn(productAvailabilityStores);
+            } catch (e) {
                 return options.inverse(false);
             }
         },
