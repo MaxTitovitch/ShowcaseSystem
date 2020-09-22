@@ -1310,6 +1310,11 @@ border: 1px solid #787878;
 }
 
 .shop__item {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
   width: 200px;
   position: relative;
 

@@ -40,16 +40,16 @@ createConnection().then(async connection => {
                 return product.productPriceStores[0].discountPrice ? product.productPriceStores[0].discountPrice + "руб." : null;
             }
         },
-        getPriceProductPrice (product, isOld = true, prep = '', isReturnOld, prep2 = '') {
+        getPriceProductPrice (product, isOld = true, prep = '', isReturnOld, prep2 = '', end = 'руб.') {
             if(isOld) {
                 if(product.productPriceStores[0].discountPrice) {
-                    return prep + product.productPriceStores[0].price + "руб.";
+                    return prep + product.productPriceStores[0].price + end;
                 }
             } else {
                 if(!product.productPriceStores[0].discountPrice && isReturnOld) {
-                    return prep2  + product.productPriceStores[0].price + "руб.";
+                    return prep2  + product.productPriceStores[0].price + end;
                 }
-                return product.productPriceStores[0].discountPrice ? (prep || '') + product.productPriceStores[0].discountPrice + "руб." : null;
+                return product.productPriceStores[0].discountPrice ? (prep || '') + product.productPriceStores[0].discountPrice + end : null;
             }
         },
         getDiscountProduct (product) {
@@ -73,7 +73,28 @@ createConnection().then(async connection => {
             }else  {
                 return '/static/img/boxes5.png';
             }
-        }
+        },
+        getProductCategory (product, param, isParent = false) {
+            if(isParent) {
+                return product.productToCategoryBindings[0].category.parent[param];
+            } else {
+                return product.productToCategoryBindings[0].category[param];
+            }
+        },
+        isProductCategory(category, options) {
+            if(category.parentId !== category.id) {
+                return options.fn(category.parent);
+            } else {
+                return options.inverse(false);
+            }
+        },
+        hasAction(product, options) {
+            if(product.productPriceStores[0].discountPrice) {
+                return options.fn((product.productPriceStores[0].price / (product.productPriceStores[0].price - product.productPriceStores[0].discountPrice)).toFixed(0));
+            }else {
+                return options.inverse(false);
+            }
+        },
     }}));
     app.set('view engine', 'handlebars');
 

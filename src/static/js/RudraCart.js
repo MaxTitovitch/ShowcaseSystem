@@ -41,7 +41,7 @@ var cartModule = (function () { // namespace
 
         addToCart : function () { // Добавляем товар в корзину
             let item = {
-                id       : parseInt(this.getAttribute('data-id')),
+                id       : this.getAttribute('data-id'),
                 title    : this.getAttribute('data-title'),
                 price    : parseInt(this.getAttribute('data-price')),
                 quantity : parseInt(this.parentNode.parentNode.querySelector('.count').innerHTML),

@@ -64,7 +64,7 @@
           <label for="selectProduct">Товар:</label>
           <select id="selectProduct" class="custom-select" name="product_id" disabled>
             {{#each ../products}}
-              <option value="{{this.article}}" {{#is this.id ../this.productId}}selected{{/is}}>{{this.name}}</option>
+              <option value="{{this.article}}" {{#is this.article ../this.productId}}selected{{/is}}>{{this.name}}</option>
             {{/each}}
           </select>
         </div>

@@ -50,7 +50,6 @@ router.use(async (req, res, next) => {
   }
   let categories = await getRepository(Category).createQueryBuilder("category").where('hidden = 0').orderBy('sort', 'DESC').getMany();
   let categoriesMenu = await getRepository(Category).createQueryBuilder("category").where('id = parent_id').andWhere('hidden = 0').limit(5).orderBy('sort', 'DESC').getMany();
-console.log(store, region)
   let products = await getActions(store);
   res.locals.store = store;
   res.locals.region = region;
@@ -93,8 +92,27 @@ router.get('/shares/:index', (req, res) => {
   res.render("user/akcii-one", {layout: null});
 });
 
-router.get('/categories-show/:index', (req, res) => {
-  res.render("user/tovary", {layout: null});
+router.get('/categories-show/:index', async (req, res) => {
+  let categoryCurrent = await getRepository(Category).createQueryBuilder("CATEGORY")
+      .leftJoinAndSelect("CATEGORY.parent", "CATEGORY_SHOW")
+      .leftJoinAndSelect("CATEGORY.categories", "CATEGORY_SHOW_LITLE")
+      .leftJoinAndSelect("CATEGORY_SHOW.categories", "CATEGORY_SHOW_PARENT_LITLE")
+      .where('"CATEGORY"."ID" = ' + req.params.index)
+      .andWhere('"CATEGORY_SHOW_PARENT_LITLE"."ID" != "CATEGORY_SHOW_PARENT_LITLE"."PARENT_ID"').getOne();
+
+  let products = await getRepository(Product).createQueryBuilder("product")
+      .leftJoinAndSelect("product.productAvailabilityStores", "PRODUCT_AVAILABILITY_STORE")
+      .leftJoinAndSelect("product.productPriceStores", "PRODUCT_PRICE_STORE")
+      .leftJoinAndSelect("product.productToCategoryBindings", "PRODUCT_TO_CATEGORY_BINDING")
+      .leftJoinAndSelect("PRODUCT_TO_CATEGORY_BINDING.category", "CATEGORY")
+      .leftJoinAndSelect("CATEGORY.parent", "CATEGORY_SHOW")
+      // TODO Раскомент
+      //  .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + store.id)
+      .where('"CATEGORY"."ID" = ' + req.params.index)
+      .orWhere('"CATEGORY"."PARENT_ID" = ' + req.params.index)
+      .orWhere('"CATEGORY_SHOW"."PARENT_ID" = ' + req.params.index)
+      .orderBy('product.article').getMany();
+  res.render("user/tovary", {layout: null, products, categoryCurrent});
 });
 
 router.get('/categories/:index', async (req, res) => {
@@ -135,7 +153,6 @@ router.get('/shop/:index/:success?', async (req, res) => {
       res.render("user/one-magaz", {layout: null, shop, successmessage: null});
     }
   } catch (e) {
-    console.log(e);
     res.redirect('/');
   }
 });
@@ -156,11 +173,8 @@ router.post('/shop/:index', async (req, res) => {
       subject: "Новое сообщение от пользователя МегаМаг",
       html: `<p><strong>От:</strong> ${req.body.name} (${req.body.email}, ${req.body.phone})</p><p><strong>Сообщение:</strong> ${req.body.message}</p>`
     });
-
-    console.log(e);
     res.redirect("/shop/" + req.params.index + '/success');
   } catch (e) {
-    console.log(e);
     res.redirect('/');
   }
 });
