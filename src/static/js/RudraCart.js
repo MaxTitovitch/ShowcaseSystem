@@ -133,7 +133,7 @@ var cartModule = (function () { // namespace
 
         quantity : function () { // Увеличение, уменьшение количества товара
             let item = {
-                id       : parseInt(this.parentNode.parentNode.querySelector('.id').innerHTML),
+                id       : this.parentNode.parentNode.querySelector('.id').innerHTML,
                 title    : this.parentNode.parentNode.querySelector('.title').innerHTML,
                 price    : this.parentNode.parentNode.querySelector('.price'),
                 count    : this.parentNode.parentNode.querySelector('.count'),
