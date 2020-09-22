@@ -84,8 +84,9 @@ router.get('/', async (req, res) => {
   res.render("user/index", {layout: null, big: actions[0], medium: actions[1], small: actions[2]});
 });
 
-router.get('/shares', (req, res) => {
-  res.render("user/akcii", {layout: null});
+router.get('/shares',async (req, res) => {
+  let shares = await getRepository(Promotion).createQueryBuilder("promotion").orderBy('id').getMany();
+  res.render("user/akcii", {layout: null, shares});
 });
 
 router.get('/shares/:index', (req, res) => {
@@ -107,7 +108,6 @@ router.get('/categories/:index', async (req, res) => {
 router.get('/map', async (req, res) => {
   let regions = await getRepository(Region).createQueryBuilder("REGION")
       .leftJoinAndSelect("REGION.stores", "STORE").orderBy('REGION.ID').getMany();
-  // let regions = await getRepository(Region).createQueryBuilder("REGION").orderBy('ID').getMany();
   res.render("user/map", {layout: null, regions});
 });
 
