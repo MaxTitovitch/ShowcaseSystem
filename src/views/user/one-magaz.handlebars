@@ -367,11 +367,25 @@
 
 					<div class="col-md-6 otstup-one">
 
+            {{#if successmessage}}
+              <div class="alert alert-success">{{successmessage}}</div>
+            {{/if}}
 
-						<h4>О магазине<br></p>
+						<h4>О магазине<br></h4>
 							<img src="/static/img/44_ob_av.jpg" width="100%"/>
-						<p class="ot-text-opisanie"><br>Мы работаем с 10.00 до 19.00 по Московскому времени с понедельника по пятницу. Прием и обработка заказов круглосуточно.
-							+7(495)532-74-45 (для жителей Москвы и МО), 8(800)775-74-45 (бесплатно для всех регионов РФ)<br></p>
+						  <p class="ot-text-opisanie"><br>
+                Мы работаем (по Московскому времени):<br>
+                Понедельник: {{arrayHours shop.openingHours 0 'from'}} до {{arrayHours shop.openingHours 0 'to'}}<br>
+                Вторник: {{arrayHours shop.openingHours 1 'from'}} до {{arrayHours shop.openingHours 1 'to'}}<br>
+                Среда: {{arrayHours shop.openingHours 2 'from'}} до {{arrayHours shop.openingHours 2 'to'}}<br>
+                Четверг: {{arrayHours shop.openingHours 3 'from'}} до {{arrayHours shop.openingHours 3 'to'}}<br>
+                Пятница: {{arrayHours shop.openingHours 4 'from'}} до {{arrayHours shop.openingHours 4 'to'}}<br>
+                Суббота: {{arrayHours shop.openingHours 5 'from'}} до {{arrayHours shop.openingHours 5 'to'}}<br>
+                Воскресенье: {{arrayHours shop.openingHours 6 'from'}} до {{arrayHours shop.openingHours 6 'to'}}<br>
+
+                Прием и обработка заказов круглосуточно.
+                {{shop.phone}} (для жителей региона "{{shop.region.name}}")
+                <br></p>
 
 							<hr>
 							<p class="text-zagol">Продукты, которые не утратят популярность</p>
@@ -387,7 +401,7 @@
 						<div class="col-md-10">
 
 
-						<form id="contactForm" action="handler.php" method="post">
+						<form id="contactForm" action="/shop/{{shop.id}}" method="post">
 							<div class="form-group">
 								<label for="name">Ваше имя:</label>
 								<input id="name" class="form-control" name="name" required type="text" placeholder="Иванов Иван Иванович">
@@ -402,13 +416,13 @@
 							</div>
 							<div class="form-group">
 								<label for="message">Текст сообщения:</label>
-								<textarea id="message" class="form-control" required name="message" rows="4" required type="text" placeholder="Напишите нам Ваши предложения"></textarea>
+								<textarea id="message" class="form-control" minlength="10" name="message" rows="4" required type="text" placeholder="Напишите нам Ваши предложения"></textarea>
 							</div>
 		<!--					<div class="form-group form-check">
 								<input id="check" class="form-check-input" checked type="checkbox">
 								<label class="form-check-label" for="check">Я добровольно отправляю свои данные</label> -->
 							<button id="button" class="btn btn btn-primary" type="submit">Отправить</button>
-							</div>
+<!--							</div>-->
 
 							<div class="result">
 								<span id="answer"></span>
@@ -433,9 +447,9 @@
                     // Список городов и магазинов в них
                     var shopList = [
                         {
-                            'cityName': 'Москва',
+                            'cityName': '{{shop.region.name}}',
                             'shops': [
-                                {'coordinates': [55.72532368326033, 37.748675112058876], 'name': '<span class="mag-name">Магазин 1.</span> <br>Рязанский проспект, 6Ас21<br>Часы работы: 8.00-21.00<br><span class="mag-opisanie"><a href="one-magaz.html">О магазине</a></span><hr>'},
+                                {'coordinates': [{{shop.latitude}}, {{shop.longitude}}], 'name': '<span class="mag-name">{{shop.name}}</span> <br>{{shop.address}}<br>Часы работы: {{arrayHours shop.openingHours 0 'from'}}-{{arrayHours shop.openingHours 0 'to'}}<br><span class=""><a href="/shop/{{shop.id}}">О магазине</a></span><hr>'},
                             ]
                         },
                     ];
@@ -446,8 +460,8 @@
 
                         // Создаем карту
                         myMap = new ymaps.Map("map", {
-                            center: [56, 37],
-                            zoom: 8,
+                            center: [{{shop.latitude}}, {{shop.longitude}}],
+                            zoom: 12,
                             controls: [
                                 'zoomControl'
                             ],
@@ -526,7 +540,7 @@
 				<div class="col-md-6 otstup-one">
 
 
-					<img src="/static/img/2850317.jpg" width="100%"/></div>
+					<img src="{{shop.picture}}" width="100%"/></div>
 
 			</div>
 			</div>

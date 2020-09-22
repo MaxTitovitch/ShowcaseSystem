@@ -10,6 +10,8 @@ import {Promotion} from "../entity/Promotion";
 const express = require('express');
 const router = express.Router();
 
+const nodemailer = require('nodemailer');
+
 let getActions = async function(store) {
   let promotions = await getRepository(Promotion).createQueryBuilder("promotion")
       .orderBy('id').getMany(), rand;
@@ -78,7 +80,6 @@ let getActionsMain = async function() {
 
 router.get('/', async (req, res) => {
   let actions = await getActionsMain();
-  console.log(actions);
   res.render("user/index", {layout: null, big: actions[0], medium: actions[1], small: actions[2]});
 });
 
@@ -102,8 +103,47 @@ router.get('/map', (req, res) => {
   res.render("user/map", {layout: null});
 });
 
-router.get('/shop/:index', (req, res) => {
-  res.render("user/one-magaz", {layout: null});
+router.get('/shop/:index/:success?', async (req, res) => {
+  try {
+    let shop = await getRepository(Store).createQueryBuilder("STORE")
+        .leftJoinAndSelect("STORE.region", "REGION")
+        .where(`"STORE"."ID" = ${req.params.index}`).getOne();
+    shop.openingHours = JSON.parse(shop.openingHours);
+    if(req.params.success) {
+      res.locals.successmessage;
+      res.render("user/one-magaz", {layout: null, shop, successmessage: 'Сообщение успешно отправлено'});
+    } else {
+      res.render("user/one-magaz", {layout: null, shop, successmessage: null});
+    }
+  } catch (e) {
+    console.log(e);
+    res.redirect('/');
+  }
+});
+
+router.post('/shop/:index', async (req, res) => {
+  try {
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'sportcompanyminsk@gmail.com',
+        pass: 'awesomekpss2020'
+      }
+    });
+
+    let e = await transporter.sendMail({
+      from: '"МегаМаг" <sportcompanyminsk@gmail.com>',
+      to: "maxtitovitch@mail.ru",
+      subject: "Новое сообщение от пользователя МегаМаг",
+      html: `<p><strong>От:</strong> ${req.body.name} (${req.body.email}, ${req.body.phone})</p><p><strong>Сообщение:</strong> ${req.body.message}</p>`
+    });
+
+    console.log(e);
+    res.redirect("/shop/" + req.params.index + '/success');
+  } catch (e) {
+    console.log(e);
+    res.redirect('/');
+  }
 });
 
 router.get('/product/:index', (req, res) => {
