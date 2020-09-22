@@ -32,6 +32,13 @@ createConnection().then(async connection => {
         consoleLog(value) {
             console.log(value);
             return value;
+        },
+        getPriceProduct (product, isOld = true) {
+            if(isOld) {
+                return product.productPriceStores[0].price + "руб.";
+            } else {
+                return product.productPriceStores[0].discountPrice ? product.productPriceStores[0].discountPrice + "руб." : null;
+            }
         }
     }}));
     app.set('view engine', 'handlebars');

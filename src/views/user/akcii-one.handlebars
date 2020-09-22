@@ -2,7 +2,7 @@
 <html lang="ru">
 	<head>
 		<meta charset="utf-8">
-		<title>Project</title>
+		<title>МегаМаг - шопинг для жизни и души</title>
 		<meta name="discription" content="">
 		<meta name="keywords" content="">
 		<meta name="viewport" content="width=device-width initial-scale=1.0">
@@ -86,187 +86,161 @@
 
 
 
+      <!-- HTML-код модального окна-->
+      <div id="myModalEdit2" class="modal fade">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <p class="modal-my modal-my-zagol" id="myModalLabel">В Вашем городе нет наших магазинов!</p>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                <span aria-hidden="true">×</span>
+              </button>
 
 
+            </div>
+            <div class="modal-body modal-my-text">
+              Будьте добры перейдите на страницу выбора города, где есть наши магазины.
+              Это необходимо для того, чтобы показать Вам актуальные товары и цены.
+              <span class="modal-my-gorod">Большое спасибо за сотрудничество.</span>
+            </div>
+            <a href="/map" class="btn btn btn-primary" role="button">Перейти к выбору города</a>
 
 
+          </div>
+        </div>
+        <p id="myP"></p>
+      </div>
 
-	<header class="header">
-
-		<!-- -------------------------HEADER ------------------------ -->
-
-		<div class="header__head container row d-flex">
-
-			<div class="logo col-xl-3 order-xl-last">
-				<a href="index.html"><img src="/static/img/logo.png" alt="Megamag"/></a>
-			</div>
-
-			<!-- serch -->
-			<form class="head__search col-lg-6 col-xl-4">
-				<input class="search__field" name="s" placeholder="Я хочу найти ..." type="text">
-				<select class="search__select">
-					<option disabled class="select__item select__item-title">Выбери категорию</option>
-					<option class="select__item">Все категории</option>
-					<option class="select__item">Категория1</option>
-					<option class="select__item">Категория2</option>
-					<option class="select__item">По штрих коду</option>
-				</select>
-				<button class="search__buttom" type="submit"></button>
-			</form>
-			<!-- search end -->
-
-			<!-- ваш город/магазин -->
-			<div class="place-wrap col-lg-6 col-xl-5 row">
-
-				<div class="head__your-city col-12 col-sm-6 col-md-6  d-flex">
-					<div class="your-city__icon">
-						<img src="/static/img/map-pin.png" alt="icon-map"/>
-					</div>
-					<div class="your-city__text-wrap">
-						<p id="select-city-go" class="your-city__title">
-							Ваш город
-						</p>
-						<a href="map.html" class="your-city__button">Выберите Ваш город</a>
-					</div>
-				</div>
-
-				<div class="head__your-shop col-12 col-sm-6 col-md-6 d-flex">
-					<div class="your-shop__icon">
-						<img src="/static/img/korzina.png" alt="icon-shop"/>
-					</div>
-					<div class="your-shop__text-wrap">
-						<p class="your-shop__title">
-							Ваш магазин
-						</p>
-						<a href="map.html" class="your-shop__button">Выберите Ваш магазин</a>
-					</div>
-				</div>
-
-			</div>
-			<!-- ваш город/магазин end -->
-
-		</div>
-
-		<!-- ------------------ HEADER END ---------------  -->
-
-		<!-- ------------------ NAVBAR --------------------- -->
-
-		<!-- NAVBAR -->
-
-		<div class="header__nav-line container-fluid">
-			<nav class="nav-line container navbar navbar-expand-md d-flex">
-
-				<!--dropdown-list -->
-				<div class="dropdown open">
-					<a class="nav-line__menu navbar-text dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<img src="/static/img/tree_line_menu.png" class="menu-icon" alt="menu"/>Все разделы
-					</a>
+      <script>
+        $(function(){
+          var text = '';
+          $('#myModalEditBtn2').click(function(e){
+            // отменяем стандартное поведение браузера при нажатии на ссылку
+            e.preventDefault();
+            // передаем в контент элемента с id="myP" содержимое переменной text
+            $('#myP').text(text);
+            // открываем модальное окно
+            $('#myModalEdit2').modal('show');
+          });
+        });
+      </script>
 
 
-					<div class="dropdown-menu dropright" aria-labelledby="dropdownMenuLink">
-						<!-- dropdown-list-lvl2 -->
+      <!-- Кнопка, которая будет открывать модальное окно -->
+      <!--	<a id="myModalEditBtn2" href="#">редактирование</a> -->
 
-						<a class="dropdown-item submenu " href="tovary.html">
-							Овощи, фрукты
-						</a>
-						<div class="dropdown-menu" >
-							<a class="dropdown-item" href="tovary.html">Огурцы</a>
-							<a class="dropdown-item" href="tovary.html">Помидор</a>
-							<a class="dropdown-item" href="tovary.html">Бананы</a>
-						</div>
+      <!-- -------------------------HEADER & NAVBAR------------------------ -->
+      <header class="header">
 
-						<!-- dropdown-list-lvl2 end -->
+        <!-- -------------------------HEADER ------------------------ -->
 
-						<!-- dropdown-list-lvl2 -->
-						<a class="dropdown-item submenu " href="tovary.html">
-							Кулинария
-						</a>
-						<div class="dropdown-menu" >
-							<a class="dropdown-item" href="tovary.html">Хлеб</a>
-							<a class="dropdown-item" href="tovary.html">Батон</a>
-							<a class="dropdown-item" href="tovary.html">Пирожные</a>
-						</div>
-						<!-- dropdown-list-lvl2 end -->
+        <div class="header__head container row d-flex">
 
-						<!-- dropdown-list-lvl2 -->
-						<a class="dropdown-item submenu " href="tovary.html">
-							Мясо, рыба
-						</a>
-						<div class="dropdown-menu" >
-							<a class="dropdown-item" href="tovary.html">Щука</a>
-							<a class="dropdown-item" href="tovary.html">Лосось</a>
-							<a class="dropdown-item" href="tovary.html">Карп</a>
-						</div>
-						<!-- dropdown-list-lvl2 end -->
+          <div class="logo col-xl-3 order-xl-last">
+            <a href="/"><img src="/static/img/logo.png" alt="Megamag"/></a>
+          </div>
 
-						<!-- dropdown-list-lvl2 -->
-						<a class="dropdown-item submenu " href="tovary.html">
-							Молоко, сыр
-						</a>
-						<div class="dropdown-menu" >
-							<a class="dropdown-item" href="tovary.html">Творог</a>
-							<a class="dropdown-item" href="tovary.html">Плавленный сыр</a>
-							<a class="dropdown-item" href="tovary.html">Сыр</a>
-						</div>
-						<!-- dropdown-list-lvl2 end -->
+          <!-- serch -->
+          <form class="head__search col-lg-6 col-xl-4" action="/">
+            <input class="search__field" name="s" placeholder="Я хочу найти ..." type="text">
+            <select class="search__select" name="category_id">
+              <option disabled class="select__item select__item-title">Выбери категорию</option>
+              <option class="select__item" value="0" selected>Все категории</option>
+              {{#each categories}}
+                <option class="select__item" value="{{this.id}}">{{this.name}}</option>
+              {{/each}}
+              <option class="select__item" value="0">По штрих коду</option>
+            </select>
+            <button class="search__buttom" type="submit"></button>
+          </form>
+          <!-- search end -->
 
-						<!-- dropdown-list-lvl2 -->
-						<a class="dropdown-item submenu " href="tovary.html">
-							Бакалея
-						</a>
-						<div class="dropdown-menu" >
-							<a class="dropdown-item" href="tovary.html">Колбасы</a>
-							<a class="dropdown-item" href="tovary.html">Сосиски</a>
-							<a class="dropdown-item" href="tovary.html">Свежее мясо</a>
-						</div>
-						<!-- dropdown-list-lvl2 end -->
-					</div>
-				</div>
-				<!--dropdown-list end -->
+          <!-- ваш город/магазин -->
+          <div class="place-wrap col-lg-6 col-xl-5 row">
 
-				<ul class="nav-line__link-bar navbar-nav">
-					<li class="link-item line-effect">
-						<a class="link" href="kategory.html">Овощи, фрукты</a>
-					</li>
+            <div class="head__your-city col-12 col-sm-6 col-md-6  d-flex">
+              <div class="your-city__icon">
+                <img src="/static/img/map-pin.png" alt="icon-map"/>
+              </div>
+              <div class="your-city__text-wrap">
+                <p id="select-city-go-1" class="your-city__title">
+                  Ваш город
+                </p>
+                <a  id="myModalEditBtn2" href="#" class="your-city__button">Выберите Ваш город</a>
+              </div>
+            </div>
 
-					<li class="link-item line-effect">
-						<a class="link" href="kategory.html">Кулинария</a>
-					</li>
+            <div class="head__your-shop col-12 col-sm-61 col-md-6 d-flex">
+              <div class="your-shop__icon">
+                <img src="/static/img/korzina.png" alt="icon-shop"/>
+              </div>
+              <div class="your-shop__text-wrap">
+                <p class="your-shop__title">
+                  Ваш магазин
+                </p>
+                <a href="/map" class="your-shop__button">Выберите Ваш магазин</a>
+              </div>
+            </div>
 
-					<li class="link-item line-effect">
-						<a class="link" href="kategory.html">Мясо, рыба</a>
-					</li>
+          </div>
+          <!-- ваш город/магазин end -->
 
-					<li class="link-item line-effect">
-						<a class="link" href="kategory.html">Молоко, сыр</a>
-					</li>
+        </div>
 
-					<li class="link-item line-effect">
-						<a class="link-akcia" href="akcii.html">Наши акции</a>
-					</li>
-				</ul>
+        <!-- ------------------ HEADER END ---------------  -->
 
-				<div>
+        <!-- ------------------ NAVBAR --------------------- -->
 
-					<a href="spisok.html"><button id="checkout" class="list-pokupka"> </button></a>
+        <!-- NAVBAR -->
 
-				</div>
-			</nav>
-		</div>
+        <div class="header__nav-line container-fluid">
+          <nav class="nav-line container navbar navbar-expand-md d-flex">
 
-		<!-- NAVBAR END -->
-
-		<div class="container">
+            <!--dropdown-list -->
+            <div class="dropdown open">
+              <a class="nav-line__menu navbar-text dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="/static/img/tree_line_menu.png" class="menu-icon" alt="menu"/>Все разделы
+              </a>
 
 
-			<div class="container-fluid col-md-12 text-center" id="cart_content" style="display: none;"></div>
+              <div class="dropdown-menu dropright" aria-labelledby="dropdownMenuLink">
+                <!-- dropdown-list-lvl2 -->
+                {{#each categories}}
+                  {{#is this.id this.parentId}}
+                    <a class="dropdown-item submenu " href="/categories/{{this.id}}">{{this.name}}</a>
+                    <div class="dropdown-menu" >
+                      {{#each ../categories}}
+                        {{#is this.parentId ../this.id}}
+                          <a class="dropdown-item" href="/categories/{{this.id}}">{{this.name}}</a>
+                        {{/is}}
+                      {{/each}}
+                    </div>
+                  {{/is}}
+                {{/each}}
+              </div>
+            </div>
+            <!--dropdown-list end -->
 
+            <ul class="nav-line__link-bar navbar-nav">
+              {{#each categoriesMenu}}
+                <li class="link-item line-effect">
+                  <a class="link" href="/categories/{{this.id}}">{{this.name}}</a>
+                </li>
+              {{/each}}
+              <li class="link-item line-effect">
+                <a class="link-akcia" href="/shares">Наши акции</a>
+              </li>
+            </ul>
+            <div>
+              <a href="/list"><button id="checkout" class="list-pokupka"> </button></a>
+            </div>
 
+          </nav>
+        </div>
 
-		</div>
-
-
-	</header>
+        <!-- NAVBAR END -->
+      </header>
 	<!-- ------------------------ HEADER END ----------------------- -->
 	<!-- ------------------------ Определение города ----------------------- -->
 
@@ -1125,359 +1099,88 @@
 		</div>
 		<!-- ------------------------ Zagolovok Наши лучшие акции END ----------------------- -->
 
-			<!-- ---------------------------------- KARUSEL slick  --------------------------------------->
-			<section>
-				<div class="container">
+      <section>
+        <div class="container">
 
-					<div class="caruslel-aria__discription col-12 d-flex">
-						<p class="discription-first">
-							Черная пятница для черной кошки
+          <div class="caruslel-aria__discription col-12 d-flex">
+            <p class="discription-first">
+              {{promoFirst.title}}
 
-						</p>
-						<p class="discription-two">
-							Скидки на весь корм для кошек 50%!
-						</p>
-					</div>
+            </p>
+            <p class="discription-two">
+              {{promoFirst.terms}}
+            </p>
+          </div>
 
-					<div class="product-slider slick-border">
-
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item6.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item7.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item8.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item9.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item10.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item6.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item7.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item8.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item9.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item10.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
+          <div class="product-slider slick-border">
 
 
+            {{#each actionFirst}}
+              <div class="product-block">
+                <div class="product-img">
+                  <a href="/product/{{this.article}}"><img src="{{this.thumbnail}}" class="img-fluid" /></a>
+                </div>
+                <div class="product-text">
+                  <p class="slide__title">{{this.name}}</p>
 
-					</div>
-				</div>
+                  <a href="#" class="slide__discription">
+                    <p class="discription">{{this.description}}</p>
+                  </a>
+                  <p class="slide__price">{{getPriceProduct this false}}</p>
+                  <p class="slide__old-price">{{getPriceProduct this}}</p>
+                </div>
+              </div>
+            {{/each}}
 
-				</div>
-			</section>
+          </div>
+        </div>
 
-
-			<!-- ---------------------------------- KARUSEL AKCIYA END --------------------------------------->
-			<div class="otstup"> </div>   <!-- ------- otstup ------------->
-
-
-			<section>
-				<div class="container">
-
-					<div class="caruslel-aria__discription col-12 d-flex">
-						<p class="discription-first">
-							Товары дня
-						</p>
-						<p class="discription-two">
-							Лучшие скидки сегодняшнего дня. Не опоздай!
-						</p>
-					</div>
-
-					<div class="product-slider slick-border">
-
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item1.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item2.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item3.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item4.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item5.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item1.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item2.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item3.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item4.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item5.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
+        </div>
+      </section>
 
 
-					</div>
-				</div>
+      <!-- ---------------------------------- KARUSEL AKCIYA END --------------------------------------->
+      <div class="otstup"> </div>   <!-- ------- otstup ------------->
 
-				</div>
-			</section>		<!-- ---------------------------------- KARUSEL AKCIYA END --------------------------------------->
+
+      <section>
+        <div class="container">
+
+          <div class="caruslel-aria__discription col-12 d-flex">
+            <p class="discription-first">
+              {{promoSecond.title}}
+
+            </p>
+            <p class="discription-two">
+              {{promoSecond.terms}}
+            </p>
+          </div>
+
+          <div class="product-slider slick-border">
+
+            {{#each actionSecond}}
+              <div class="product-block">
+                <div class="product-img">
+                  <a href="/product/{{this.article}}"><img src="{{this.thumbnail}}" class="img-fluid" /></a>
+                </div>
+                <div class="product-text">
+                  <p class="slide__title">{{this.name}}</p>
+
+                  <a href="#" class="slide__discription">
+                    <p class="discription">{{this.description}}</p>
+                  </a>
+                  <p class="slide__price">{{getPriceProduct this false}}</p>
+                  <p class="slide__old-price">{{getPriceProduct this}}</p>
+                </div>
+              </div>
+            {{/each}}
+
+
+          </div>
+        </div>
+
+        </div>
+      </section>
 
 
 			<script type="text/javascript" src="/static/slick/jquery-1.11.0.min.js"></script>
@@ -1565,7 +1268,7 @@
 				<div class="footer container-fluid">
 					<div class="footer__footer-content container row d-flex">
 						<div class="col-lg-3">
-							<a href="index.html"><img src="/static/img/logo-footer.png" alt="Megamag" /></a>
+							<a href="/"><img src="/static/img/logo-footer.png" alt="Megamag" /></a>
 						</div>
 
 						<div class="footer__adres col-sm-6 col-lg-4">

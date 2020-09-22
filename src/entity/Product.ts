@@ -3,6 +3,8 @@ import { ProductAvailability } from "./ProductAvailability";
 import { ProductPrice } from "./ProductPrice";
 import { ProductToCategoryBinding } from "./ProductToCategoryBinding";
 import { RecommendedProducts } from "./RecommendedProducts";
+import {ProductAvailabilityStore} from "./ProductAvailabilityStore";
+import {ProductPriceStore} from "./ProductPriceStore";
 
 @Entity("PRODUCT")
 export class Product {
@@ -59,6 +61,15 @@ export class Product {
 
   @OneToMany(() => ProductPrice, (productPrice) => productPrice.product)
   productPrices: ProductPrice[];
+
+  @OneToMany(
+    () => ProductAvailabilityStore,
+    (productAvailabilityStore) => productAvailabilityStore.product
+  )
+  productAvailabilityStores: ProductAvailabilityStore[];
+
+  @OneToMany(() => ProductPriceStore, (productPriceStore) => productPriceStore.product)
+  productPriceStores: ProductPriceStore[];
 
   @OneToMany(
     () => ProductToCategoryBinding,

@@ -1,976 +1,704 @@
 <!DOCTYPE html>
 <html lang="ru">
-	<head>
-		<meta charset="utf-8">
-		<title>Project</title>
-		<meta name="discription" content="">
-		<meta name="keywords" content="">
-		<meta name="viewport" content="width=device-width initial-scale=1.0">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
-		<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" />
+<head>
+  <meta charset="utf-8">
+  <title>МегаМаг - шопинг для жизни и души</title>
+  <meta name="discription" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+  <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet"
+        type="text/css"/>
 
-	<link type="text/css" href="/static/css/main.css" rel="stylesheet" media="all">
-<!--		<script type="text/javascript" src="/static/js/jquery-1.6.1.min.js"></script> -->
-		<script type="text/javascript" src="/static/js/jquery.ui-slider.js"></script>
-		<script type="text/javascript" src="/static/js/jquery.main.js"></script>
+  <link type="text/css" href="/static/css/main.css" rel="stylesheet" media="all">
+  <!--		<script type="text/javascript" src="/static/js/jquery-1.6.1.min.js"></script> -->
+  <script type="text/javascript" src="/static/js/jquery.ui-slider.js"></script>
+  <script type="text/javascript" src="/static/js/jquery.main.js"></script>
 
-		<script type="text/javascript" src="/static/js/jquery.js"></script>
-                <link href="/static/css/fotorama.css" rel="stylesheet">
-                <script src="/static/js/fotorama.js"></script>
-
-
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-				<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-		<link rel="stylesheet" href="/static/font/b-rub_tahoma/stylesheet.css">
-
-		<link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>
-		<link rel="stylesheet" type="text/css" href="/static/slick/slick-theme.css"/>
-
-                <link rel="stylesheet" href="/static/css/style.css">
-
-            </head>
-            <body>
-
-			<!-- HTML-код модального окна-->
-			<div id="myModalEdit" class="modal fade">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-
-							<p class="modal-my" id="myModalLabel">Наличие в магазинах города.</p>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
-								<span aria-hidden="true">×</span>
-							</button>
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <link href="/static/css/fotorama.css" rel="stylesheet">
+  <script src="/static/js/fotorama.js"></script>
 
 
-						</div>
-						<div class="modal-body modal-my-text">
-							<span class="modal-my-gorod">Магазин 1.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-mnogo">много</span><br>
-							<span class="modal-my-gorod">Магазин 2.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-malo">мало</span><br>
-							<span class="modal-my-gorod">Магазин 3.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-dostat">достаточно</span><br>
-							<span class="modal-my-gorod">Магазин 4.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-mnogo">много</span><br>
-							<span class="modal-my-gorod">Магазин 5.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-malo">мало</span><br>
-						</div>
-					</div>
-				</div>
-				<p id="myP"></p>
-			</div>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="/static/font/b-rub_tahoma/stylesheet.css">
 
-			<script>
-                $(function(){
-                    var text = '';
-                    $('#myModalEditBtn').click(function(e){
-                        // отменяем стандартное поведение браузера при нажатии на ссылку
-                        e.preventDefault();
-                        // передаем в контент элемента с id="myP" содержимое переменной text
-                        $('#myP').text(text);
-                        // открываем модальное окно
-                        $('#myModalEdit').modal('show');
-                    });
-                });
-			</script>
+  <link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/slick/slick-theme.css"/>
 
+  <link rel="stylesheet" href="/static/css/style.css">
 
-			<!-- Кнопка, которая будет открывать модальное окно -->
-			<!--	<a id="myModalEditBtn" href="#">редактирование</a> -->
+</head>
+<body>
 
-                <!-- -------------------------HEADER & NAVBAR------------------------ -->
-	<header class="header">
+<!-- HTML-код модального окна-->
+<div id="myModalEdit1" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-my" id="myModalLabel">Наличие в магазинах города.</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body modal-my-text">
+        <span class="modal-my-gorod">Магазин 1.</span> Ул. Неизвестная, д. 7. <span
+          class="modal-my-kolichestvo-mnogo">много</span><br>
+        <span class="modal-my-gorod">Магазин 2.</span> Ул. Неизвестная, д. 7. <span
+          class="modal-my-kolichestvo-malo">мало</span><br>
+        <span class="modal-my-gorod">Магазин 3.</span> Ул. Неизвестная, д. 7. <span
+          class="modal-my-kolichestvo-dostat">достаточно</span><br>
+        <span class="modal-my-gorod">Магазин 4.</span> Ул. Неизвестная, д. 7. <span
+          class="modal-my-kolichestvo-mnogo">много</span><br>
+        <span class="modal-my-gorod">Магазин 5.</span> Ул. Неизвестная, д. 7. <span
+          class="modal-my-kolichestvo-malo">мало</span><br>
+      </div>
+    </div>
+  </div>
+  <p id="myP"></p>
+</div>
 
-		<!-- -------------------------HEADER ------------------------ -->
+<script>
+  $(function () {
+    var text = ''
+    $('#myModalEditBtn1').click(function (e) {
+      // отменяем стандартное поведение браузера при нажатии на ссылку
+      e.preventDefault()
+      // передаем в контент элемента с id="myP" содержимое переменной text
+      $('#myP').text(text)
+      // открываем модальное окно
+      $('#myModalEdit1').modal('show')
+    })
+  })
+</script>
 
-		<div class="header__head container row d-flex">
+<!-- HTML-код модального окна-->
+<div id="myModalEdit2" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
 
-			<div class="logo col-xl-3 order-xl-last">
-				<a href="index.html"><img src="/static/img/logo.png" alt="Megamag"/></a>
-			</div>
-
-			<!-- serch -->
-			<form class="head__search col-lg-6 col-xl-4">
-				<input class="search__field" name="s" placeholder="Я хочу найти ..." type="text">
-				<select class="search__select">
-					<option disabled class="select__item select__item-title">Выбери категорию</option>
-					<option class="select__item">Все категории</option>
-					<option class="select__item">Категория1</option>
-					<option class="select__item">Категория2</option>
-					<option class="select__item">По штрих коду</option>
-				</select>
-				<button class="search__buttom" type="submit"></button>
-			</form>
-			<!-- search end -->
-
-			<!-- ваш город/магазин -->
-			<div class="place-wrap col-lg-6 col-xl-5 row">
-
-				<div class="head__your-city col-12 col-sm-6 col-md-6  d-flex">
-					<div class="your-city__icon">
-						<img src="/static/img/map-pin.png" alt="icon-map"/>
-					</div>
-					<div class="your-city__text-wrap">
-						<p id="select-city-go" class="your-city__title">
-							Ваш город
-						</p>
-						<a href="map.html" class="your-city__button">Выберите Ваш город</a>
-					</div>
-				</div>
-
-				<div class="head__your-shop col-12 col-sm-6 col-md-6 d-flex">
-					<div class="your-shop__icon">
-						<img src="/static/img/korzina.png" alt="icon-shop"/>
-					</div>
-					<div class="your-shop__text-wrap">
-						<p class="your-shop__title">
-							Ваш магазин
-						</p>
-						<a href="map.html" class="your-shop__button">Выберите Ваш магазин</a>
-					</div>
-				</div>
-
-			</div>
-			<!-- ваш город/магазин end -->
-
-		</div>
-
-		<!-- ------------------ HEADER END ---------------  -->
-
-		<!-- ------------------ NAVBAR --------------------- -->
-
-		<!-- NAVBAR -->
-
-		<div class="header__nav-line container-fluid">
-			<nav class="nav-line container navbar navbar-expand-md d-flex">
-
-				<!--dropdown-list -->
-				<div class="dropdown open">
-					<a class="nav-line__menu navbar-text dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<img src="/static/img/tree_line_menu.png" class="menu-icon" alt="menu"/>Все разделы
-					</a>
+        <p class="modal-my modal-my-zagol" id="myModalLabel">В Вашем городе нет наших магазинов!</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
 
 
-					<div class="dropdown-menu dropright" aria-labelledby="dropdownMenuLink">
-						<!-- dropdown-list-lvl2 -->
-
-						<a class="dropdown-item submenu " href="#">
-							Овощи, фрукты
-						</a>
-						<div class="dropdown-menu" >
-							<a class="dropdown-item" href="tovary.html">Огурцы</a>
-							<a class="dropdown-item" href="tovary.html">Помидор</a>
-							<a class="dropdown-item" href="tovary.html">Бананы</a>
-						</div>
-
-						<!-- dropdown-list-lvl2 end -->
-
-						<!-- dropdown-list-lvl2 -->
-						<a class="dropdown-item submenu " href="#">
-							Кулинария
-						</a>
-						<div class="dropdown-menu" >
-							<a class="dropdown-item" href="tovary.html">Хлеб</a>
-							<a class="dropdown-item" href="tovary.html">Батон</a>
-							<a class="dropdown-item" href="tovary.html">Пирожные</a>
-						</div>
-						<!-- dropdown-list-lvl2 end -->
-
-						<!-- dropdown-list-lvl2 -->
-						<a class="dropdown-item submenu " href="#">
-							Мясо, рыба
-						</a>
-						<div class="dropdown-menu" >
-							<a class="dropdown-item" href="tovary.html">Щука</a>
-							<a class="dropdown-item" href="tovary.html">Лосось</a>
-							<a class="dropdown-item" href="tovary.html">Карп</a>
-						</div>
-						<!-- dropdown-list-lvl2 end -->
-
-						<!-- dropdown-list-lvl2 -->
-						<a class="dropdown-item submenu " href="#">
-							Молоко, сыр
-						</a>
-						<div class="dropdown-menu" >
-							<a class="dropdown-item" href="tovary.html">Творог</a>
-							<a class="dropdown-item" href="tovary.html">Плавленный сыр</a>
-							<a class="dropdown-item" href="tovary.html">Сыр</a>
-						</div>
-						<!-- dropdown-list-lvl2 end -->
-
-						<!-- dropdown-list-lvl2 -->
-						<a class="dropdown-item submenu " href="#">
-							Бакалея
-						</a>
-						<div class="dropdown-menu" >
-							<a class="dropdown-item" href="tovary.html">Колбасы</a>
-							<a class="dropdown-item" href="tovary.html">Сосиски</a>
-							<a class="dropdown-item" href="tovary.html">Свежее мясо</a>
-						</div>
-						<!-- dropdown-list-lvl2 end -->
-					</div>
-				</div>
-				<!--dropdown-list end -->
-
-				<ul class="nav-line__link-bar navbar-nav">
-					<li class="link-item line-effect">
-						<a class="link" href="kategory.html">Овощи, фрукты</a>
-					</li>
-
-					<li class="link-item line-effect">
-						<a class="link" href="kategory.html">Кулинария</a>
-					</li>
-
-					<li class="link-item line-effect">
-						<a class="link" href="kategory.html">Мясо, рыба</a>
-					</li>
-
-					<li class="link-item line-effect">
-						<a class="link" href="kategory.html">Молоко, сыр</a>
-					</li>
-
-					<li class="link-item line-effect">
-						<a class="link-akcia" href="akcii.html">Наши акции</a>
-					</li>
-				</ul>
-
-				<div>
-
-					<a href="spisok.html"><button id="checkout" class="list-pokupka"> </button></a>
-
-				</div>
-			</nav>
-		</div>
-
-		<!-- NAVBAR END -->
+      </div>
+      <div class="modal-body modal-my-text">
+        Будьте добры перейдите на страницу выбора города, где есть наши магазины.
+        Это необходимо для того, чтобы показать Вам актуальные товары и цены.
+        <span class="modal-my-gorod">Большое спасибо за сотрудничество.</span>
+      </div>
+      <a href="/map" class="btn btn btn-primary" role="button">Перейти к выбору города</a>
 
 
+    </div>
+  </div>
+  <p id="myP"></p>
+</div>
+
+<script>
+  $(function(){
+    var text = '';
+    $('#myModalEditBtn2').click(function(e){
+      // отменяем стандартное поведение браузера при нажатии на ссылку
+      e.preventDefault();
+      // передаем в контент элемента с id="myP" содержимое переменной text
+      $('#myP').text(text);
+      // открываем модальное окно
+      $('#myModalEdit2').modal('show');
+    });
+  });
+</script>
 
 
-	</header>
-	<!-- ------------------------ HEADER END ----------------------- -->
-	<!-- ------------------------ Определение города ----------------------- -->
+<!-- Кнопка, которая будет открывать модальное окно -->
+<!--	<a id="myModalEditBtn2" href="#">редактирование</a> -->
 
-	<!-- <div id="select-city-go">Выбор города</div> -->
-	<div id="modal_form">
-		<span id="modal_close">X</span>
-		<div id="spisok-gorodov">
-			<table>
-				<tr><td>Архангельск</td><td>Омск</td></tr>
-				<tr><td>Астрахань</td><td>Орел</td></tr>
-			</table>
-		</div>
-		<div id="insol-map-modal"></div>
-	</div>
-	<div id="overlay"></div>
+<!-- -------------------------HEADER & NAVBAR------------------------ -->
+<header class="header">
 
-	<script>
+  <!-- -------------------------HEADER ------------------------ -->
 
-        jQuery('#select-city-go').click(function() {
-            jQuery('#overlay').fadeIn(400,
-                function(){
-                    jQuery('#modal_form')
-                        .css('display', 'block')
-                        .animate({opacity: 1, top: '50%'}, 200);
-                });
+  <div class="header__head container row d-flex">
 
-            jQuery('#select-city-go').click( function(event){
-                event.preventDefault();
-                jQuery('#overlay').fadeIn(400,
-                    function(){
-                        jQuery('#modal_form')
-                            .css('display', 'block')
-                            .animate({opacity: 1, top: '50%'}, 200);
-                    });
-            });
+    <div class="logo col-xl-3 order-xl-last">
+      <a href="/"><img src="/static/img/logo.png" alt="Megamag"/></a>
+    </div>
 
-            jQuery('#modal_close, #overlay').click( function(){
-                jQuery('#modal_form')
-                    .animate({opacity: 0, top: '45%'}, 200,
-                        function(){
-                            jQuery(this).css('display', 'none');
-                            jQuery('#overlay').fadeOut(400);
-                        }
-                    );
-            });
-        });
+    <!-- serch -->
+    <form class="head__search col-lg-6 col-xl-4" action="/">
+      <input class="search__field" name="s" placeholder="Я хочу найти ..." type="text">
+      <select class="search__select" name="category_id">
+        <option disabled class="select__item select__item-title">Выбери категорию</option>
+        <option class="select__item" value="0" selected>Все категории</option>
+        {{#each categories}}
+          <option class="select__item" value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+        <option class="select__item" value="0">По штрих коду</option>
+      </select>
+      <button class="search__buttom" type="submit"></button>
+    </form>
+    <!-- search end -->
 
-        function setCookie(name, value) {
-            document.cookie = name + "=" + value;
+    <!-- ваш город/магазин -->
+    <div class="place-wrap col-lg-6 col-xl-5 row">
+
+      <div class="head__your-city col-12 col-sm-6 col-md-6  d-flex">
+        <div class="your-city__icon">
+          <img src="/static/img/map-pin.png" alt="icon-map"/>
+        </div>
+        <div class="your-city__text-wrap">
+          <p id="select-city-go-1" class="your-city__title">
+            Ваш город
+          </p>
+          <a  id="myModalEditBtn2" href="#" class="your-city__button">Выберите Ваш город</a>
+        </div>
+      </div>
+
+      <div class="head__your-shop col-12 col-sm-61 col-md-6 d-flex">
+        <div class="your-shop__icon">
+          <img src="/static/img/korzina.png" alt="icon-shop"/>
+        </div>
+        <div class="your-shop__text-wrap">
+          <p class="your-shop__title">
+            Ваш магазин
+          </p>
+          <a href="/map" class="your-shop__button">Выберите Ваш магазин</a>
+        </div>
+      </div>
+
+    </div>
+    <!-- ваш город/магазин end -->
+
+  </div>
+
+  <!-- ------------------ HEADER END ---------------  -->
+
+  <!-- ------------------ NAVBAR --------------------- -->
+
+  <!-- NAVBAR -->
+
+  <div class="header__nav-line container-fluid">
+    <nav class="nav-line container navbar navbar-expand-md d-flex">
+
+      <!--dropdown-list -->
+      <div class="dropdown open">
+        <a class="nav-line__menu navbar-text dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="/static/img/tree_line_menu.png" class="menu-icon" alt="menu"/>Все разделы
+        </a>
+
+
+        <div class="dropdown-menu dropright" aria-labelledby="dropdownMenuLink">
+          <!-- dropdown-list-lvl2 -->
+          {{#each categories}}
+            {{#is this.id this.parentId}}
+              <a class="dropdown-item submenu " href="/categories/{{this.id}}">{{this.name}}</a>
+              <div class="dropdown-menu" >
+                {{#each ../categories}}
+                  {{#is this.parentId ../this.id}}
+                    <a class="dropdown-item" href="/categories/{{this.id}}">{{this.name}}</a>
+                  {{/is}}
+                {{/each}}
+              </div>
+            {{/is}}
+          {{/each}}
+        </div>
+      </div>
+      <!--dropdown-list end -->
+
+      <ul class="nav-line__link-bar navbar-nav">
+        {{#each categoriesMenu}}
+          <li class="link-item line-effect">
+            <a class="link" href="/categories/{{this.id}}">{{this.name}}</a>
+          </li>
+        {{/each}}
+        <li class="link-item line-effect">
+          <a class="link-akcia" href="/shares">Наши акции</a>
+        </li>
+      </ul>
+      <div>
+        <a href="/list"><button id="checkout" class="list-pokupka"> </button></a>
+      </div>
+
+    </nav>
+  </div>
+
+  <!-- NAVBAR END -->
+</header>
+<!-- ------------------------ HEADER END ----------------------- -->
+<!-- ------------------------ Определение города ----------------------- -->
+
+<!-- <div id="select-city-go">Выбор города</div> -->
+<div id="modal_form">
+  <span id="modal_close">X</span>
+  <div id="spisok-gorodov">
+    <table>
+      <tr>
+        <td>Архангельск</td>
+        <td>Омск</td>
+      </tr>
+      <tr>
+        <td>Астрахань</td>
+        <td>Орел</td>
+      </tr>
+    </table>
+  </div>
+  <div id="insol-map-modal"></div>
+</div>
+<div id="overlay"></div>
+
+<script>
+
+  jQuery('#select-city-go').click(function () {
+    jQuery('#overlay').fadeIn(400,
+        function () {
+          jQuery('#modal_form')
+              .css('display', 'block')
+              .animate({ opacity: 1, top: '50%' }, 200)
+        })
+
+    jQuery('#select-city-go').click(function (event) {
+      event.preventDefault()
+      jQuery('#overlay').fadeIn(400,
+          function () {
+            jQuery('#modal_form')
+                .css('display', 'block')
+                .animate({ opacity: 1, top: '50%' }, 200)
+          })
+    })
+
+    jQuery('#modal_close, #overlay').click(function () {
+      jQuery('#modal_form')
+          .animate({ opacity: 0, top: '45%' }, 200,
+              function () {
+                jQuery(this).css('display', 'none')
+                jQuery('#overlay').fadeOut(400)
+              }
+          )
+    })
+  })
+
+  function setCookie (name, value) {
+    document.cookie = name + '=' + value
+  }
+
+  function getCookie (name) {
+    var r = document.cookie.match('(^|;)?' + name + '=([^;]*)(;|$)')
+    if (r) return r[2]
+    else return ''
+  }
+
+  function deleteCookie (name) {
+    var date = new Date()
+    date.setTime(date.getTime() - 1)
+    document.cookie = name += '=; expires=' + date.toGMTString()
+  }
+
+  //jQuery("#spisok-gorodov td").click(function(){ alert(jQuery(this).text()); });
+
+  ymaps.ready(function () {
+    geolocation = ymaps.geolocation
+    var myMapMod = new ymaps.Map('insol-map-modal', {
+      center: [47.22, 39.71],
+      zoom: 12,
+      controls: []
+    })
+
+    geolocation.get({
+      provider: 'yandex',
+      mapStateAutoApply: true
+    }).then(function (result) {
+      result.geoObjects.options.set('preset', 'islands#blueIcon')
+      myMapMod.geoObjects.add(result.geoObjects)
+      var firstGeoObject = result.geoObjects.get(0)
+      coords = firstGeoObject.geometry.getCoordinates()
+      myMapMod.setZoom(12)
+      city_name = firstGeoObject.properties.get('name')
+      jQuery('#select-city-go').html(city_name)
+      setCookie('city_name', city_name)
+    })
+
+    jQuery('#spisok-gorodov td').click(function () {
+      city_click = jQuery(this).text()
+      jQuery('#select-city-go').html(city_click)
+      setCookie('city_name', city_click)
+      ymaps.geocode(city_click, { results: 1 }).then(function (res) {
+        var firstGeoObject = res.geoObjects.get(0),
+            coords = firstGeoObject.geometry.getCoordinates(),
+            bounds = firstGeoObject.properties.get('boundedBy')
+        myMapMod.geoObjects.add(firstGeoObject)
+        myMapMod.setBounds(bounds, { checkZoomRange: true })
+      })
+    })
+
+    mySearchControl = new ymaps.control.SearchControl({
+      options: {
+        noPlacemark: true,
+        position: { left: 0, top: 0 }
+      }
+    })
+    // Результаты поиска будем помещать в коллекцию.
+    mySearchResults = new ymaps.GeoObjectCollection(null, {
+      hintContentLayout: ymaps.templateLayoutFactory.createClass('$[properties.name]')
+    })
+    myMapMod.controls.add(mySearchControl)
+    myMapMod.geoObjects.add(mySearchResults)
+
+    // Выбранный результат помещаем в коллекцию.
+    mySearchControl.events.add('resultselect', function (e) {
+      var index = e.get('index')
+      var results = mySearchControl.getResultsArray()
+      coords = results[index].geometry.getCoordinates()
+      myMapMod.setZoom(12)
+      city_name = results[index].properties.get('name')
+      jQuery('#select-city-go').html(city_name)
+      setCookie('city_name', city_name)
+      mySearchControl.getResult(index).then(function (res) {
+        mySearchResults.add(res)
+      })
+    }).add('submit', function () {
+      mySearchResults.removeAll()
+    })
+  })
+</script>
+<!-- ------------------------ Определение города END ----------------------- -->
+<!-- ------------------------ Left KOLONKA ----------------------- -->
+
+<div class="b-page container-fluid">
+
+  <!-- ASIDE -->
+  <div class="wrapper container row">
+    <!-- path -->
+
+    <div class="aside__path col-9">
+      <ul class="path">
+
+        <li class="path-item">
+          <a href="#" class="path-link">Главная</a>
+        </li>
+        <li class="path-item">
+          <p>/</p>
+        </li>
+
+        <li class="path-item">
+          <a href="#" class="path-link">Наши акции</a>
+        </li>
+        <li class="path-item">
+          <p>/</p>
+        </li>
+
+
+      </ul>
+    </div>
+
+    <div class="aside__path col-3  sortirovka">
+
+
+    </div>
+
+    <!-- path end -->
+
+
+    <aside class="aside col-md-3">
+
+
+      <!-- sort -->
+      <div class="aside__sort">
+
+        <div class="under-sort_main">
+          <a href="#" class="main-item">Наши акции</a>
+        </div>
+
+
+        <!-- sort end -->
+        <div class="aside__line"></div>
+
+
+        <div class="сheck-bar">
+          <input class="сheck-bar__box" type="checkbox" id="c1" name="cc"/>
+          <label class="сheck-bar__text" for="c1"><span></span>Акция 1</label><br/>
+
+          <input class="сheck-bar__box" type="checkbox" id="c2" name="cc"/>
+          <label class="сheck-bar__text" for="c2"><span></span>Акция 2</label><br/>
+
+          <input class="сheck-bar__box" type="checkbox" id="c3" name="cc"/>
+          <label class="сheck-bar__text" for="c3"><span></span>Акция 3</label>
+        </div>
+
+
+    </aside>
+
+    <!-- ------------------------ Left KOLONKA END ----------------------- -->
+
+    <!-- --------------------------------  SHOP ------------------------------------->
+
+    <main class="col-md-9 bg_white">
+
+
+      <div class="section" id="recl-banner">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6"><a href="akcii-one.html"><img class="banner-sm" src="/static/img/banner-big-1.jpg"/>
+            </div>
+            </a>
+            <div class="col-md-6"><a href="akcii-one.html"><img class="banner-sm" src="/static/img/banner-big-2.jpg"/>
+            </div>
+            </a>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6"><a href="akcii-one.html"><img class="banner-big"
+                                                                src="/static/img/banner-small-1.jpg"/></div>
+            </a>
+            <div class="col-md-6"><a href="akcii-one.html"><img class="banner-big"
+                                                                src="/static/img/banner-small-2.jpg"/></div>
+            </a>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6"><a href="akcii-one.html"><img class="banner-big" src="/static/img/banner-big-1.jpg"/>
+            </div>
+            </a>
+            <div class="col-md-6"><a href="akcii-one.html"><img class="banner-big"
+                                                                src="/static/img/banner-small-3.jpg"/></div>
+            </a>
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </main>
+  </div>
+</div>
+<!-- -----------------------------------SHOP END ------------------------------------------->
+<!-- ------------------------ Zagolovok Наши лучшие предложения ----------------------- -->
+
+<div class="section" id="zagolovok-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="title_box">
+          <div class="horizontal_line"></div>
+          <p style="top: 10px" class="text-title">Наши лучшие предложения</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ------------------------ Zagolovok Наши лучшие акции END ----------------------- -->
+
+
+<section>
+  <div class="container">
+
+    <div class="caruslel-aria__discription col-12 d-flex">
+      <p class="discription-first">
+        {{promoFirst.title}}
+
+      </p>
+      <p class="discription-two">
+        {{promoFirst.terms}}
+      </p>
+    </div>
+
+    <div class="product-slider slick-border">
+
+
+      {{#each actionFirst}}
+        <div class="product-block">
+          <div class="product-img">
+            <a href="/product/{{this.article}}"><img src="{{this.thumbnail}}" class="img-fluid" /></a>
+          </div>
+          <div class="product-text">
+            <p class="slide__title">{{this.name}}</p>
+
+            <a href="#" class="slide__discription">
+              <p class="discription">{{this.description}}</p>
+            </a>
+            <p class="slide__price">{{getPriceProduct this false}}</p>
+            <p class="slide__old-price">{{getPriceProduct this}}</p>
+          </div>
+        </div>
+      {{/each}}
+
+    </div>
+  </div>
+
+  </div>
+</section>
+
+
+<!-- ---------------------------------- KARUSEL AKCIYA END --------------------------------------->
+<div class="otstup"> </div>   <!-- ------- otstup ------------->
+
+
+<section>
+  <div class="container">
+
+    <div class="caruslel-aria__discription col-12 d-flex">
+      <p class="discription-first">
+        {{promoSecond.title}}
+
+      </p>
+      <p class="discription-two">
+        {{promoSecond.terms}}
+      </p>
+    </div>
+
+    <div class="product-slider slick-border">
+
+      {{#each actionSecond}}
+        <div class="product-block">
+          <div class="product-img">
+            <a href="/product/{{this.article}}"><img src="{{this.thumbnail}}" class="img-fluid" /></a>
+          </div>
+          <div class="product-text">
+            <p class="slide__title">{{this.name}}</p>
+
+            <a href="#" class="slide__discription">
+              <p class="discription">{{this.description}}</p>
+            </a>
+            <p class="slide__price">{{getPriceProduct this false}}</p>
+            <p class="slide__old-price">{{getPriceProduct this}}</p>
+          </div>
+        </div>
+      {{/each}}
+
+
+    </div>
+  </div>
+
+  </div>
+</section>
+
+
+<script type="text/javascript" src="/static/slick/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/static/slick/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="/static/slick/slick.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('.product-slider').slick({
+      infinite: true,
+      arrows: true,
+      autoplay: true,
+      autoplaySpeed: 4000,
+      prevArrow: '<button class="arrow prev "></button>',
+      nextArrow: '<button class="arrow next "></button>',
+      slidesToShow: 5,
+      slidesToScroll: 1,
+
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            prevArrow: '<button class="arrow prev "></button>',
+            nextArrow: '<button class="arrow next "></button>'
+          }
+        },
+
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 2,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            prevArrow: '<button class="arrow prev "></button>',
+            nextArrow: '<button class="arrow next "></button>',
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 400,
+          settings: {
+            slidesToShow: 1,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            prevArrow: '<button class="arrow prev "></button>',
+            nextArrow: '<button class="arrow next "></button>',
+            slidesToScroll: 1
+          }
         }
-        function getCookie(name) {
-            var r = document.cookie.match("(^|;)?" + name + "=([^;]*)(;|$)");
-            if (r) return r[2];
-            else return "";
-        }
-        function deleteCookie(name) {
-            var date = new Date();
-            date.setTime(date.getTime() - 1);
-            document.cookie = name += "=; expires=" + date.toGMTString();
-        }
-
-        //jQuery("#spisok-gorodov td").click(function(){ alert(jQuery(this).text()); });
-
-        ymaps.ready(function () {
-            geolocation = ymaps.geolocation;
-            var myMapMod = new ymaps.Map('insol-map-modal', {
-                center: [47.22, 39.71],
-                zoom: 12,
-                controls: []
-            });
-
-            geolocation.get({
-                provider: 'yandex',
-                mapStateAutoApply: true
-            }).then(function (result) {
-                result.geoObjects.options.set('preset', 'islands#blueIcon');
-                myMapMod.geoObjects.add(result.geoObjects);
-                var firstGeoObject = result.geoObjects.get(0);
-                coords = firstGeoObject.geometry.getCoordinates();
-                myMapMod.setZoom(12);
-                city_name=firstGeoObject.properties.get('name');
-                jQuery('#select-city-go').html(city_name);
-                setCookie("city_name", city_name);
-            });
-
-            jQuery("#spisok-gorodov td").click(function(){
-                city_click=jQuery(this).text();
-                jQuery('#select-city-go').html(city_click);
-                setCookie("city_name", city_click);
-                ymaps.geocode(city_click, { results: 1  }).then(function (res) {
-                    var firstGeoObject = res.geoObjects.get(0),
-                        coords = firstGeoObject.geometry.getCoordinates(),
-                        bounds = firstGeoObject.properties.get('boundedBy');
-                    myMapMod.geoObjects.add(firstGeoObject);
-                    myMapMod.setBounds(bounds, { checkZoomRange: true });
-                });
-            });
-
-            mySearchControl = new ymaps.control.SearchControl({
-                options: {
-                    noPlacemark: true,
-                    position: { left: 0, top: 0 }
-                }
-            });
-            // Результаты поиска будем помещать в коллекцию.
-            mySearchResults = new ymaps.GeoObjectCollection(null, {
-                hintContentLayout: ymaps.templateLayoutFactory.createClass('$[properties.name]')
-            });
-            myMapMod.controls.add(mySearchControl);
-            myMapMod.geoObjects.add(mySearchResults);
-
-            // Выбранный результат помещаем в коллекцию.
-            mySearchControl.events.add('resultselect', function (e) {
-                var index = e.get('index');
-                var results = mySearchControl.getResultsArray(); coords = results[index].geometry.getCoordinates();
-                myMapMod.setZoom(12);
-                city_name=results[index].properties.get('name');
-                jQuery('#select-city-go').html(city_name);
-                setCookie("city_name", city_name);
-                mySearchControl.getResult(index).then(function (res) {
-                    mySearchResults.add(res);
-                });
-            }).add('submit', function () {
-                mySearchResults.removeAll();
-            });
-        });
-	</script>
-	<!-- ------------------------ Определение города END ----------------------- -->
-		<!-- ------------------------ Left KOLONKA ----------------------- -->
-
-		<div class="b-page container-fluid">
-
-			<!-- ASIDE -->
-			<div class="wrapper container row">
-				<!-- path -->
-
-				<div class="aside__path col-9">
-					<ul class="path">
-
-						<li class="path-item">
-							<a href="#" class="path-link">Главная</a>
-						</li>
-						<li class="path-item">
-							<p>/</p>
-						</li>
-
-						<li class="path-item">
-							<a href="#" class="path-link">Наши акции</a>
-						</li>
-						<li class="path-item">
-							<p>/</p>
-						</li>
-
-
-					</ul>
-				</div>
-
-				<div class="aside__path col-3  sortirovka">
-
-
-
-				</div>
-
-				<!-- path end -->
-
-
-				<aside class="aside col-md-3" >
-
-
-					<!-- sort -->
-					<div class="aside__sort">
-
-						<div class="under-sort_main">
-							<a href="#" class="main-item">Наши акции</a>
-						</div>
-
-
-						<!-- sort end -->
-						<div class="aside__line"></div>
-
-
-						<div class="сheck-bar">
-							<input class="сheck-bar__box" type="checkbox" id="c1" name="cc" />
-							<label class="сheck-bar__text" for="c1"><span></span>Акция 1</label><br />
-
-							<input class="сheck-bar__box" type="checkbox" id="c2" name="cc" />
-							<label class="сheck-bar__text" for="c2"><span></span>Акция 2</label><br />
-
-							<input class="сheck-bar__box" type="checkbox" id="c3" name="cc" />
-							<label class="сheck-bar__text" for="c3"><span></span>Акция 3</label>
-						</div>
-
-
-
-				</aside>
-
-				<!-- ------------------------ Left KOLONKA END ----------------------- -->
-
-				<!-- --------------------------------  SHOP ------------------------------------->
-
-				<main class="col-md-9 bg_white">
-
-
-					<div class="section" id="recl-banner">
-						<div class="container">
-							<div class="row">
-								<div class="col-md-6"><a href="akcii-one.html"><img class="banner-sm" src="/static/img/banner-big-1.jpg"/></div></a>
-								<div class="col-md-6"><a href="akcii-one.html"><img class="banner-sm" src="/static/img/banner-big-2.jpg"/></div></a>
-							</div>
-
-
-							<div class="row">
-								<div class="col-md-6"><a href="akcii-one.html"><img class="banner-big" src="/static/img/banner-small-1.jpg"/></div></a>
-								<div class="col-md-6"><a href="akcii-one.html"><img class="banner-big" src="/static/img/banner-small-2.jpg"/></div></a>
-							</div>
-
-							<div class="row">
-								<div class="col-md-6"><a href="akcii-one.html"><img class="banner-big" src="/static/img/banner-big-1.jpg"/></div></a>
-								<div class="col-md-6"><a href="akcii-one.html"><img class="banner-big" src="/static/img/banner-small-3.jpg"/></div></a>
-							</div>
-
-
-
-
-						</div>
-					</div>
-
-
-
-
-				</main>
-			</div>
-		</div>
-		<!-- -----------------------------------SHOP END ------------------------------------------->
-		<!-- ------------------------ Zagolovok Наши лучшие предложения ----------------------- -->
-
-		<div class="section" id="zagolovok-1">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-
-						<div class="title_box">
-							<div class="horizontal_line"></div>
-							<p style="top: 10px" class="text-title">Наши лучшие предложения</p>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ------------------------ Zagolovok Наши лучшие акции END ----------------------- -->
-
-
-
-			<!-- ---------------------------------- KARUSEL slick  --------------------------------------->
-			<section>
-				<div class="container">
-
-					<div class="caruslel-aria__discription col-12 d-flex">
-						<p class="discription-first">
-							Черная пятница для черной кошки
-
-						</p>
-						<p class="discription-two">
-							Скидки на весь корм для кошек 50%!
-						</p>
-					</div>
-
-					<div class="product-slider slick-border">
-
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item6.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item7.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item8.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item9.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item10.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item6.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="img/item7.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item8.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item9.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar.html"><img src="/static/img/item10.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-
-
-
-					</div>
-				</div>
-
-				</div>
-			</section>
-
-
-			<!-- ---------------------------------- KARUSEL AKCIYA END --------------------------------------->
-			<div class="otstup"> </div>   <!-- ------- otstup ------------->
-
-
-			<section>
-				<div class="container">
-
-					<div class="caruslel-aria__discription col-12 d-flex">
-						<p class="discription-first">
-							Товары дня
-						</p>
-						<p class="discription-two">
-							Лучшие скидки сегодняшнего дня. Не опоздай!
-						</p>
-					</div>
-
-					<div class="product-slider slick-border">
-
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item1.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item2.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item3.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item4.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item5.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item1.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item2.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item3.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item4.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-						<div class="product-block">
-							<div class="product-img">
-								<a href="one-tovar1.html"><img src="/static/img/item5.jpg" class="img-fluid" /></a>
-							</div>
-							<div class="product-text">
-								<p class="slide__title">Название товара</p>
-
-								<a href="#" class="slide__discription">
-									<p class="discription">Краткое описание товара Краткое описание товара
-										Краткое описание товараКраткое описание товара</p>
-								</a>
-								<p class="slide__price">325руб.</p>
-								<p class="slide__old-price">325руб.</p>
-							</div>
-						</div>
-
-
-					</div>
-				</div>
-
-				</div>
-			</section>
-
-
-			<script type="text/javascript" src="/static/slick/jquery-1.11.0.min.js"></script>
-			<script type="text/javascript" src="/static/slick/jquery-migrate-1.2.1.min.js"></script>
-			<script type="text/javascript" src="/static/slick/slick.min.js"></script>
-
-			<script>
-                $(document).ready(function(){
-                    $('.product-slider').slick({
-                        infinite: true,
-                        arrows: true,
-                        autoplay: true,
-                        autoplaySpeed: 4000,
-                        prevArrow: '<button class="arrow prev "></button>',
-                        nextArrow: '<button class="arrow next "></button>',
-                        slidesToShow: 5,
-                        slidesToScroll: 1,
-
-                        responsive: [
-                            {
-                                breakpoint: 1024,
-                                settings: {
-                                    slidesToShow: 3,
-                                    slidesToScroll: 3,
-                                    infinite: true,
-                                    autoplay: true,
-                                    autoplaySpeed: 4000,
-                                    prevArrow: '<button class="arrow prev "></button>',
-                                    nextArrow: '<button class="arrow next "></button>'
-                                }
-                            },
-
-                            {
-                                breakpoint: 767,
-                                settings: {
-                                    slidesToShow: 2,
-                                    infinite: true,
-                                    autoplay: true,
-                                    autoplaySpeed: 4000,
-                                    prevArrow: '<button class="arrow prev "></button>',
-                                    nextArrow: '<button class="arrow next "></button>',
-                                    slidesToScroll: 2
-                                }
-                            },
-                            {
-                                breakpoint: 400,
-                                settings: {
-                                    slidesToShow: 1,
-                                    infinite: true,
-                                    autoplay: true,
-                                    autoplaySpeed: 4000,
-                                    prevArrow: '<button class="arrow prev "></button>',
-                                    nextArrow: '<button class="arrow next "></button>',
-                                    slidesToScroll: 1
-                                }
-                            }
-                            // You can unslick at a given breakpoint now by adding:
-                            // settings: "unslick"
-                            // instead of a settings object
-                        ]
-                    });
-                });
-			</script>
-
-
-			<footer>
-
-				<!-- SOCIAL -->
-				<nav class="social container-fluid">
-					<div class="social-bar container row col-xl-6">
-						<a href="#" class="social-bar__f col-md-3"><img src="/static/img/f.png" alt="social-icon" />Прочитай о нас</a>
-						<a href="#" class="social-bar__t col-md-3"><img src="/static/img/t.png" alt="social-icon" />Следи за нами</a>
-						<a href="#" class="social-bar__yt col-md-3"><img src="/static/img/yt.png" alt="social-icon" />Смотри о нас</a>
-						<a href="#" class="social-bar__i col-md-3"><img src="/static/img/i.png" alt="social-icon" />Расскажи о нас</a>
-					</div>
-				</nav>
-				<!-- SOCIAL END -->
-				<!-- FOOTER -->
-
-				<div class="footer container-fluid">
-					<div class="footer__footer-content container row d-flex">
-						<div class="col-lg-3">
-							<a href="index.html"><img src="/static/img/logo-footer.png" alt="Megamag" /></a>
-						</div>
-
-						<div class="footer__adres col-sm-6 col-lg-4">
-							<p class="adres">Адрес</p>
-							<p class="adres-text">
-								Москва, Красносельский, Краснопрудная улица, 28<br />
-								Телефон: +7 495 012-3456<br />
-								Часы работы: пн-вс 10.00-21.00<br />
-							</p>
-							<p class="adres-copyrith">
-								© 2018, megamag2018.com
-							</p>
-						</div>
-
-						<div class="footer__ur-info col-sm-6 col-lg-5">
-							<p class="ur-info">
-								Юридическая информация
-							</p>
-							<p class="ur-info-text">
-								Наименование организации ИП Иванов Иван Иванович<br />
-								ИНН 771993585943<br />
-								ОГРНИП 318774600277350<br />
-								Фактический адрес г. Москва, ул. Сущевский вал, д.5, стр.20<br />
-							</p>
-
-						</div>
-					</div>
-				</div>
-
-				<!-- FOOTER END -->
-				</footer>
-			<script src="/static/js/RudraCart.js"></script>
-		<script src="https://use.fontawesome.com/1d4d05801d.js"></script>
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-	</body>
+        // You can unslick at a given breakpoint now by adding:
+        // settings: "unslick"
+        // instead of a settings object
+      ]
+    })
+  })
+</script>
+
+
+<footer>
+
+  <!-- SOCIAL -->
+  <nav class="social container-fluid">
+    <div class="social-bar container row col-xl-6">
+      <a href="#" class="social-bar__f col-md-3"><img src="/static/img/f.png" alt="social-icon"/>Прочитай о нас</a>
+      <a href="#" class="social-bar__t col-md-3"><img src="/static/img/t.png" alt="social-icon"/>Следи за нами</a>
+      <a href="#" class="social-bar__yt col-md-3"><img src="/static/img/yt.png" alt="social-icon"/>Смотри о нас</a>
+      <a href="#" class="social-bar__i col-md-3"><img src="/static/img/i.png" alt="social-icon"/>Расскажи о нас</a>
+    </div>
+  </nav>
+  <!-- SOCIAL END -->
+  <!-- FOOTER -->
+
+  <div class="footer container-fluid">
+    <div class="footer__footer-content container row d-flex">
+      <div class="col-lg-3">
+        <a href="/"><img src="/static/img/logo-footer.png" alt="Megamag" /></a>
+      </div>
+
+      <div class="footer__adres col-sm-6 col-lg-4">
+        <p class="adres">Адрес</p>
+        <p class="adres-text">
+          Москва, Красносельский, Краснопрудная улица, 28<br/>
+          Телефон: +7 495 012-3456<br/>
+          Часы работы: пн-вс 10.00-21.00<br/>
+        </p>
+        <p class="adres-copyrith">
+          © 2018, megamag2018.com
+        </p>
+      </div>
+
+      <div class="footer__ur-info col-sm-6 col-lg-5">
+        <p class="ur-info">
+          Юридическая информация
+        </p>
+        <p class="ur-info-text">
+          Наименование организации ИП Иванов Иван Иванович<br/>
+          ИНН 771993585943<br/>
+          ОГРНИП 318774600277350<br/>
+          Фактический адрес г. Москва, ул. Сущевский вал, д.5, стр.20<br/>
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER END -->
+</footer>
+<script src="/static/js/RudraCart.js"></script>
+<script src="https://use.fontawesome.com/1d4d05801d.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
 </html>

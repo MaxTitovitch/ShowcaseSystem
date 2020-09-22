@@ -5,7 +5,13 @@ form {
 
 
 }
-
+.product-img {
+	height: 200px!important;
+	width: 100%;
+}
+.product-img img {
+	width: 100%;
+}
 .formCost {
 	float: left;
 	margin-bottom: 10px;
