@@ -618,7 +618,7 @@
               {{/hasAction}}
               <input class="like-bar__box" type="checkbox" id="s1" name="cc"/>
               <label class="like-bar__text" for="s1"></label><br/>
-              <a href="/product/{{this.article}}"><img style="height: 200px" src="{{this.thumbnail}}" alt="{{this.name}}" class="img-fluid w-100"/></a>
+              <a href="/product/{{this.article}}"><img style="height: 200px" src="{{getImageProd this}}" alt="{{this.name}}" class="img-fluid w-100"/></a>
               <a href="/product/{{this.article}}" class="item__description">
                 {{this.name}}
               </a>
@@ -936,7 +936,7 @@
   <!-- FOOTER END -->
 </footer>
 
-<script src="/static/js/RudraCart.js"></script>
+<script src="/static/js/normalize-file.js"></script><script src="/static/js/RudraCart.js"></script>
 
 <script src="https://use.fontawesome.com/1d4d05801d.js"></script>
 

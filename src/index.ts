@@ -83,6 +83,25 @@ createConnection().then(async connection => {
                 return product.productToCategoryBindings[0].category[param];
             }
         },
+        getImageProd (product) {
+            if(product.thumbnail) {
+                return product.thumbnail;
+            }
+            if(product.picture) {
+                return product.picture;
+            }
+            if(product.category) {
+                if(product.category.productDummyPicture) {
+                    return product.category.productDummyPicture;
+                }
+                if(product.category.parent) {
+                    if(product.category.parent.productDummyPicture) {
+                        return product.category.parent.productDummyPicture;
+                    }
+                }
+            }
+            return '/static/images/default.png';
+        },
         isProductCategory(category, options) {
             if(category.parentId !== category.id) {
                 return options.fn(category.parent);
