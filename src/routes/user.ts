@@ -14,7 +14,10 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 
 let getActions = async function(store) {
+  let date = new Date().toISOString().split('T')[0];
   let promotions = await getRepository(Promotion).createQueryBuilder("promotion")
+      .where(`(starting < TO_DATE('${date}','yyyy-mm-dd') OR starting IS NULL)`)
+      .andWhere(`(ending > TO_DATE('${date}','yyyy-mm-dd') OR ending IS NULL)`)
       .orderBy('id').getMany(), rand;
   rand = Math.floor(Math.random() * promotions.length);
   let promotionFirst = promotions[rand];
@@ -102,7 +105,12 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/shares',async (req, res) => {
-  let shares = await getRepository(Promotion).createQueryBuilder("promotion").orderBy('id').getMany();
+  let date = new Date().toISOString().split('T')[0];
+  let shares = await getRepository(Promotion).createQueryBuilder("promotion")
+      .where(`(starting < TO_DATE('${date}','yyyy-mm-dd') OR starting IS NULL)`)
+      .andWhere(`(ending > TO_DATE('${date}','yyyy-mm-dd') OR ending IS NULL)`)
+      .orderBy('id').getMany();
+  console.log(shares)
   res.render("user/akcii", {layout: null, shares});
 });
 
@@ -121,9 +129,12 @@ router.get('/categories/set-order',async (req, res) => {
 });
 
 router.get('/shares/:index', async (req, res) => {
+  let date = new Date().toISOString().split('T')[0];
   let table = req.cookies.orderField == 'NAME' ? 'product' : 'PRODUCT_PRICE_STORE';
   let share = await getRepository(Promotion).findOne({id: req.params.index});
-  let shares =  await getRepository(Promotion).createQueryBuilder("PROMOTION").orderBy('"PROMOTION"."ID"').getMany();
+  let shares =  await getRepository(Promotion).createQueryBuilder("PROMOTION")
+      .where(`(starting < TO_DATE('${date}','yyyy-mm-dd') OR starting IS NULL)`)
+      .andWhere(`(ending > TO_DATE('${date}','yyyy-mm-dd') OR ending IS NULL)`).orderBy('"PROMOTION"."ID"').getMany();
   let oldProducts = getRepository(Product).createQueryBuilder("product")
       .leftJoinAndSelect("product.productAvailabilityStores", "PRODUCT_AVAILABILITY_STORE")
       .leftJoinAndSelect("product.productPriceStores", "PRODUCT_PRICE_STORE",
@@ -275,7 +286,7 @@ router.get('/product/find', async (req, res) => {
       .leftJoinAndSelect("PRODUCT.productToCategoryBindings", "PRODUCT_TO_CATEGORY_BINDING", query)
       .leftJoinAndSelect("PRODUCT.productPriceStores", "PRODUCT_PRICE_STORE")
   //     // TODO Раскомент
-  //     // .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + store.id)
+      .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + req.cookies.store.id)
       .andWhere(`"PRODUCT"."NAME" LIKE '%${req.query.s}%' OR "PRODUCT"."ARTICLE" LIKE '%${req.query.s}%'`).getOne();
   console.log(product);
   if(product) {
@@ -290,7 +301,7 @@ router.get('/product/:index', async (req, res) => {
       .leftJoinAndSelect("PRODUCT.productAvailabilityStores", "PRODUCT_AVAILABILITY_STORE")
       .leftJoinAndSelect("PRODUCT.productPriceStores", "PRODUCT_PRICE_STORE")
   //     // TODO Раскомент
-  //     //  .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + store.id)
+       .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + req.cookies.store.id)
       .where(`"PRODUCT"."ARTICLE" = '${req.params.index}'`).getOne();
   product.pictureSet = JSON.parse(product.pictureSet);
   res.render("user/one-tovar", {layout: null, product});
@@ -301,7 +312,7 @@ router.get('/product-show/:index', async (req, res) => {
       .leftJoinAndSelect("PRODUCT.productAvailabilityStores", "PRODUCT_AVAILABILITY_STORE")
       .leftJoinAndSelect("PRODUCT.productPriceStores", "PRODUCT_PRICE_STORE")
       //     // TODO Раскомент
-      //     //  .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + store.id)
+           .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + req.cookies.store.id)
       .where(`"PRODUCT"."ARTICLE" = '${req.params.index}'`).getOne();
   product.pictureSet = JSON.parse(product.pictureSet);
   res.render("user/one-tovar1", {layout: null, product});
