@@ -144,8 +144,8 @@ router.get('/categories-show/:index', async (req, res) => {
       .leftJoinAndSelect("product.productAvailabilityStores", "PRODUCT_AVAILABILITY_STORE")
       .leftJoinAndSelect("product.productPriceStores", "PRODUCT_PRICE_STORE",
           '"PRODUCT_PRICE_STORE"."STORE_ID" = ' + req.cookies.store.id
-          + ` AND (("PRODUCT_PRICE_STORE"."PRICE" BETWEEN ${req.query.from} AND ${req.query.to} AND "PRODUCT_PRICE_STORE"."DISCOUNT_PRICE" IS NULL)`
-          + ` OR ("PRODUCT_PRICE_STORE"."DISCOUNT_PRICE" BETWEEN ${req.query.from} AND ${req.query.to} AND "PRODUCT_PRICE_STORE"."DISCOUNT_PRICE"  IS NOT NULL))`
+          + ` AND (("PRODUCT_PRICE_STORE"."PRICE" BETWEEN ${req.query.from || 0} AND ${req.query.to || 100000} AND "PRODUCT_PRICE_STORE"."DISCOUNT_PRICE" IS NULL)`
+          + ` OR ("PRODUCT_PRICE_STORE"."DISCOUNT_PRICE" BETWEEN ${req.query.from || 0} AND ${req.query.to || 100000} AND "PRODUCT_PRICE_STORE"."DISCOUNT_PRICE"  IS NOT NULL))`
       )
       .leftJoinAndSelect("product.productToCategoryBindings", "PRODUCT_TO_CATEGORY_BINDING")
       .leftJoinAndSelect("PRODUCT_TO_CATEGORY_BINDING.category", "CATEGORY")
@@ -238,6 +238,25 @@ router.post('/shop/:index', async (req, res) => {
     });
     res.redirect("/shop/" + req.params.index + '/success');
   } catch (e) {
+    res.redirect('/');
+  }
+});
+
+router.get('/product/find', async (req, res) => {
+  let query = '"PRODUCT_TO_CATEGORY_BINDING"."CATEGORY_ID" IS NOT NULL';
+  if (req.query.category_id != '0'){
+    query = `"PRODUCT_TO_CATEGORY_BINDING"."CATEGORY_ID" = ${req.query.category_id}`;
+  }
+  let product = await getRepository(Product).createQueryBuilder("PRODUCT")
+      .leftJoinAndSelect("PRODUCT.productToCategoryBindings", "PRODUCT_TO_CATEGORY_BINDING", query)
+      .leftJoinAndSelect("PRODUCT.productPriceStores", "PRODUCT_PRICE_STORE")
+  //     // TODO Раскомент
+  //     // .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + store.id)
+      .andWhere(`"PRODUCT"."NAME" LIKE '%${req.query.s}%' OR "PRODUCT"."ARTICLE" LIKE '%${req.query.s}%'`).getOne();
+  console.log(product);
+  if(product) {
+    res.redirect('/product/' + product.article);
+  } else {
     res.redirect('/');
   }
 });
