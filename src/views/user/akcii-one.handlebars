@@ -581,7 +581,9 @@
               location.href = arrValues.join('/')
             })
             let submitMyneForm = function (event) {
-              if($('#minCost').val() >= 0 && $('#minCost').val() <= $('#maxCost').val() && $('#maxCost').val() <= 10000) {
+              let min = Number.parseInt($('#minCost').val())
+              let max = Number.parseInt($('#maxCost').val())
+              if(min >= 0 && min <= max && max <= 10000) {
                 $(this).closest('form').submit();
               }
             };
