@@ -1,1315 +1,944 @@
 <!DOCTYPE html>
 <html lang="ru">
-	<head>
-		<meta charset="utf-8">
-		<title>МегаМаг - шопинг для жизни и души</title>
-		<meta name="discription" content="">
-		<meta name="keywords" content="">
-		<meta name="viewport" content="width=device-width initial-scale=1.0">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
-		<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" />
+<head>
+  <meta charset="utf-8">
+  <title>МегаМаг - шопинг для жизни и души</title>
+  <meta name="discription" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+  <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet"
+        type="text/css"/>
 
-	<link type="text/css" href="/static/css/main.css" rel="stylesheet" media="all">
-<!--		<script type="text/javascript" src="js/jquery-1.6.1.min.js"></script> -->
-		<script type="text/javascript" src="/static/js/jquery.ui-slider.js"></script>
-		<script type="text/javascript" src="/static/js/jquery.main.js"></script>
+  <link type="text/css" href="/static/css/main.css" rel="stylesheet" media="all">
+  <!--		<script type="text/javascript" src="js/jquery-1.6.1.min.js"></script> -->
+  <script type="text/javascript" src="/static/js/jquery.ui-slider.js"></script>
+  <script type="text/javascript" src="/static/js/jquery.main.js"></script>
 
-		<script type="text/javascript" src="/static/js/jquery.js"></script>
-                <link href="/static/css/fotorama.css" rel="stylesheet">
-                <script src="/static/js/fotorama.js"></script>
-
-
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-				<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-		<link rel="stylesheet" href="/static/font/b-rub_tahoma/stylesheet.css">
-
-		<link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>
-		<link rel="stylesheet" type="text/css" href="/static/slick/slick-theme.css"/>
-
-                <link rel="stylesheet" href="/static/css/style.css">
-		<link rel="stylesheet" href="/static/css/style-spis.css">
-
-		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <link href="/static/css/fotorama.css" rel="stylesheet">
+  <script src="/static/js/fotorama.js"></script>
 
 
-	</head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="/static/font/b-rub_tahoma/stylesheet.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/style-spis.css">
 
-            <body>
+  <link rel="stylesheet" type="text/css" href="/static/slick/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/slick/slick-theme.css"/>
 
-			<!-- HTML-код модального окна-->
-			<div id="myModalEdit" class="modal fade">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
 
-							<p class="modal-my" id="myModalLabel">Наличие в магазинах города.</p>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
-								<span aria-hidden="true">×</span>
-							</button>
+  <link href="https://bootswatch.com/lumen/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- HTML-код модального окна-->
+<div id="myModalEdit" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <p class="modal-my" id="myModalLabel">Наличие в магазинах города.</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="products-store modal-body modal-my-text ">
+
+        <!--              <span class="modal-my-gorod">{-{this.store.name}}</span> {-{this.store.address}}<span class="modal-my-kolichestvo-mnogo">{-{getTextQuantity this.availability}}</span><br>-->
+
+        <span class="modal-my-gorod">Магазин 2.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-malo">мало</span><br>
+        <span class="modal-my-gorod">Магазин 3.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-dostat">достаточно</span><br>
+        <span class="modal-my-gorod">Магазин 4.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-mnogo">много</span><br>
+        <span class="modal-my-gorod">Магазин 5.</span> Ул. Неизвестная, д. 7. <span class="modal-my-kolichestvo-malo">мало</span><br>
+      </div>
+    </div>
+  </div>
+  <p id="myP"></p>
+</div>
+
+<script>
+  $(function () {
+    var text = ''
+    $('.myModalEditBtn').toArray().forEach(function (click) {
+      $(click).click(function (e) {
+        // отменяем стандартное поведение браузера при нажатии на ссылку
+        e.preventDefault()
+        // передаем в контент элемента с id="myP" содержимое переменной text
+        $('#myP').text(text);
+
+        let id = $(this).data('title');
+        let path = '/availability/' + id;
+        console.log(path)
+        $.ajax({
+          type: 'POST',
+          url: path,
+          data: '',
+          success: function (r) {
+            $('.products-store').eq(0).empty();
+            let productStore = $('.products-store');
+            for (let i = 0; i < r.length; i++) {
+              let availability = r[i].availability;
+              switch (availability) {
+                case 0: availability = {classNode: 'modal-my-kolichestvo-malo', val: 'Нету' }; break;
+                case 1: availability = {classNode: 'modal-my-kolichestvo-malo', val: 'Мало' }; break;
+                default:case 2: availability = {classNode: 'modal-my-kolichestvo-dostat', val: 'Достаточно' }; break;
+                case 3: availability = {classNode: 'modal-my-kolichestvo-mnogo', val: 'Много' }; break;
+              }
+              productStore.append(`<a href="/shop/${r[i].store.id}" class="modal-my-gorod">${r[i].store.name}</a> ${r[i].store.address}<span class="${availability.classNode}">${availability.val}</span><br>`)
+            }
+            $('#myModalEdit').modal('show');
+            console.log(r)
+          }
+        });
+        // открываем модальное окно
+      })
+    })
+  })
+</script>
 
 
-						</div>
-						<div class="modal-body modal-my-text">
-							<span class="modal-my-gorod">Магазин 1.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-mnogo">много</span><br>
-							<span class="modal-my-gorod">Магазин 2.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-malo">мало</span><br>
-							<span class="modal-my-gorod">Магазин 3.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-dostat">достаточно</span><br>
-							<span class="modal-my-gorod">Магазин 4.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-mnogo">много</span><br>
-							<span class="modal-my-gorod">Магазин 5.</span> Ул. Неизвестная, д. 7.	<span class="modal-my-kolichestvo-malo">мало</span><br>
-						</div>
-					</div>
-				</div>
-				<p id="myP"></p>
-			</div>
+<!-- Кнопка, которая будет открывать модальное окно -->
+<!--	<a id="myModalEditBtn" href="#">редактирование</a> -->
 
-			<script>
-                $(function(){
-                    var text = '';
-                    $('#myModalEditBtn').click(function(e){
-                        // отменяем стандартное поведение браузера при нажатии на ссылку
-                        e.preventDefault();
-                        // передаем в контент элемента с id="myP" содержимое переменной text
-                        $('#myP').text(text);
-                        // открываем модальное окно
-                        $('#myModalEdit').modal('show');
-                    });
-                });
-			</script>
+<!-- -------------------------HEADER & NAVBAR------------------------ -->
+
+<div class="container">
+  <div class="container-fluid col-md-12 text-center" id="cart_content" style="display: none;"></div>
+</div>
+<!-- HTML-код модального окна-->
 
 
-			<!-- Кнопка, которая будет открывать модальное окно -->
-			<!--	<a id="myModalEditBtn" href="#">редактирование</a> -->
+<div id="myModalEdit2" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
 
-                <!-- -------------------------HEADER & NAVBAR------------------------ -->
-
-
-
-
-      <!-- HTML-код модального окна-->
-      <div id="myModalEdit2" class="modal fade">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-
-              <p class="modal-my modal-my-zagol" id="myModalLabel">В Вашем городе нет наших магазинов!</p>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
-                <span aria-hidden="true">×</span>
-              </button>
+        <p class="modal-my modal-my-zagol" id="myModalLabel">В Вашем городе нет наших магазинов!</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
 
 
-            </div>
-            <div class="modal-body modal-my-text">
-              Будьте добры перейдите на страницу выбора города, где есть наши магазины.
-              Это необходимо для того, чтобы показать Вам актуальные товары и цены.
-              <span class="modal-my-gorod">Большое спасибо за сотрудничество.</span>
-            </div>
-            <a href="/map" class="btn btn btn-primary" role="button">Перейти к выбору города</a>
+      </div>
+      <div class="modal-body modal-my-text">
+        Будьте добры перейдите на страницу выбора города, где есть наши магазины.
+        Это необходимо для того, чтобы показать Вам актуальные товары и цены.
+        <span class="modal-my-gorod">Большое спасибо за сотрудничество.</span>
+      </div>
+      <a href="/map" class="btn btn btn-primary" role="button">Перейти к выбору города</a>
 
 
-          </div>
+    </div>
+  </div>
+  <p id="myP"></p>
+</div>
+
+<script>
+  $(function () {
+    var text = ''
+    $('#myModalEditBtn2').click(function (e) {
+      // отменяем стандартное поведение браузера при нажатии на ссылку
+      e.preventDefault()
+      // передаем в контент элемента с id="myP" содержимое переменной text
+      $('#myP').text(text)
+      // открываем модальное окно
+      $('#myModalEdit2').modal('show')
+    })
+  })
+</script>
+
+
+<!-- Кнопка, которая будет открывать модальное окно -->
+<!--	<a id="myModalEditBtn2" href="#">редактирование</a> -->
+
+<!-- -------------------------HEADER & NAVBAR------------------------ -->
+<header class="header">
+
+  <!-- -------------------------HEADER ------------------------ -->
+
+  <div class="header__head container row d-flex">
+
+    <div class="logo col-xl-3 order-xl-last">
+      <a href="/"><img src="/static/img/logo.png" alt="Megamag"/></a>
+    </div>
+
+    <!-- serch -->
+    <form class="head__search col-lg-6 col-xl-4" action="/product/find">
+      <input class="search__field" name="s" required placeholder="Я хочу найти ..." type="text">
+      <select class="search__select" name="category_id">
+        <option disabled class="select__item select__item-title">Выбери категорию</option>
+        <option class="select__item" value="0" selected>Все категории</option>
+        {{#each categories}}
+          <option class="select__item" value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+        <option class="select__item" value="0">По штрих коду</option>
+      </select>
+      <button class="search__buttom" type="submit"></button>
+    </form>
+    <!-- search end -->
+
+    <!-- ваш город/магазин -->
+    <div class="place-wrap col-lg-6 col-xl-5 row">
+
+      <div class="head__your-city col-12 col-sm-6 col-md-6  d-flex">
+        <div class="your-city__icon">
+          <img src="/static/img/map-pin.png" alt="icon-map"/>
         </div>
-        <p id="myP"></p>
+        <div class="your-city__text-wrap">
+          <p id="select-city-go-1" class="your-city__title">
+            Ваш город - <span class="region-name-n">{{region.name}}</span>
+          </p>
+          <a id="myModalEditBtn2" href="#" class="your-city__button">Выберите Ваш город</a>
+        </div>
       </div>
 
-      <script>
-        $(function(){
-          var text = '';
-          $('#myModalEditBtn2').click(function(e){
-            // отменяем стандартное поведение браузера при нажатии на ссылку
-            e.preventDefault();
-            // передаем в контент элемента с id="myP" содержимое переменной text
-            $('#myP').text(text);
-            // открываем модальное окно
-            $('#myModalEdit2').modal('show');
-          });
-        });
-      </script>
-
-
-      <!-- Кнопка, которая будет открывать модальное окно -->
-      <!--	<a id="myModalEditBtn2" href="#">редактирование</a> -->
-
-      <!-- -------------------------HEADER & NAVBAR------------------------ -->
-      <header class="header">
-
-        <!-- -------------------------HEADER ------------------------ -->
-
-        <div class="header__head container row d-flex">
-
-          <div class="logo col-xl-3 order-xl-last">
-            <a href="/"><img src="/static/img/logo.png" alt="Megamag"/></a>
-          </div>
-
-          <!-- serch -->
-          <form class="head__search col-lg-6 col-xl-4" action="/product/find">
-            <input class="search__field" name="s" required placeholder="Я хочу найти ..." type="text">
-            <select class="search__select" name="category_id">
-              <option disabled class="select__item select__item-title">Выбери категорию</option>
-              <option class="select__item" value="0" selected>Все категории</option>
-              {{#each categories}}
-                <option class="select__item" value="{{this.id}}">{{this.name}}</option>
-              {{/each}}
-              <option class="select__item" value="0">По штрих коду</option>
-            </select>
-            <button class="search__buttom" type="submit"></button>
-          </form>
-          <!-- search end -->
-
-          <!-- ваш город/магазин -->
-          <div class="place-wrap col-lg-6 col-xl-5 row">
-
-            <div class="head__your-city col-12 col-sm-6 col-md-6  d-flex">
-              <div class="your-city__icon">
-                <img src="/static/img/map-pin.png" alt="icon-map"/>
-              </div>
-              <div class="your-city__text-wrap">
-                <p id="select-city-go-1" class="your-city__title">
-                  Ваш город -  <span class="region-name-n">{{region.name}}</span>
-                </p>
-                <a  id="myModalEditBtn2" href="#" class="your-city__button">Выберите Ваш город</a>
-              </div>
-            </div>
-
-            <div class="head__your-shop col-12 col-sm-61 col-md-6 d-flex">
-              <div class="your-shop__icon">
-                <img src="/static/img/korzina.png" alt="icon-shop"/>
-              </div>
-              <div class="your-shop__text-wrap">
-                <p class="your-shop__title">
-                  Ваш магазин - <span class="store-name-n">{{store.name}}</span>
-                </p>
-                <a href="/map" class="your-shop__button">Выберите Ваш магазин</a>
-              </div>
-            </div>
-
-          </div>
-          <!-- ваш город/магазин end -->
-
+      <div class="head__your-shop col-12 col-sm-61 col-md-6 d-flex">
+        <div class="your-shop__icon">
+          <img src="/static/img/korzina.png" alt="icon-shop"/>
         </div>
+        <div class="your-shop__text-wrap">
+          <p class="your-shop__title">
+            Ваш магазин - <span class="store-name-n">{{store.name}}</span>
+          </p>
+          <a href="/map" class="your-shop__button">Выберите Ваш магазин</a>
+        </div>
+      </div>
 
-        <!-- ------------------ HEADER END ---------------  -->
+    </div>
+    <!-- ваш город/магазин end -->
 
-        <!-- ------------------ NAVBAR --------------------- -->
+  </div>
 
-        <!-- NAVBAR -->
+  <!-- ------------------ HEADER END ---------------  -->
 
-        <div class="header__nav-line container-fluid">
-          <nav class="nav-line container navbar navbar-expand-md d-flex">
+  <!-- ------------------ NAVBAR --------------------- -->
 
-            <!--dropdown-list -->
-            <div class="dropdown open">
-              <a class="nav-line__menu navbar-text dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="/static/img/tree_line_menu.png" class="menu-icon" alt="menu"/>Все разделы
-              </a>
+  <!-- NAVBAR -->
+
+  <div class="header__nav-line container-fluid">
+    <nav class="nav-line container navbar navbar-expand-md d-flex">
+
+      <!--dropdown-list -->
+      <div class="dropdown open">
+        <a class="nav-line__menu navbar-text dropdown-toggle" href="" role="button" id="dropdownMenuLink"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="/static/img/tree_line_menu.png" class="menu-icon" alt="menu"/>Все разделы
+        </a>
 
 
-              <div class="dropdown-menu dropright" aria-labelledby="dropdownMenuLink">
-                <!-- dropdown-list-lvl2 -->
-                {{#each categories}}
-                  {{#is this.id this.parentId}}
-                    <a class="dropdown-item submenu " href="/categories-show/{{this.id}}">{{this.name}}</a>
-                    <div class="dropdown-menu" >
-                      {{#each ../categories}}
-                        {{#is this.parentId ../this.id}}
-                          <a class="dropdown-item" href="/categories-show/{{this.id}}">{{this.name}}</a>
-                        {{/is}}
-                      {{/each}}
-                    </div>
+        <div class="dropdown-menu dropright" aria-labelledby="dropdownMenuLink">
+          <!-- dropdown-list-lvl2 -->
+          {{#each categories}}
+            {{#is this.id this.parentId}}
+              <a class="dropdown-item submenu " href="/categories-show/{{this.id}}">{{this.name}}</a>
+              <div class="dropdown-menu">
+                {{#each ../categories}}
+                  {{#is this.parentId ../this.id}}
+                    <a class="dropdown-item" href="/categories-show/{{this.id}}">{{this.name}}</a>
                   {{/is}}
                 {{/each}}
               </div>
-            </div>
-            <!--dropdown-list end -->
-
-            <ul class="nav-line__link-bar navbar-nav">
-              {{#each categoriesMenu}}
-                <li class="link-item line-effect">
-                  <a class="link" href="/categories/{{this.id}}">{{this.name}}</a>
-                </li>
-              {{/each}}
-              <li class="link-item line-effect">
-                <a class="link-akcia" href="/shares">Наши акции</a>
-              </li>
-            </ul>
-            <div>
-              <a href="/list"><button id="checkout" class="list-pokupka"> </button></a>
-            </div>
-
-          </nav>
+            {{/is}}
+          {{/each}}
         </div>
+      </div>
+      <!--dropdown-list end -->
 
-        <!-- NAVBAR END -->
-      </header>
-	<!-- ------------------------ HEADER END ----------------------- -->
-	<!-- ------------------------ Определение города ----------------------- -->
+      <ul class="nav-line__link-bar navbar-nav">
+        {{#each categoriesMenu}}
+          <li class="link-item line-effect">
+            <a class="link" href="/categories/{{this.id}}">{{this.name}}</a>
+          </li>
+        {{/each}}
+        <li class="link-item line-effect">
+          <a class="link-akcia" href="/shares">Наши акции</a>
+        </li>
+      </ul>
+      <div>
+        <a href="/list">
+          <button id="checkout" onclick="location.href = '/list'; event.preventDefault(); return false;" class="list-pokupka"></button>
+        </a>
+      </div>
 
-	<!-- <div id="select-city-go">Выбор города</div> -->
-	<div id="modal_form">
-		<span id="modal_close">X</span>
-		<div id="spisok-gorodov">
-			<table>
-				<tr><td>Архангельск</td><td>Омск</td></tr>
-				<tr><td>Астрахань</td><td>Орел</td></tr>
-			</table>
-		</div>
-		<div id="insol-map-modal"></div>
-	</div>
-	<div id="overlay"></div>
+    </nav>
+  </div>
 
-	<script>
+  <!-- NAVBAR END -->
+</header>
+<!-- ------------------------ HEADER END ----------------------- -->
+<!-- ------------------------ Определение города ----------------------- -->
 
-        jQuery('#select-city-go').click(function() {
-            jQuery('#overlay').fadeIn(400,
-                function(){
-                    jQuery('#modal_form')
-                        .css('display', 'block')
-                        .animate({opacity: 1, top: '50%'}, 200);
-                });
+<!-- <div id="select-city-go">Выбор города</div> -->
+<div id="modal_form">
+  <span id="modal_close">X</span>
+  <div id="spisok-gorodov">
+    <table>
+      <tr>
+        <td>Архангельск</td>
+        <td>Омск</td>
+      </tr>
+      <tr>
+        <td>Астрахань</td>
+        <td>Орел</td>
+      </tr>
+    </table>
+  </div>
+  <div id="insol-map-modal"></div>
+</div>
+<div id="overlay"></div>
 
-            jQuery('#select-city-go').click( function(event){
-                event.preventDefault();
-                jQuery('#overlay').fadeIn(400,
-                    function(){
-                        jQuery('#modal_form')
-                            .css('display', 'block')
-                            .animate({opacity: 1, top: '50%'}, 200);
-                    });
-            });
+<script>
 
-            jQuery('#modal_close, #overlay').click( function(){
-                jQuery('#modal_form')
-                    .animate({opacity: 0, top: '45%'}, 200,
-                        function(){
-                            jQuery(this).css('display', 'none');
-                            jQuery('#overlay').fadeOut(400);
-                        }
-                    );
-            });
-        });
+  jQuery('#select-city-go').click(function () {
+    jQuery('#overlay').fadeIn(400,
+        function () {
+          jQuery('#modal_form')
+              .css('display', 'block')
+              .animate({ opacity: 1, top: '50%' }, 200)
+        })
 
-        function setCookie(name, value) {
-            document.cookie = name + "=" + value;
-        }
-        function getCookie(name) {
-            var r = document.cookie.match("(^|;)?" + name + "=([^;]*)(;|$)");
-            if (r) return r[2];
-            else return "";
-        }
-        function deleteCookie(name) {
-            var date = new Date();
-            date.setTime(date.getTime() - 1);
-            document.cookie = name += "=; expires=" + date.toGMTString();
-        }
+    jQuery('#select-city-go').click(function (event) {
+      event.preventDefault()
+      jQuery('#overlay').fadeIn(400,
+          function () {
+            jQuery('#modal_form')
+                .css('display', 'block')
+                .animate({ opacity: 1, top: '50%' }, 200)
+          })
+    })
 
-        //jQuery("#spisok-gorodov td").click(function(){ alert(jQuery(this).text()); });
+    jQuery('#modal_close, #overlay').click(function () {
+      jQuery('#modal_form')
+          .animate({ opacity: 0, top: '45%' }, 200,
+              function () {
+                jQuery(this).css('display', 'none')
+                jQuery('#overlay').fadeOut(400)
+              }
+          )
+    })
+  })
 
-        ymaps.ready(function () {
-            geolocation = ymaps.geolocation;
-            var myMapMod = new ymaps.Map('insol-map-modal', {
-                center: [47.22, 39.71],
-                zoom: 12,
-                controls: []
-            });
+  function setCookie (name, value) {
+    document.cookie = name + '=' + value
+  }
 
-            geolocation.get({
-                provider: 'yandex',
-                mapStateAutoApply: true
-            }).then(function (result) {
-                result.geoObjects.options.set('preset', 'islands#blueIcon');
-                myMapMod.geoObjects.add(result.geoObjects);
-                var firstGeoObject = result.geoObjects.get(0);
-                coords = firstGeoObject.geometry.getCoordinates();
-                myMapMod.setZoom(12);
-                city_name=firstGeoObject.properties.get('name');
-                jQuery('#select-city-go').html(city_name);
-                setCookie("city_name", city_name);
-            });
+  function getCookie (name) {
+    var r = document.cookie.match('(^|;)?' + name + '=([^;]*)(;|$)')
+    if (r) return r[2]
+    else return ''
+  }
 
-            jQuery("#spisok-gorodov td").click(function(){
-                city_click=jQuery(this).text();
-                jQuery('#select-city-go').html(city_click);
-                setCookie("city_name", city_click);
-                ymaps.geocode(city_click, { results: 1  }).then(function (res) {
-                    var firstGeoObject = res.geoObjects.get(0),
-                        coords = firstGeoObject.geometry.getCoordinates(),
-                        bounds = firstGeoObject.properties.get('boundedBy');
-                    myMapMod.geoObjects.add(firstGeoObject);
-                    myMapMod.setBounds(bounds, { checkZoomRange: true });
-                });
-            });
+  function deleteCookie (name) {
+    var date = new Date()
+    date.setTime(date.getTime() - 1)
+    document.cookie = name += '=; expires=' + date.toGMTString()
+  }
 
-            mySearchControl = new ymaps.control.SearchControl({
-                options: {
-                    noPlacemark: true,
-                    position: { left: 0, top: 0 }
-                }
-            });
-            // Результаты поиска будем помещать в коллекцию.
-            mySearchResults = new ymaps.GeoObjectCollection(null, {
-                hintContentLayout: ymaps.templateLayoutFactory.createClass('$[properties.name]')
-            });
-            myMapMod.controls.add(mySearchControl);
-            myMapMod.geoObjects.add(mySearchResults);
+  //jQuery("#spisok-gorodov td").click(function(){ alert(jQuery(this).text()); });
 
-            // Выбранный результат помещаем в коллекцию.
-            mySearchControl.events.add('resultselect', function (e) {
-                var index = e.get('index');
-                var results = mySearchControl.getResultsArray(); coords = results[index].geometry.getCoordinates();
-                myMapMod.setZoom(12);
-                city_name=results[index].properties.get('name');
-                jQuery('#select-city-go').html(city_name);
-                setCookie("city_name", city_name);
-                mySearchControl.getResult(index).then(function (res) {
-                    mySearchResults.add(res);
-                });
-            }).add('submit', function () {
-                mySearchResults.removeAll();
-            });
-        });
-	</script>
-	<!-- ------------------------ Определение города END ----------------------- -->
+  ymaps.ready(function () {
+    geolocation = ymaps.geolocation
+    var myMapMod = new ymaps.Map('insol-map-modal', {
+      center: [47.22, 39.71],
+      zoom: 12,
+      controls: []
+    })
 
+    geolocation.get({
+      provider: 'yandex',
+      mapStateAutoApply: true
+    }).then(function (result) {
+      result.geoObjects.options.set('preset', 'islands#blueIcon')
+      myMapMod.geoObjects.add(result.geoObjects)
+      var firstGeoObject = result.geoObjects.get(0)
+      coords = firstGeoObject.geometry.getCoordinates()
+      myMapMod.setZoom(12)
+      city_name = firstGeoObject.properties.get('name')
+      jQuery('#select-city-go').html(city_name)
+      setCookie('city_name', city_name)
+    })
 
-		<!-- ------------------------ Left KOLONKA ----------------------- -->
+    jQuery('#spisok-gorodov td').click(function () {
+      city_click = jQuery(this).text()
+      jQuery('#select-city-go').html(city_click)
+      setCookie('city_name', city_click)
+      ymaps.geocode(city_click, { results: 1 }).then(function (res) {
+        var firstGeoObject = res.geoObjects.get(0),
+            coords = firstGeoObject.geometry.getCoordinates(),
+            bounds = firstGeoObject.properties.get('boundedBy')
+        myMapMod.geoObjects.add(firstGeoObject)
+        myMapMod.setBounds(bounds, { checkZoomRange: true })
+      })
+    })
 
-			<div class="b-page container-fluid">
+    mySearchControl = new ymaps.control.SearchControl({
+      options: {
+        noPlacemark: true,
+        position: { left: 0, top: 0 }
+      }
+    })
+    // Результаты поиска будем помещать в коллекцию.
+    mySearchResults = new ymaps.GeoObjectCollection(null, {
+      hintContentLayout: ymaps.templateLayoutFactory.createClass('$[properties.name]')
+    })
+    myMapMod.controls.add(mySearchControl)
+    myMapMod.geoObjects.add(mySearchResults)
 
-				<!-- ASIDE -->
-				<div class="wrapper container row">
-					<!-- path -->
-
-					<div class="aside__path col-md-3">
-						<ul class="path">
-
-							<li class="path-item">
-								<a href="#" class="path-link">Главная</a>
-							</li>
-							<li class="path-item">
-								<p>/</p>
-							</li>
-
-							<li class="path-item">
-								<a href="#" class="path-link">Категория 1</a>
-							</li>
-							<li class="path-item">
-								<p>/</p>
-							</li>
-
-							<li class="path-item">
-								<a href="#" class="path-link">Подкатегория 1</a>
-							</li>
-						</ul>
-					</div>
-
-					<div class="aside__path col-md-6 ">
+    // Выбранный результат помещаем в коллекцию.
+    mySearchControl.events.add('resultselect', function (e) {
+      var index = e.get('index')
+      var results = mySearchControl.getResultsArray()
+      coords = results[index].geometry.getCoordinates()
+      myMapMod.setZoom(12)
+      city_name = results[index].properties.get('name')
+      jQuery('#select-city-go').html(city_name)
+      setCookie('city_name', city_name)
+      mySearchControl.getResult(index).then(function (res) {
+        mySearchResults.add(res)
+      })
+    }).add('submit', function () {
+      mySearchResults.removeAll()
+    })
+  })
+</script>
+<!-- ------------------------ Определение города END ----------------------- -->
 
 
-						<p class="path-item">Показывать по</p>
+<!-- ------------------------ Left KOLONKA ----------------------- -->
 
-						<a class="path-link-kol-vo" href="#">12</a>
-						<a class="path-link-kol-vo" href="#">24</a>
-						<a class="path-link-kol-vo" href="#">48</a>
+<div class="b-page container-fluid">
 
-					</div>
+  <!-- ASIDE -->
+  <div class="wrapper container row">
+    <!-- path -->
 
-					<div class="aside__path col-md-3  sortirovka">
+    <div class="aside__path col-md-3">
+      <ul class="path">
 
-						<p class="path-item">Сортировать:
-							<span>
+        <li class="path-item">
+          <a href="/" class="path-link">Главная</a>
+        </li>
+        <li class="path-item">
+          <p>/</p>
+        </li>
 
+
+
+        <li class="path-item">
+          <a href="/shares" class="path-link">Акции</a>
+        </li>
+        <li class="path-item">
+          <p>/</p>
+        </li>
+
+        <li class="path-item">
+          <a href="/shares/{{share.id}}" class="path-link">{{share.title}}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="aside__path col-md-6 ">
+      <p class="path-item">Показывать по</p>
+      <a class="path-link-kol-vo {{#is orderType.perPage '12' }}set-per-page{{/is}}" {{#isnt orderType.perPage '12' }}href="/categories/set-per-page/12"{{/isnt}}>12</a>
+      <a class="path-link-kol-vo {{#is orderType.perPage '24' }}set-per-page{{/is}}" {{#isnt orderType.perPage '24' }}href="/categories/set-per-page/24"{{/isnt}}>24</a>
+      <a class="path-link-kol-vo {{#is orderType.perPage '48' }}set-per-page{{/is}}" {{#isnt orderType.perPage '48' }}href="/categories/set-per-page/48"{{/isnt}}>48</a>
+    </div>
+
+    <div class="aside__path col-md-3  sortirovka">
+      <form action="/categories/set-order">
+        <p class="path-item">Сортировать:
+          <span>
 						<select id="sort" name="sort" class="path-link-sort">
-						<option value="price_asc">По цене, сначала дешевые</option>
-						<option value="price_desc">По цене, сначала дорогие</option>
-						<option value="good_asc">По названию, A-Z</option>
-						<option value="good_desc">По названию, Z-A</option>
-					</select>
-
-						</span>
-						</p>
-
-					</div>
-
-					<!-- path end -->
-
-
-					<aside class="aside col-md-3" >
-
-
-						<!-- sort -->
-						<div class="aside__sort">
-
-							<div class="under-sort_main">
-								<a href="#" class="main-item">Наши акции</a>
-							</div>
-
-
-							<!-- sort end -->
-							<div class="aside__line"></div>
-
-
-							<div class="сheck-bar">
-								<input class="сheck-bar__box" type="checkbox" id="c1" name="cc" />
-								<label class="сheck-bar__text" for="c1"><span></span>Акция 1</label><br />
-
-								<input class="сheck-bar__box" type="checkbox" id="c2" name="cc" />
-								<label class="сheck-bar__text" for="c2"><span></span>Акция 2</label><br />
-
-								<input class="сheck-bar__box" type="checkbox" id="c3" name="cc" />
-								<label class="сheck-bar__text" for="c3"><span></span>Акция 3</label>
-							</div>
-
-							<div class="aside__line"></div>
-
-
-
-							<!-- filtr -->
-							<div class="filtr">
-								<a class="filtr__button" data-toggle="collapse" href="#collapse-filtr1" role="button" aria-expanded="true" aria-controls="collapse-filtr1">
-									Фильтр1 <span class="button__arrow-icon"></span>
-								</a>
-								<div class="collapse-show collapse show" id="collapse-filtr1">
-									<div class="сheck-bar">
-										<input class="сheck-bar__box" type="checkbox" id="c4" name="cc" />
-										<label class="сheck-bar__text" for="c4"><span></span>выбор 1</label><br />
-
-										<input class="сheck-bar__box" type="checkbox" id="c5" name="cc" />
-										<label class="сheck-bar__text" for="c5"><span></span>выбор 2</label><br />
-
-										<input class="сheck-bar__box" type="checkbox" id="c6" name="cc" />
-										<label class="сheck-bar__text" for="c6"><span></span>выбор 3</label>
-									</div>
-								</div>
-							</div>
-
-							<!--  проверка на флажек и если есть то не сворачивать         -->
-							<script>
-                                $(document).ready(function(){
-                                    $("input[type='checkbox']").change(function(event) {
-                                        if ($("input:checkbox:checked").length > 0)
-
-                                        {
-
-                                            $(".filtr__button").removeAttr('data-toggle');
-                                            $(".filtr__button").removeAttr('href');
-
-                                        }else{
-
-                                            $(".filtr__button").attr('data-toggle','collapse');
-                                            $(".filtr__button").attr('href','#collapse-filtr1');
-
-                                        }
-                                    })
-                                })
-							</script>
-
-
-
-
-							<div class="aside__line"></div>
-
-
-							<p class="filtr__button" data-toggle="collapse" href="#collapse-filtr3" role="button" aria-expanded="true" aria-controls="collapse-filtr3">
-								Цена
-							</p>
-
-							<div class="main">
-								<form action="#" method="post">
-									<div class="formCost">
-										<label for="minCost">от</label> <input type="text" id="minCost" value="0">
-										<label for="maxCost">до</label> <input type="text" id="maxCost" value="1000">
-									</div>
-									<div class="sliderCont">
-										<div id="slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header" style="left: 0%; width: 100%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 100%;"></a></div>
-									</div>
-								</form>
-							</div>
-
-
-						</div>
-
-						<!-- filtr end -->
-
-					</aside>
-
-					<!-- ------------------------ Left KOLONKA END ----------------------- -->
-
-					<!-- --------------------------------  SHOP ------------------------------------->
-
-					<main class="col-md-9 bg_white">
-						<section>
-							<h2 class="for_valid">Мегамаг</h2>
-							<div class="shop container d-flex justify-content-center">
-
-								<div class="col-md-12 akcii-box">
-
-
-									<img  class="akcii-img" src="/static/img/banner-big-2-small.jpg"/>
-
-									<p class="akcii-text">	<span class="akcii-text-bold">Акция “Название” действует в магазинах: Магазин 1, Магазин 2. <br></span>
-										Подробное описание акции (рекламная информация, период времени).
-										Подробное описание акции (рекламная информация, период времени).
-										Так же дополнительная информация, типа "предложение ограничено". <span style="color: red; font-weight: bold">Скидка 35%.</span>
-
-									</p>
-
-								</div>
-								<div class="shop__item">
-
-									<div class="lenta-akcii">-14%</div>
-
-									<input class="like-bar__box" type="checkbox" id="s1" name="cc" />
-									<label class="like-bar__text" for="s1"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-1.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Макаронные изделия<br> "Макфа"
-									</a>
-									<p class="item__price">
-										175<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									185<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="1"
-														data-title="Макаронные изделия 'Макфа'"
-														data-price="175"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-
-									<p class="item__in-shop">
-										Наличие	<a  id="myModalEditBtn" href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-
-								</div>
-
-								<div class="shop__item">
-
-
-									<input class="like-bar__box" type="checkbox" id="s2" name="cc" />
-									<label class="like-bar__text" for="s2"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-2.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Макароны Baronia Пене Ригате, 500 г
-									</a>
-									<p class="item__price">
-										95<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									105<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="2"
-														data-title="Макароны Baronia Пене Ригате, 500 г"
-														data-price="105"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-								<div class="shop__item">
-
-
-									<input class="like-bar__box" type="checkbox" id="s3" name="cc" />
-									<label class="like-bar__text" for="s3"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-3.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Макароны Pietro Coricelli Фузилли, 500 г
-									</a>
-									<p class="item__price">
-										125<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									145<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="3"
-														data-title="Макароны Pietro Coricelli Фузилли, 500 г"
-														data-price="145"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-								<div class="shop__item">
-
-									<div class="lenta-akcii">-24%</div>
-
-
-									<input class="like-bar__box" type="checkbox" id="s4" name="cc" />
-									<label class="like-bar__text" for="s4"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-4.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Макароны Borges <br />Spaghetti, 500 г
-									</a>
-									<p class="item__price">
-										75<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									85<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="4"
-														data-title="Макароны Borges Spaghetti, 500 г"
-														data-price="85"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-								<div class="shop__item">
-
-									<input class="like-bar__box" type="checkbox" id="s5" name="cc" />
-									<label class="like-bar__text" for="s5"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-5.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Adriana Pasta цельно-зерновые фузилли, 500 г
-									</a>
-									<p class="item__price">
-										175<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									185<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="5"
-														data-title="Adriana Pasta цельно-зерновые фузилли, 500 г'"
-														data-price="185"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-								<div class="shop__item">
-									<div class="lenta-akcii">-10%</div>
-
-
-									<input class="like-bar__box" type="checkbox" id="s6" name="cc" />
-									<label class="like-bar__text" for="s6"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-6.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Макрона буравчик, <br />450 г
-									</a>
-									<p class="item__price">
-										35<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									45<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="6"
-														data-title="Макрона буравчик, 450 г"
-														data-price="45"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-								<div class="shop__item">
-
-									<div class="lenta-akcii">-30%</div>
-
-
-									<input class="like-bar__box" type="checkbox" id="s7" name="cc" />
-									<label class="like-bar__text" for="s7"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-7.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Adriana Pasta цельно-зерновые спагетти, 500 г
-									</a>
-									<p class="item__price">
-										115<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									135<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="7"
-														data-title="Adriana Pasta цельно-зерновые спагетти, 500 г"
-														data-price="135"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-								<div class="shop__item">
-
-
-									<input class="like-bar__box" type="checkbox" id="s8" name="cc" />
-									<label class="like-bar__text" for="s8"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-8.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Glocken Makaroni <br />макароны, 500 г
-									</a>
-									<p class="item__price">
-										75<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									85<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="8"
-														data-title="Glocken Makaroni макароны, 500 г"
-														data-price="85"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-
-								<div class="shop__item">
-									<div class="lenta-akcii">-18%</div>
-
-
-									<input class="like-bar__box" type="checkbox" id="s5" name="cc" />
-									<label class="like-bar__text" for="s5"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-9.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Dalla Costa Minchiette Фигурные без яиц
-									</a>
-									<p class="item__price">
-										155<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									185<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="9"
-														data-title="Dalla Costa Minchiette Фигурные без яиц"
-														data-price="185"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-								<div class="shop__item">
-
-
-									<input class="like-bar__box" type="checkbox" id="s6" name="cc" />
-									<label class="like-bar__text" for="s6"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-10.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Флёр Альпин <br />Органик паста звездочки
-									</a>
-									<p class="item__price">
-										95<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									105<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="10"
-														data-title="Флёр Альпин Органик паста звездочки"
-														data-price="105"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-								<div class="shop__item">
-									<div class="lenta-akcii">-70%</div>
-
-
-									<input class="like-bar__box" type="checkbox" id="s7" name="cc" />
-									<label class="like-bar__text" for="s7"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-11.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Adriana Pasta цельно-зерновые спагетти, 500 г
-									</a>
-									<p class="item__price">
-										165<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									185<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="11"
-														data-title="Adriana Pasta цельно-зерновые спагетти, 500 г"
-														data-price="185"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-								<div class="shop__item">
-
-
-									<input class="like-bar__box" type="checkbox" id="s8" name="cc" />
-									<label class="like-bar__text" for="s8"></label><br />
-
-									<a href="one-tovar.html"><img src="/static/img/item-fhoto-12.jpg" alt="makfa" class="img-fluid"/></a>
-									<a href="one-tovar.html" class="item__description">
-										Макароны Baronia <br />Пеннони Гиганти, 500 г
-									</a>
-									<p class="item__price">
-										75<span class="b-rub">Р</span>
-										<span class="item__old-price">
-									85<span class="b-rub">Р</span>
-								</span>
-									</p>
-
-									<div>
-										<div class="item">
-											<div class="quantity" style="display: none">
-												<button class="decrement btn btn-primary">-</button>
-												<button class="count btn btn-default">1</button>
-												<button class="increment btn btn-primary">+</button>
-											</div>
-											<div>
-												<button class="add_item btn btn-outline-primary"
-														data-id="12"
-														data-title="Макароны Baronia Пеннони Гиганти, 500 г"
-														data-price="85"
-												>Положить в список покупок</button>
-											</div>
-										</div>
-									</div>
-
-									<p class="item__in-shop">
-										Наличие	<a href="#" class="in-shop__link">в магазине1</a>
-									</p>
-									<img class="item__werehouse" src="/static/img/boxes.png" alt="werehouse"/>
-								</div>
-
-
-								<div class="justify-content-center aside__path_niz">
-
-									<nav aria-label="Page navigation example">
-										<ul class="pagination">
-											<li class="page-item">
-												<a class="page-link" href="#" aria-label="Previous">
-													<span aria-hidden="true">&laquo;</span>
-												</a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item">
-												<a class="page-link" href="#" aria-label="Next">
-													<span aria-hidden="true">&raquo;</span>
-												</a>
-											</li>
-										</ul>
-									</nav>
-
-								</div>
-							</div>
-
-
-
-
-						</section>
-					</main>
-
-
-				</div>
-			</div>
-		<!-- -----------------------------------SHOP END ------------------------------------------->
-
-		<div class="otstup"> </div>   <!-- ------- otstup ------------->
-
-		<!-- ------------------------ Zagolovok Наши лучшие предложения ----------------------- -->
-
-		<div class="section" id="zagolovok-1">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-
-						<div class="title_box">
-							<div class="horizontal_line"></div>
-							<p style="top: 10px" class="text-title">Наши лучшие предложения</p>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ------------------------ Zagolovok Наши лучшие акции END ----------------------- -->
-
-      <section>
-        <div class="container">
-
-          <div class="caruslel-aria__discription col-12 d-flex">
-            <p class="discription-first">
-              {{promoFirst.title}}
-
-            </p>
-            <p class="discription-two">
-              {{promoFirst.terms}}
-            </p>
+              <option {{selectedOrder 'PRICE_ASC' orderType.orderField orderType.orderDirection}} value="PRICE_ASC">По цене, сначала дешевые</option>
+              <option {{selectedOrder 'PRICE_DESC' orderType.orderField orderType.orderDirection}} value="PRICE_DESC">По цене, сначала дорогие</option>
+              <option {{selectedOrder 'NAME_ASC' orderType.orderField orderType.orderDirection}} value="NAME_ASC">По названию, A-Z</option>
+              <option {{selectedOrder 'NAME_DESC' orderType.orderField orderType.orderDirection}} value="NAME_DESC">По названию, Z-A</option>
+            </select>
+          </span>
+        </p>
+      </form>
+
+    </div>
+
+
+    <aside class="aside d-flex col-md-3 d-flex">
+      <!-- sort -->
+
+      <div class="aside__sort">
+        {{#each categoryCurrent.parent.categories}}
+          <div class="under-sort{{#is this.id ../categoryCurrent.id}}_main{{/is}}">
+            <a href="/categories-show/{{this.id}}" class="{{#is this.id ../categoryCurrent.id}}main{{else}}sort{{/is}}-item">{{this.name}}</a>
           </div>
+        {{/each}}
 
-          <div class="product-slider slick-border">
+        <!-- sort end -->
+        <div class="aside__line"></div>
+
+        <!-- filtr -->
+        <!--        <div class="filtr">-->
+        <!--          <a class="filtr__button" data-toggle="collapse" href="#collapse-filtr1" role="button" aria-expanded="true"-->
+        <!--             aria-controls="collapse-filtr1">-->
+        <!--            Фильтр1 <span class="button__arrow-icon"></span>-->
+        <!--          </a>-->
+        <!--          <div class="collapse-show collapse show" id="collapse-filtr1">-->
+        <!--            <div class="сheck-bar">-->
+        <!--              <input class="сheck-bar__box" type="checkbox" id="c1" name="cc"/>-->
+        <!--              <label class="сheck-bar__text" for="c1"><span></span>выбор 1</label><br/>-->
+
+        <!--              <input class="сheck-bar__box" type="checkbox" id="c2" name="cc"/>-->
+        <!--              <label class="сheck-bar__text" for="c2"><span></span>выбор 2</label><br/>-->
+
+        <!--              <input class="сheck-bar__box" type="checkbox" id="c3" name="cc"/>-->
+        <!--              <label class="сheck-bar__text" for="c3"><span></span>выбор 3</label>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+
+        <!--  проверка на флажек и если есть то не сворачивать         -->
+        <script>
+          $(document).ready(function () {
+            if('{{priceSort.to}}' != null) {
+              $('.page-link').toArray().forEach(function (el) {
+                if($(el).attr('href')) {
+                  $(el).attr('href', $(el).attr('href') + `&to=${{{priceSort.to}}}`)
+                }
+              });
+            }
+            if('{{priceSort.from}}' !== null) {
+              $('.page-link').toArray().forEach(function (el) {
+                if($(el).attr('href')) {
+                  $(el).attr('href', $(el).attr('href') + `&from=${{{priceSort.from}}}`)
+                }
+              });
+            }
+            if('{{searchVal}}' !== null) {
+              $('.page-link').toArray().forEach(function (el) {
+                if($(el).attr('href')) {
+                  $(el).attr('href', $(el).attr('href') + `&s=${{{searchVal}}}`)
+                }
+              });
+              $('.filter-form').attr('action', `?s=${{{searchVal}}}`)
+            }
+            $('#sort').change(function () {
+              $(this).closest('form').submit()
+            })
+            $('input[type=\'checkbox\']').change(function (event) {
+              if ($('input:checkbox:checked').length > 0) {
+                $('.filtr__button').removeAttr('data-toggle')
+                $('.filtr__button').removeAttr('href')
+              } else {
+                $('.filtr__button').attr('data-toggle', 'collapse')
+                $('.filtr__button').attr('href', '#collapse-filtr1')
+              }
+            })
+          })
+        </script>
+
+        <div class="aside__line"></div>
+        <div class="сheck-bar">
+          {{#each shares}}
+            <input class="сheck-bar__box check-promotion" type="checkbox" id="c{{this.id}}" name="cc" data-id="{{this.id}}" {{#is this.id ../share.id}}checked disabled{{/is}}/>
+            <label class="сheck-bar__text" for="c{{this.id}}"><span></span>{{this.title}}</label><br />
+          {{/each}}
+        </div>
+        <div class="aside__line"></div>
 
 
-            {{#each actionFirst}}
-              <div class="product-block">
-                <div class="product-img">
-                  <a href="/product/{{this.article}}"><img src="{{this.thumbnail}}" class="img-fluid" /></a>
-                </div>
-                <div class="product-text">
-                  <p class="slide__title">{{this.name}}</p>
+        <p class="filtr__button" data-toggle="collapse" href="#collapse-filtr3" role="button" aria-expanded="true"
+           aria-controls="collapse-filtr3">
+          Цена
+        </p>
 
-                  <a href="#" class="slide__discription">
-                    <p class="discription">{{this.description}}</p>
-                  </a>
-                  <p class="slide__price">{{getPriceProduct this false}}</p>
-                  <p class="slide__old-price">{{getPriceProduct this}}</p>
+        <div class="main">
+          <form class="filter-form" action="" method="get">
+            <div class="formCost">
+              <label for="minCost">от</label> <input type="text" name="from" class="js-cost" id="minCost" value="{{#isnt priceSort.from null}}{{priceSort.from}}{{else}}0{{/isnt}}">
+              <label for="maxCost">до</label> <input type="text" name="to" class="js-cost" id="maxCost" value="{{#isnt priceSort.to null}}{{priceSort.to}}{{else}}10000{{/isnt}}">
+            </div>
+            <div class="sliderCont">
+              <div id="slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                <div class="ui-slider-range ui-widget-header" style="left: 0%; width: 100%;"></div>
+                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: {{firstPercent priceSort}}%;"></a>
+                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: {{secondPercent priceSort}}%;"></a>
+              </div>
+            </div>
+          </form>
+        </div>
+        <script>
+          $(document).ready(function () {
+            $('.check-promotion').change(function (check) {
+              let arrValues = location.href.split('/')
+              arrValues[4] = [$(this).data('id'), arrValues[4].split('?')[1]].join('?');
+              location.href = arrValues.join('/')
+            })
+            let submitMyneForm = function (event) {
+              if($('#minCost').val() >= 0 && $('#minCost').val() <= $('#maxCost').val() && $('#maxCost').val() <= 10000) {
+                $(this).closest('form').submit();
+              }
+            };
+            $('.js-cost').change(submitMyneForm);
+            $('.js-cost').keypress(function (e) {
+              if (e.which == 13) {
+                submitMyneForm()
+              }
+            });
+          });
+        </script>
+
+      </div>
+      <!-- filtr end -->
+
+    </aside>
+
+    <!-- ------------------------ Left KOLONKA END ----------------------- -->
+
+
+    <!-- --------------------------------  SHOP ------------------------------------->
+
+    <main class="col-md-9 bg_white">
+      <section>
+        <h2 class="for_valid">Мегамаг</h2>
+        <div class="shop container d-flex justify-content-center">
+
+          {{#each products}}
+            <div class="shop__item">
+              {{#hasAction this}}
+                <div class="lenta-akcii">-{{this}}%</div>
+              {{/hasAction}}
+              <input class="like-bar__box" type="checkbox" id="s1" name="cc"/>
+              <label class="like-bar__text" for="s1"></label><br/>
+              <a href="/products/{{this.article}}"><img style="height: 200px" src="{{this.thumbnail}}" alt="{{this.name}}" class="img-fluid w-100"/></a>
+              <a href="/products/{{this.article}}" class="item__description">
+                {{this.name}}
+              </a>
+              <p class="item__price">{{getPriceProductPrice this false '' true '' '₽'}}<span class="item__old-price">{{getPriceProductPrice this true '' true '₽' '₽'}}</span>
+              </p>
+              <div>
+                <div class="item">
+                  <div class="quantity" style="display: none">
+                    <button class="decrement btn btn-primary">-</button>
+                    <button class="count btn btn-default">1</button>
+                    <button class="increment btn btn-primary">+</button>
+                  </div>
+                  <div>
+                    <button class="add_item btn btn-outline-primary" data-id="{{this.article}}" data-title="{{this.name}}" data-price="{{getPriceProductPrice this false '' true '' ''}}">Положить в список покупок</button>
+                  </div>
                 </div>
               </div>
-            {{/each}}
+              <p class="item__in-shop">Наличие в магазине <a data-title="{{this.article}}" href="#" class="myModalEditBtn in-shop__link">{{../store.name}}</a></p>
+              <img class="item__werehouse" src="{{getRomp this}}" alt="werehouse"/>
+            </div>
+          {{/each}}
+          {{#equalsLength products 0}}
+            <h2 class="w-100 text-center text-secondary">Товаров не найдено</h2>
+          {{/equalsLength}}
 
-          </div>
-        </div>
+          <div class="justify-content-center aside__path_niz col-sm-12" style="display: flex">
 
-        </div>
-      </section>
-
-
-      <!-- ---------------------------------- KARUSEL AKCIYA END --------------------------------------->
-      <div class="otstup"> </div>   <!-- ------- otstup ------------->
-
-
-      <section>
-        <div class="container">
-
-          <div class="caruslel-aria__discription col-12 d-flex">
-            <p class="discription-first">
-              {{promoSecond.title}}
-
-            </p>
-            <p class="discription-two">
-              {{promoSecond.terms}}
-            </p>
-          </div>
-
-          <div class="product-slider slick-border">
-
-            {{#each actionSecond}}
-              <div class="product-block">
-                <div class="product-img">
-                  <a href="/product/{{this.article}}"><img src="{{this.thumbnail}}" class="img-fluid" /></a>
-                </div>
-                <div class="product-text">
-                  <p class="slide__title">{{this.name}}</p>
-
-                  <a href="#" class="slide__discription">
-                    <p class="discription">{{this.description}}</p>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                <a class="page-link" {{#gt pages.current 1}}href="?pages={{minus pages.current 1}}"{{/gt}} aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
                   </a>
-                  <p class="slide__price">{{getPriceProduct this false}}</p>
-                  <p class="slide__old-price">{{getPriceProduct this}}</p>
-                </div>
-              </div>
-            {{/each}}
+                </li>
+                {{#gt pages.current 1}}
+                  <li class="page-item"><a class="page-link" href="?pages={{minus pages.current 1}}">{{minus pages.current 1}}</a></li>
+                {{/gt}}
+                <li class="page-item"><a class="page-link">{{pages.current}}</a></li>
 
+                {{#gt pages.quantity pages.current}}
+                  <li class="page-item"><a class="page-link" href="?pages={{plus pages.current 1}}">{{plus pages.current 1}}</a></li>
+                {{/gt}}
+                <li class="page-item">
+                <a class="page-link" {{#gt pages.quantity pages.current}}href="?pages={{plus pages.current 1}}"{{/gt}} aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
 
           </div>
         </div>
 
-        </div>
+
       </section>
+    </main>
+  </div>
+</div>
+<!-- -----------------------------------SHOP END ------------------------------------------->
+
+<div class="otstup"></div>   <!-- ------- otstup ------------->
+
+<!-- ------------------------ Zagolovok Наши лучшие предложения ----------------------- -->
+
+<div class="section" id="zagolovok-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="title_box">
+          <div class="horizontal_line"></div>
+          <p style="top: 10px" class="text-title">Наши лучшие предложения</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ------------------------ Zagolovok Наши лучшие акции END ----------------------- -->
 
 
-			<script type="text/javascript" src="/static/slick/jquery-1.11.0.min.js"></script>
-			<script type="text/javascript" src="/static/slick/jquery-migrate-1.2.1.min.js"></script>
-			<script type="text/javascript" src="/static/slick/slick.min.js"></script>
+<section>
+  <div class="container">
 
-			<script>
-                $(document).ready(function(){
-                    $('.product-slider').slick({
-                        infinite: true,
-                        arrows: true,
-                        autoplay: true,
-                        autoplaySpeed: 4000,
-                        prevArrow: '<button class="arrow prev "></button>',
-                        nextArrow: '<button class="arrow next "></button>',
-                        slidesToShow: 5,
-                        slidesToScroll: 1,
+    <div class="caruslel-aria__discription col-12 d-flex">
+      <p class="discription-first">
+        {{promoFirst.title}}
 
-                        responsive: [
-                            {
-                                breakpoint: 1024,
-                                settings: {
-                                    slidesToShow: 3,
-                                    slidesToScroll: 3,
-                                    infinite: true,
-                                    autoplay: true,
-                                    autoplaySpeed: 4000,
-                                    prevArrow: '<button class="arrow prev "></button>',
-                                    nextArrow: '<button class="arrow next "></button>'
-                                }
-                            },
+      </p>
+      <p class="discription-two">
+        {{promoFirst.terms}}
+      </p>
+    </div>
 
-                            {
-                                breakpoint: 767,
-                                settings: {
-                                    slidesToShow: 2,
-                                    infinite: true,
-                                    autoplay: true,
-                                    autoplaySpeed: 4000,
-                                    prevArrow: '<button class="arrow prev "></button>',
-                                    nextArrow: '<button class="arrow next "></button>',
-                                    slidesToScroll: 2
-                                }
-                            },
-                            {
-                                breakpoint: 400,
-                                settings: {
-                                    slidesToShow: 1,
-                                    infinite: true,
-                                    autoplay: true,
-                                    autoplaySpeed: 4000,
-                                    prevArrow: '<button class="arrow prev "></button>',
-                                    nextArrow: '<button class="arrow next "></button>',
-                                    slidesToScroll: 1
-                                }
-                            }
-                            // You can unslick at a given breakpoint now by adding:
-                            // settings: "unslick"
-                            // instead of a settings object
-                        ]
-                    });
-                });
-			</script>
+    <div class="product-slider slick-border">
 
 
+      {{#each actionFirst}}
+        <div class="product-block">
+          <div class="product-img">
+            <a href="/product/{{this.article}}"><img src="{{this.thumbnail}}" class="img-fluid"/></a>
+          </div>
+          <div class="product-text">
+            <p class="slide__title">{{this.name}}</p>
+
+            <a href="#" class="slide__discription">
+              <p class="discription">{{this.description}}</p>
+            </a>
+            <p class="slide__price">{{getPriceProduct this false}}</p>
+            <p class="slide__old-price">{{getPriceProduct this}}</p>
+          </div>
+        </div>
+      {{/each}}
+
+    </div>
+  </div>
+
+  </div>
+</section>
 
 
+<!-- ---------------------------------- KARUSEL AKCIYA END --------------------------------------->
+<div class="otstup"></div>   <!-- ------- otstup ------------->
 
 
+<section>
+  <div class="container">
 
-		<footer>
+    <div class="caruslel-aria__discription col-12 d-flex">
+      <p class="discription-first">
+        {{promoSecond.title}}
 
-				<!-- SOCIAL -->
-				<nav class="social container-fluid">
-					<div class="social-bar container row col-xl-6">
-						<a href="#" class="social-bar__f col-md-3"><img src="/static/img/f.png" alt="social-icon" />Прочитай о нас</a>
-						<a href="#" class="social-bar__t col-md-3"><img src="/static/img/t.png" alt="social-icon" />Следи за нами</a>
-						<a href="#" class="social-bar__yt col-md-3"><img src="/static/img/yt.png" alt="social-icon" />Смотри о нас</a>
-						<a href="#" class="social-bar__i col-md-3"><img src="/static/img/i.png" alt="social-icon" />Расскажи о нас</a>
-					</div>
-				</nav>
-				<!-- SOCIAL END -->
-				<!-- FOOTER -->
+      </p>
+      <p class="discription-two">
+        {{promoSecond.terms}}
+      </p>
+    </div>
 
-				<div class="footer container-fluid">
-					<div class="footer__footer-content container row d-flex">
-						<div class="col-lg-3">
-							<a href="/"><img src="/static/img/logo-footer.png" alt="Megamag" /></a>
-						</div>
+    <div class="product-slider slick-border">
 
-						<div class="footer__adres col-sm-6 col-lg-4">
-							<p class="adres">Адрес</p>
-							<p class="adres-text">
-								Москва, Красносельский, Краснопрудная улица, 28<br />
-								Телефон: +7 495 012-3456<br />
-								Часы работы: пн-вс 10.00-21.00<br />
-							</p>
-							<p class="adres-copyrith">
-								© 2018, megamag2018.com
-							</p>
-						</div>
+      {{#each actionSecond}}
+        <div class="product-block">
+          <div class="product-img">
+            <a href="/product/{{this.article}}"><img src="{{this.thumbnail}}" class="img-fluid"/></a>
+          </div>
+          <div class="product-text">
+            <p class="slide__title">{{this.name}}</p>
 
-						<div class="footer__ur-info col-sm-6 col-lg-5">
-							<p class="ur-info">
-								Юридическая информация
-							</p>
-							<p class="ur-info-text">
-								Наименование организации ИП Иванов Иван Иванович<br />
-								ИНН 771993585943<br />
-								ОГРНИП 318774600277350<br />
-								Фактический адрес г. Москва, ул. Сущевский вал, д.5, стр.20<br />
-							</p>
-
-						</div>
-					</div>
-				</div>
+            <a href="#" class="slide__discription">
+              <p class="discription">{{this.description}}</p>
+            </a>
+            <p class="slide__price">{{getPriceProduct this false}}</p>
+            <p class="slide__old-price">{{getPriceProduct this}}</p>
+          </div>
+        </div>
+      {{/each}}
 
 
+    </div>
+  </div>
+
+  </div>
+</section>
 
 
+<script type="text/javascript" src="/static/slick/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/static/slick/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="/static/slick/slick.min.js"></script>
+
+<script>
 
 
-				<!-- FOOTER END -->
-				</footer>
-			<script src="/static/js/RudraCart.js"></script>
-			<script src="/static/js/main.js"></script> <!-- Resource jQuery -->
-		<script src="https://use.fontawesome.com/1d4d05801d.js"></script>
+  $(document).ready(function () {
+    $('.product-slider').slick({
+      infinite: true,
+      arrows: true,
+      autoplay: true,
+      autoplaySpeed: 4000,
+      prevArrow: '<button class="arrow prev "></button>',
+      nextArrow: '<button class="arrow next "></button>',
+      slidesToShow: 5,
+      slidesToScroll: 1,
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-	</body>
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            prevArrow: '<button class="arrow prev "></button>',
+            nextArrow: '<button class="arrow next "></button>'
+          }
+        },
+
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 2,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            prevArrow: '<button class="arrow prev "></button>',
+            nextArrow: '<button class="arrow next "></button>',
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 400,
+          settings: {
+            slidesToShow: 1,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            prevArrow: '<button class="arrow prev "></button>',
+            nextArrow: '<button class="arrow next "></button>',
+            slidesToScroll: 1
+          }
+        }
+        // You can unslick at a given breakpoint now by adding:
+        // settings: "unslick"
+        // instead of a settings object
+      ]
+    })
+  })
+</script>
+
+
+<!-- ---------------------------------- Spisok --------------------------------------->
+
+
+<div class="cd-cart-container empty">
+  <a href="#0" class="cd-cart-trigger">
+    Список
+    <ul class="count"> <!-- cart items count -->
+      <li>0</li>
+      <li>0</li>
+    </ul> <!-- .count -->
+  </a>
+
+
+  <div class="cd-cart">
+    <div class="wrapper">
+      <header>
+        <h2>Список покупок</h2>
+        <span class="undo">Удалить из списка <a href="#0">Вернуть</a></span>
+      </header>
+
+      <div class="body">
+        <ul>
+          <!-- products added to the cart will be inserted here using JavaScript -->
+        </ul>
+      </div>
+
+      <footer>
+        <a href="#0" class="checkout btn"><em>Сумма - руб.<span>0</span></em></a>
+      </footer>
+    </div>
+  </div> <!-- .cd-cart -->
+</div> <!-- cd-cart-container -->
+
+<!-- ---------------------------------- Spisok  END--------------------------------------->
+
+
+<footer>
+
+  <!-- SOCIAL -->
+  <nav class="social container-fluid">
+    <div class="social-bar container row col-xl-6">
+      <a href="#" class="social-bar__f col-md-3"><img src="/static/img/f.png" alt="social-icon"/>Прочитай о нас</a>
+      <a href="#" class="social-bar__t col-md-3"><img src="/static/img/t.png" alt="social-icon"/>Следи за нами</a>
+      <a href="#" class="social-bar__yt col-md-3"><img src="/static/img/yt.png" alt="social-icon"/>Смотри о нас</a>
+      <a href="#" class="social-bar__i col-md-3"><img src="/static/img/i.png" alt="social-icon"/>Расскажи о нас</a>
+    </div>
+  </nav>
+  <!-- SOCIAL END -->
+  <!-- FOOTER -->
+
+  <div class="footer container-fluid">
+    <div class="footer__footer-content container row d-flex">
+      <div class="col-lg-3">
+        <a href="/"><img src="/static/img/logo-footer.png" alt="Megamag"/></a>
+      </div>
+
+      <div class="footer__adres col-sm-6 col-lg-4">
+        <p class="adres">Адрес</p>
+        <p class="adres-text">
+          Москва, Красносельский, Краснопрудная улица, 28<br/>
+          Телефон: +7 495 012-3456<br/>
+          Часы работы: пн-вс 10.00-21.00<br/>
+        </p>
+        <p class="adres-copyrith">
+          © 2018, megamag2018.com
+        </p>
+      </div>
+
+      <div class="footer__ur-info col-sm-6 col-lg-5">
+        <p class="ur-info">
+          Юридическая информация
+        </p>
+        <p class="ur-info-text">
+          Наименование организации ИП Иванов Иван Иванович<br/>
+          ИНН 771993585943<br/>
+          ОГРНИП 318774600277350<br/>
+          Фактический адрес г. Москва, ул. Сущевский вал, д.5, стр.20<br/>
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER END -->
+</footer>
+
+<script src="/static/js/RudraCart.js"></script>
+
+<script src="https://use.fontawesome.com/1d4d05801d.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
 </html>

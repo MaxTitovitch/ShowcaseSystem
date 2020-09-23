@@ -510,21 +510,25 @@
         <!--  проверка на флажек и если есть то не сворачивать         -->
         <script>
           $(document).ready(function () {
-            if({{priceSort.to}} != null) {
+            console.log($('#sort'))
+            $('#sort').change(function () {
+              $(this).closest('form').submit()
+            })
+            if('{{priceSort.to}}' != null) {
               $('.page-link').toArray().forEach(function (el) {
                 if($(el).attr('href')) {
                   $(el).attr('href', $(el).attr('href') + `&to=${{{priceSort.to}}}`)
                 }
               });
             }
-            if({{priceSort.from}} !== null) {
+            if('{{priceSort.from}}' != null) {
               $('.page-link').toArray().forEach(function (el) {
                 if($(el).attr('href')) {
                   $(el).attr('href', $(el).attr('href') + `&from=${{{priceSort.from}}}`)
                 }
               });
             }
-            if({{searchVal}} !== null) {
+            if('{{searchVal}}' !== null) {
               $('.page-link').toArray().forEach(function (el) {
                 if($(el).attr('href')) {
                   $(el).attr('href', $(el).attr('href') + `&s=${{{searchVal}}}`)
@@ -532,9 +536,6 @@
               });
               $('.filter-form').attr('action', `?s=${{{searchVal}}}`)
             }
-            $('#sort').change(function () {
-              $(this).closest('form').submit()
-            })
             $('input[type=\'checkbox\']').change(function (event) {
               if ($('input:checkbox:checked').length > 0) {
                 $('.filtr__button').removeAttr('data-toggle')
@@ -574,6 +575,7 @@
         <script>
           $(document).ready(function () {
             let submitMyneForm = function (event) {
+              console.log('12')
               if($('#minCost').val() >= 0 && $('#minCost').val() <= $('#maxCost').val() && $('#maxCost').val() <= 10000) {
                 $(this).closest('form').submit();
               }

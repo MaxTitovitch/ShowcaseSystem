@@ -120,8 +120,32 @@ router.get('/categories/set-order',async (req, res) => {
   res.redirect(req.header('Referer') || '/');
 });
 
-router.get('/shares/:index', (req, res) => {
-  res.render("user/akcii-one", {layout: null});
+router.get('/shares/:index', async (req, res) => {
+  let table = req.cookies.orderField == 'NAME' ? 'product' : 'PRODUCT_PRICE_STORE';
+  let share = await getRepository(Promotion).findOne({id: req.params.index});
+  let shares =  await getRepository(Promotion).createQueryBuilder("PROMOTION").orderBy('"PROMOTION"."ID"').getMany();
+  let oldProducts = getRepository(Product).createQueryBuilder("product")
+      .leftJoinAndSelect("product.productAvailabilityStores", "PRODUCT_AVAILABILITY_STORE")
+      .leftJoinAndSelect("product.productPriceStores", "PRODUCT_PRICE_STORE",
+          '"PRODUCT_PRICE_STORE"."STORE_ID" = ' + req.cookies.store.id
+          + ` AND (("PRODUCT_PRICE_STORE"."PRICE" BETWEEN ${req.query.from || 0} AND ${req.query.to || 100000} AND "PRODUCT_PRICE_STORE"."DISCOUNT_PRICE" IS NULL)`
+          + ` OR ("PRODUCT_PRICE_STORE"."DISCOUNT_PRICE" BETWEEN ${req.query.from || 0} AND ${req.query.to || 100000} AND "PRODUCT_PRICE_STORE"."DISCOUNT_PRICE"  IS NOT NULL))`
+      )
+
+      .where('"PRODUCT_PRICE_STORE"."PROMOTION_ID" = \'' + req.params.index + '\'');
+  if(req.query.from && req.query.to){
+    oldProducts = oldProducts
+        .andWhere(`("PRODUCT_PRICE_STORE"."PRICE" BETWEEN ${req.query.from} AND ${req.query.to})`);
+  }
+  let products = await oldProducts.orderBy(`"${table}"."${req.cookies.orderField}"`, req.cookies.orderDirection).getMany();
+  products = products.filter(function (el) {
+    return el.productPriceStores.length > 0;
+  });
+  let paginate = paginateAll(products, req);
+  products = paginate[0];
+  let pages = {quantity: Number.parseInt(paginate[1]), current: Number.parseInt(req.query.pages || 1)};
+  // console.log(shares);
+  res.render("user/akcii-one", {layout: null, products, pages, priceSort: {from: req.query.from || 0, to: req.query.to || 10000}, searchVal: null, share, shares});
 });
 
 function paginateAll(products, req) {
@@ -167,7 +191,7 @@ router.get('/categories-show/:index', async (req, res) => {
   let paginate = paginateAll(products, req);
   products = paginate[0];
   let pages = {quantity: Number.parseInt(paginate[1]), current: Number.parseInt(req.query.pages || 1)};
-  res.render("user/tovary", {layout: null, products, categoryCurrent, pages, priceSort: {from: req.query.from || null, to: req.query.to || null}, searchVal: null});
+  res.render("user/tovary", {layout: null, products, categoryCurrent, pages, priceSort: {from: req.query.from || 0, to: req.query.to || 10000}, searchVal: null});
 });
 
 router.get('/categories/:index', async (req, res) => {
