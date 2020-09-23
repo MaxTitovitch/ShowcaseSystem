@@ -450,26 +450,26 @@
       </ul>
     </div>
 
-    <!-- TODO По-->
     <div class="aside__path col-md-6 ">
       <p class="path-item">Показывать по</p>
-      <a class="path-link-kol-vo" href="#">12</a>
-      <a class="path-link-kol-vo" href="#">24</a>
-      <a class="path-link-kol-vo" href="#">48</a>
+      <a class="path-link-kol-vo {{#is orderType.perPage '12' }}set-per-page{{/is}}" {{#isnt orderType.perPage '12' }}href="/categories/set-per-page/12"{{/isnt}}>12</a>
+      <a class="path-link-kol-vo {{#is orderType.perPage '24' }}set-per-page{{/is}}" {{#isnt orderType.perPage '24' }}href="/categories/set-per-page/24"{{/isnt}}>24</a>
+      <a class="path-link-kol-vo {{#is orderType.perPage '48' }}set-per-page{{/is}}" {{#isnt orderType.perPage '48' }}href="/categories/set-per-page/48"{{/isnt}}>48</a>
     </div>
 
-    <!-- TODO Сорт-->
     <div class="aside__path col-md-3  sortirovka">
+      <form action="/categories/set-order">
       <p class="path-item">Сортировать:
         <span>
 						<select id="sort" name="sort" class="path-link-sort">
-              <option value="price_asc">По цене, сначала дешевые</option>
-              <option value="price_desc">По цене, сначала дорогие</option>
-              <option value="good_asc">По названию, A-Z</option>
-              <option value="good_desc">По названию, Z-A</option>
+              <option {{selectedOrder 'PRICE_ASC' orderType.orderField orderType.orderDirection}} value="PRICE_ASC">По цене, сначала дешевые</option>
+              <option {{selectedOrder 'PRICE_DESC' orderType.orderField orderType.orderDirection}} value="PRICE_DESC">По цене, сначала дорогие</option>
+              <option {{selectedOrder 'NAME_ASC' orderType.orderField orderType.orderDirection}} value="NAME_ASC">По названию, A-Z</option>
+              <option {{selectedOrder 'NAME_DESC' orderType.orderField orderType.orderDirection}} value="NAME_DESC">По названию, Z-A</option>
             </select>
           </span>
       </p>
+      </form>
 
     </div>
 
@@ -510,6 +510,31 @@
         <!--  проверка на флажек и если есть то не сворачивать         -->
         <script>
           $(document).ready(function () {
+            if({{priceSort.to}} != null) {
+              $('.page-link').toArray().forEach(function (el) {
+                if($(el).attr('href')) {
+                  $(el).attr('href', $(el).attr('href') + `&to=${{{priceSort.to}}}`)
+                }
+              });
+            }
+            if({{priceSort.from}} !== null) {
+              $('.page-link').toArray().forEach(function (el) {
+                if($(el).attr('href')) {
+                  $(el).attr('href', $(el).attr('href') + `&from=${{{priceSort.from}}}`)
+                }
+              });
+            }
+            if({{searchVal}} !== null) {
+              $('.page-link').toArray().forEach(function (el) {
+                if($(el).attr('href')) {
+                  $(el).attr('href', $(el).attr('href') + `&s=${{{searchVal}}}`)
+                }
+              });
+              $('.filter-form').attr('action', `?s=${{{searchVal}}}`)
+            }
+            $('#sort').change(function () {
+              $(this).closest('form').submit()
+            })
             $('input[type=\'checkbox\']').change(function (event) {
               if ($('input:checkbox:checked').length > 0) {
                 $('.filtr__button').removeAttr('data-toggle')
@@ -525,7 +550,6 @@
 
         <div class="aside__line"></div>
 
-        <!-- TODO Price -->
 
         <p class="filtr__button" data-toggle="collapse" href="#collapse-filtr3" role="button" aria-expanded="true"
            aria-controls="collapse-filtr3">
@@ -533,20 +557,35 @@
         </p>
 
         <div class="main">
-          <form action="#" method="post">
+          <form class="filter-form" action="" method="get">
             <div class="formCost">
-              <label for="minCost">от</label> <input type="text" id="minCost" value="0">
-              <label for="maxCost">до</label> <input type="text" id="maxCost" value="1000">
+              <label for="minCost">от</label> <input type="text" name="from" class="js-cost" id="minCost" value="{{#isnt priceSort.from null}}{{priceSort.from}}{{else}}0{{/isnt}}">
+              <label for="maxCost">до</label> <input type="text" name="to" class="js-cost" id="maxCost" value="{{#isnt priceSort.to null}}{{priceSort.to}}{{else}}10000{{/isnt}}">
             </div>
             <div class="sliderCont">
               <div id="slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                 <div class="ui-slider-range ui-widget-header" style="left: 0%; width: 100%;"></div>
-                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 0%;"></a><a
-                  class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: 100%;"></a></div>
+                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: {{firstPercent priceSort}}%;"></a>
+                <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="left: {{secondPercent priceSort}}%;"></a>
+              </div>
             </div>
           </form>
         </div>
-
+        <script>
+          $(document).ready(function () {
+            let submitMyneForm = function (event) {
+              if($('#minCost').val() >= 0 && $('#minCost').val() <= $('#maxCost').val() && $('#maxCost').val() <= 10000) {
+                $(this).closest('form').submit();
+              }
+            };
+            $('.js-cost').change(submitMyneForm);
+            $('.js-cost').keypress(function (e) {
+              if (e.which == 13) {
+                submitMyneForm()
+              }
+            });
+          });
+        </script>
 
       </div>
       <!-- filtr end -->
@@ -592,21 +631,29 @@
               <img class="item__werehouse" src="{{getRomp this}}" alt="werehouse"/>
             </div>
           {{/each}}
+          {{#equalsLength products 0}}
+            <h2 class="w-100 text-center text-secondary">Товаров не найдено</h2>
+          {{/equalsLength}}
 
           <div class="justify-content-center aside__path_niz col-sm-12" style="display: flex">
 
             <nav aria-label="Page navigation example">
               <ul class="pagination">
                 <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
+                  <a class="page-link" {{#gt pages.current 1}}href="?pages={{minus pages.current 1}}"{{/gt}} aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                {{#gt pages.current 1}}
+                  <li class="page-item"><a class="page-link" href="?pages={{minus pages.current 1}}">{{minus pages.current 1}}</a></li>
+                {{/gt}}
+                <li class="page-item"><a class="page-link">{{pages.current}}</a></li>
+
+                {{#gt pages.quantity pages.current}}
+                  <li class="page-item"><a class="page-link" href="?pages={{plus pages.current 1}}">{{plus pages.current 1}}</a></li>
+                {{/gt}}
                 <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
+                  <a class="page-link" {{#gt pages.quantity pages.current}}href="?pages={{plus pages.current 1}}"{{/gt}} aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                   </a>
                 </li>
@@ -733,6 +780,8 @@
 <script type="text/javascript" src="/static/slick/slick.min.js"></script>
 
 <script>
+
+
   $(document).ready(function () {
     $('.product-slider').slick({
       infinite: true,

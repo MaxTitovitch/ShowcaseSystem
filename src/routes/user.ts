@@ -43,11 +43,26 @@ let getActions = async function(store) {
 router.use(async (req, res, next) => {
   let store = req.cookies.store;
   let region = req.cookies.region;
+  let orderField = req.cookies.orderField;
+  let orderDirection = req.cookies.orderDirection;
+  let perPage = req.cookies.perPage;
   if(!store || !region) {
     store = await getRepository(Store).createQueryBuilder("store").orderBy('id').getOne();
     region = await getRepository(Region).createQueryBuilder("region").where('id = :id', {id: store.regionId}).orderBy('id').getOne();
     res.cookie('store', store);
     res.cookie('region', region);
+  }
+  if(!orderField) {
+    orderField = 'PRICE';
+    res.cookie('orderField', orderField);
+  }
+  if(!orderDirection) {
+    orderDirection = 'ASC';
+    res.cookie('orderDirection', orderDirection);
+  }
+  if(!perPage) {
+    perPage = '24';
+    res.cookie('perPage', perPage);
   }
   let categories = await getRepository(Category).createQueryBuilder("category").where('hidden = 0').orderBy('sort', 'DESC').getMany();
   let categoriesMenu = await getRepository(Category).createQueryBuilder("category").where('id = parent_id').andWhere('hidden = 0').limit(5).orderBy('sort', 'DESC').getMany();
@@ -60,6 +75,8 @@ router.use(async (req, res, next) => {
   res.locals.actionSecond = products[1];
   res.locals.promoFirst = products[2];
   res.locals.promoSecond = products[3];
+  res.locals.orderType = {orderField, orderDirection, perPage};
+  // console.log(res.locals.orderType);
   next()
 });
 
@@ -89,11 +106,33 @@ router.get('/shares',async (req, res) => {
   res.render("user/akcii", {layout: null, shares});
 });
 
+router.get('/categories/set-per-page/:index',async (req, res) => {
+  if(['12', '24', '48'].lastIndexOf(req.params.index) !== -1){
+    res.cookie('perPage', req.params.index);
+  }
+  res.redirect(req.header('Referer') || '/');
+});
+router.get('/categories/set-order',async (req, res) => {
+  if(['PRICE_ASC', 'PRICE_DESC', 'NAME_ASC', 'NAME_DESC'].lastIndexOf(req.query.sort) !== -1){
+    res.cookie('orderField', req.query.sort.split('_')[0]);
+    res.cookie('orderDirection', req.query.sort.split('_')[1]);
+  }
+  res.redirect(req.header('Referer') || '/');
+});
+
 router.get('/shares/:index', (req, res) => {
   res.render("user/akcii-one", {layout: null});
 });
 
+function paginateAll(products, req) {
+  let perPage = req.cookies.perPage;
+  return [products.slice((((req.query.pages || 1) - 1 ) * perPage), (((req.query.pages || 1) - 1 ) * perPage) + perPage),  Math.ceil(products.length / perPage)];
+}
+
 router.get('/categories-show/:index', async (req, res) => {
+
+  let table = req.cookies.orderField == 'NAME' ? 'product' : 'PRODUCT_PRICE_STORE';
+  // let orderField = req.cookies.orderField == 'PRICE' ? `DISCOUNT_PRICE` : req.cookies.orderField;
   let categoryCurrent = await getRepository(Category).createQueryBuilder("CATEGORY")
       .leftJoinAndSelect("CATEGORY.parent", "CATEGORY_SHOW")
       .leftJoinAndSelect("CATEGORY.categories", "CATEGORY_SHOW_LITLE")
@@ -101,19 +140,34 @@ router.get('/categories-show/:index', async (req, res) => {
       .where('"CATEGORY"."ID" = ' + req.params.index)
       .andWhere('"CATEGORY_SHOW_PARENT_LITLE"."ID" != "CATEGORY_SHOW_PARENT_LITLE"."PARENT_ID"').getOne();
 
-  let products = await getRepository(Product).createQueryBuilder("product")
+  let oldProducts = getRepository(Product).createQueryBuilder("product")
       .leftJoinAndSelect("product.productAvailabilityStores", "PRODUCT_AVAILABILITY_STORE")
-      .leftJoinAndSelect("product.productPriceStores", "PRODUCT_PRICE_STORE")
+      .leftJoinAndSelect("product.productPriceStores", "PRODUCT_PRICE_STORE",
+          '"PRODUCT_PRICE_STORE"."STORE_ID" = ' + req.cookies.store.id
+          + ` AND (("PRODUCT_PRICE_STORE"."PRICE" BETWEEN ${req.query.from} AND ${req.query.to} AND "PRODUCT_PRICE_STORE"."DISCOUNT_PRICE" IS NULL)`
+          + ` OR ("PRODUCT_PRICE_STORE"."DISCOUNT_PRICE" BETWEEN ${req.query.from} AND ${req.query.to} AND "PRODUCT_PRICE_STORE"."DISCOUNT_PRICE"  IS NOT NULL))`
+      )
       .leftJoinAndSelect("product.productToCategoryBindings", "PRODUCT_TO_CATEGORY_BINDING")
       .leftJoinAndSelect("PRODUCT_TO_CATEGORY_BINDING.category", "CATEGORY")
       .leftJoinAndSelect("CATEGORY.parent", "CATEGORY_SHOW")
       // TODO Раскомент
-      //  .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + store.id)
+      // .where('"PRODUCT_PRICE_STORE"."STORE_ID" = ' + req.cookies.store.id)
       .where('"CATEGORY"."ID" = ' + req.params.index)
       .orWhere('"CATEGORY"."PARENT_ID" = ' + req.params.index)
-      .orWhere('"CATEGORY_SHOW"."PARENT_ID" = ' + req.params.index)
-      .orderBy('product.article').getMany();
-  res.render("user/tovary", {layout: null, products, categoryCurrent});
+      .orWhere('"CATEGORY_SHOW"."PARENT_ID" = ' + req.params.index);
+  if(req.query.from && req.query.to){
+    oldProducts = oldProducts
+        .andWhere(`("PRODUCT_PRICE_STORE"."PRICE" BETWEEN ${req.query.from} AND ${req.query.to})`);
+  }
+  let products = await oldProducts.orderBy(`"${table}"."${req.cookies.orderField}"`, req.cookies.orderDirection).getMany();
+  products = products.filter(function (el) {
+    return el.productPriceStores.length > 0;
+  });
+  console.log(products);
+  let paginate = paginateAll(products, req);
+  products = paginate[0];
+  let pages = {quantity: Number.parseInt(paginate[1]), current: Number.parseInt(req.query.pages || 1)};
+  res.render("user/tovary", {layout: null, products, categoryCurrent, pages, priceSort: {from: req.query.from || null, to: req.query.to || null}, searchVal: null});
 });
 
 router.get('/categories/:index', async (req, res) => {
@@ -146,7 +200,6 @@ router.post('/availability/:index', async (req, res) => {
       .leftJoinAndSelect("PRODUCT_AVAILABILITY_STORE.store", "STORE")
       .where(`"PRODUCT_AVAILABILITY_STORE"."PRODUCT_ID" = '${req.params.index}'`)
       .orderBy('PRODUCT_AVAILABILITY_STORE.STORE_ID').getMany();
-  console.log(productAvailabilityStores)
   res.send(productAvailabilityStores);
 });
 

@@ -160,6 +160,15 @@ body {
   color: #000000;
 }
 
+.set-per-page {
+    text-decoration: underline!important;
+    color: #0056b3!important;
+}
+
+.set-per-page:hover {
+    cursor: pointer!important;
+}
+
 .search__field:focus {
   border: 1px solid #6c6c6c;
 }

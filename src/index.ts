@@ -56,7 +56,7 @@ createConnection().then(async connection => {
         },
         getDiscountProduct (product) {
             if(product.productPriceStores[0].discountPrice) {
-                return `Скидка ${(product.productPriceStores[0].price / (product.productPriceStores[0].price - product.productPriceStores[0].discountPrice)).toFixed(0)} %`;
+                return `Скидка ${((1 - (product.productPriceStores[0].discountPrice / product.productPriceStores[0].price)) * 100).toFixed(0)} %`;
             }else {
                 return '';
             }
@@ -90,11 +90,32 @@ createConnection().then(async connection => {
                 return options.inverse(false);
             }
         },
+        selectedOrder(field, orderField, orderDirection, options) {
+            if(field == `${orderField}_${orderDirection}`) {
+                return 'selected';
+            } else {
+                return '';
+            }
+        },
         hasAction(product, options) {
             if(product.productPriceStores[0].discountPrice) {
-                return options.fn((product.productPriceStores[0].price / (product.productPriceStores[0].price - product.productPriceStores[0].discountPrice)).toFixed(0));
+                return options.fn(((1 - (product.productPriceStores[0].discountPrice / product.productPriceStores[0].price)) * 100).toFixed(0));
             }else {
                 return options.inverse(false);
+            }
+        },
+        firstPercent(priceSort) {
+            if(priceSort.from) {
+                return priceSort.from / 10000 * 100;
+            } else {
+                return '0';
+            }
+        },
+        secondPercent(priceSort) {
+            if(priceSort.to) {
+                return priceSort.to / 10000 * 100;
+            } else {
+                return '100';
             }
         },
         async getProductStoreInfo(product, options) {
